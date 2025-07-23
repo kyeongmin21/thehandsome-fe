@@ -31,7 +31,7 @@ export default function Button({
     const btnClass = classNames(baseStyle, sizeStyle, colorStyle, className);
 
     return (
-        <button disabled={disabled}
+        <button
                 onClick={onClick}
                 className={btnClass}>
             {btnIcon && <span className="mr-2 inline-block">{btnIcon}</span>}
