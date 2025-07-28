@@ -1,0 +1,17 @@
+import { Checkbox } from '@headlessui/react'
+import { CheckIcon } from '@heroicons/react/16/solid'
+import { useState } from 'react'
+
+export default function Example() {
+    const [enabled, setEnabled] = useState(false)
+
+    return (
+        <Checkbox
+            checked={enabled}
+            onChange={setEnabled}
+            className="group w-6 h-6 rounded-md bg-white/10 ring-1 ring-gray-300 ring-inset focus:outline-none data-checked:bg-white flex items-center justify-center">
+            <CheckIcon className="hidden w-4 h-4 fill-black group-data-checked:block" />
+        </Checkbox>
+
+    )
+}
