@@ -1,17 +1,14 @@
-import {Dialog} from '@headlessui/react'
+import ModalPortal from './ModalPortal';
 import Button from './Button';
 
 export default function Modal({
-                                  isOpen,
-                                  setIsOpen,
                                   title,
                                   children,
+                                  saveText = '저장',
+                                  cancelText = ' 취소',
                                   onSave,
-                                  saveText,
-                                  onCancel,
-                                  cancelText,
+                                  onClose
                               }) {
-
     return (
         <div className='modal'>
             <Dialog
@@ -29,14 +26,13 @@ export default function Modal({
 
                     <Dialog.Description as="div" className="p-4">
                         {children}
-                    </Dialog.Description>
-
-                    <div className="flex justify-center gap-2 p-4">
-                        <Button onClick={onCancel} btnText={cancelText} size={'s'} color={'blackOutline'}></Button>
-                        <Button onClick={onSave} btnText={saveText} size={'s'} color={'blackOutline'}></Button>
                     </div>
-                </Dialog.Panel>
-            </Dialog>
-        </div>
+                    <div className="flex justify-center gap-2 p-4">
+                        <Button onClick={onClose} btnText={cancelText} size={'s'}></Button>
+                        <Button onClick={onSave} btnText={saveText} size={'s'}></Button>
+                    </div>
+                </div>
+            </ModalPortal>
+        </>
     )
 }

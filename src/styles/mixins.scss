@@ -1,0 +1,17 @@
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// 색상 변수 설정
+$colors: (
+        white: #fff,
+        gray: #eee,
+        lightgray: #666,
+        black: #333,
+        dark: #000000,
+        red: #ef4444,
+        pointColor: yellow,
+);
+

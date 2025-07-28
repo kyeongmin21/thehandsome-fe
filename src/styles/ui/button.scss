@@ -1,0 +1,63 @@
+@import '../mixins';
+
+.btn {
+  @include flex-center;
+  font-weight: 400;
+  padding: 8px 16px;
+  border-radius: 6px;
+
+  &-white-outline {
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+
+    &:hover {
+      background-color: map-get($colors, black);
+      color: white;
+    }
+  }
+
+  &-black-outline {
+    color: black;
+    background-color: transparent;
+    border: 1px solid black;
+
+    &:hover {
+      background-color: map-get($colors, black);
+      color: white;
+    }
+  }
+
+  &-gray-outline {
+    color: gray;
+    background-color: transparent;
+    border: 1px solid gray;
+
+    &:hover {
+      background-color: map-get($colors, black);
+      color: white;
+    }
+  }
+
+  &-black-fill {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+
+    &:hover {
+      background-color: #1f2937;
+    }
+  }
+
+  &-black-text {
+    background-color: transparent;
+    color: black;
+    border: none;
+  }
+
+  &-white-text {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+  }
+}

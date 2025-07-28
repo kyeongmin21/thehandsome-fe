@@ -8,31 +8,29 @@ const sizeMap = {
 };
 
 const colorMap = {
-    primary: 'bg-blue-500 text-white',
-    secondary: 'bg-gray-200 text-black',
-    danger: 'bg-red-500 text-white',
-    success: 'bg-green-500 text-white',
-    dark: 'bg-black text-white'
+    whiteOutline: 'btn-white-outline',
+    blackOutline: 'btn-black-outline',
+    grayOutline: 'btn-gray-outline',
+    blackFill: 'btn-black-fill',
+    blackText: 'btn-black-text',
+    whiteText: 'btn-white-text'
 };
 
 export default function Button({
                                    btnText,
                                    btnIcon,
                                    onClick,
-                                   disabled = false,
                                    size = 'm',
-                                   color = 'primary',
-                                   className
+                                   color = 'whiteOutline',
                                }) {
 
     const sizeStyle = sizeMap[size] || sizeMap.m;
-    const colorStyle = colorMap[color] || colorMap.primary;
-    const baseStyle = 'rounded font-semibold transition duration-200 cursor-pointer';
-    const btnClass = classNames(baseStyle, sizeStyle, colorStyle, className);
+    const colorStyle = colorMap[color] || colorMap.whiteOutline;
+    const baseStyle = 'rounded transition duration-200 cursor-pointer';
+    const btnClass = classNames(baseStyle, sizeStyle, colorStyle);
 
     return (
-        <button
-                onClick={onClick}
+        <button onClick={onClick}
                 className={btnClass}>
             {btnIcon && <span className="mr-2 inline-block">{btnIcon}</span>}
             {btnText}

@@ -2,32 +2,44 @@
 import {useState} from 'react';
 import {FaCheck} from 'react-icons/fa';
 import Button from '@/components/ui/Button';
-import Modal from "@/components/ui/Modal";
+import Modal from '@/components/ui/Modal';
+import Checkbox from '@/components/ui/Checkbox';
 
 export default function Home() {
     const [showModal, setShowModal] = useState(false);
+
     const handleSave = () => {
         console.log('저장 클릭됨');
         setShowModal(false);
     };
 
+    const toggleModal = () => setShowModal(!showModal)
+
     return (
         <>
-        <Button btnText={'모달'} size={'s'} onClick={() => setShowModal(true)}/>
+        <Button btnText={'모달'}
+                size={'s'}
+                color={'blackOutline'}
+                onClick={toggleModal}/>
             {showModal && (
-                <Modal title={"제목"}
-                       saveText={'수정'}
-                       cancelText={'취소'}
-                       onClose={() => setShowModal(false)}
-                       onSave={handleSave}>
-                    <div>내용이야!!</div>
+                <Modal
+                    isOpen={showModal}
+                    setIsOpen={setShowModal}
+                    title={'팝업'}
+                    onSave={handleSave}
+                    saveText={'저장'}
+                    onCancel={toggleModal}
+                    cancelText={'취소'}
+                >
+                    <p>모달안에 보여질 내용입니다.</p>
                 </Modal>
             )}
 
+            <Checkbox />
             <div className="page">
-                <Button btnText={'버튼'} color={'primary'} size={'s'} onClick={() => alert('hi')}/>
-                <Button btnText={'버튼'} color={'danger'} size={'m'} btnIcon={<FaCheck/>}/>
-                <Button btnText={'버튼'} color={'success'} size={'l'} onClick={() => alert('bye')}/>
+                <Button btnText={'버튼'} color={'blackOutline'} size={'s'} onClick={() => alert('hi')}/>
+                <Button btnText={'버튼'} color={'blackOutline'} size={'m'} btnIcon={<FaCheck/>}/>
+                <Button btnText={'버튼'} color={'blackOutline'} size={'l'} onClick={() => alert('bye')}/>
             </div>
         </>
     )
