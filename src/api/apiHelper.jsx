@@ -3,10 +3,6 @@ import axios from 'axios';
 const api = axios.create({
     baseURL: '',
     timeout: 10000,
-    params : {
-        api_key: '',
-        language : "ko-KR",
-    },
     headers: {
         'Content-Type': 'application/json',
     },

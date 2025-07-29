@@ -21,7 +21,7 @@ export default function UiButton({
                                    btnIcon,
                                    onClick,
                                    size = 'm',
-                                   color = 'whiteOutline',
+                                   color = 'blackOutline',
                                }) {
 
     const sizeStyle = sizeMap[size] || sizeMap.m;

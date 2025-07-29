@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "serve": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.6",
@@ -24,8 +25,10 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "concurrently": "^9.2.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
+    "json-server": "^1.0.0-beta.3",
     "tailwindcss": "^4"
   }
 }
