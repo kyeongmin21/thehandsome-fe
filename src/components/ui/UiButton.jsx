@@ -16,7 +16,7 @@ const colorMap = {
     whiteText: 'btn-white-text'
 };
 
-export default function Button({
+export default function UiButton({
                                    btnText,
                                    btnIcon,
                                    onClick,

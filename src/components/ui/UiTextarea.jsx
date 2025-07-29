@@ -1,16 +1,13 @@
-import {Description, Field, Input, Label} from '@headlessui/react'
+import {Description, Field, Textarea, Label} from '@headlessui/react'
 import clsx from 'clsx'
-import {useState} from 'react'
 
-export default function Example({description, value, onChange}) {
-    const [text, setText] = useState('')
-
+export default function UiTextarea({description, value, onChange}) {
     return (
         <div className="w-full max-w-md px-4">
             <Field>
-                <Label className="text-sm/6 font-medium text-black">아이디</Label>
+                <Label className="text-sm/6 font-medium text-black">메모</Label>
                 {description && <Description className="text-sm/6">{description}</Description>}
-                <Input
+                <Textarea
                     value={value}
                     onChange={onChange}
                     className={clsx(

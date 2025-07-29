@@ -2,7 +2,7 @@ import { Checkbox } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/16/solid'
 import { useState } from 'react'
 
-export default function Example() {
+export default function UiCheckbox() {
     const [enabled, setEnabled] = useState(false)
 
     return (

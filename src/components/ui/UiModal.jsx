@@ -1,7 +1,7 @@
 import {Dialog} from '@headlessui/react'
-import Button from './Button';
+import UiButton from './UiButton';
 
-export default function Modal({
+export default function UiModal({
                                   isOpen,
                                   setIsOpen,
                                   title,
@@ -21,7 +21,7 @@ export default function Modal({
                 <Dialog.Panel className="bg-white rounded-lg shadow-xl w-full max-w-md border border-gray-200">
                     <Dialog.Title className="flex justify-between items-center pl-4">
                         <div><b>{title}</b></div>
-                        <Button
+                        <UiButton
                             color={'blackText'}
                             onClick={() => setIsOpen(false)}
                             btnText={'X'}/>
@@ -32,8 +32,8 @@ export default function Modal({
                     </Dialog.Description>
 
                     <div className="flex justify-center gap-2 p-4">
-                        <Button onClick={onCancel} btnText={cancelText} size={'s'} color={'blackOutline'}></Button>
-                        <Button onClick={onSave} btnText={saveText} size={'s'} color={'blackOutline'}></Button>
+                        <UiButton onClick={onCancel} btnText={cancelText} size={'s'} color={'blackOutline'}></UiButton>
+                        <UiButton onClick={onSave} btnText={saveText} size={'s'} color={'blackOutline'}></UiButton>
                     </div>
                 </Dialog.Panel>
             </Dialog>
