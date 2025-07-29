@@ -12,7 +12,7 @@
     border: 1px solid white;
 
     &:hover {
-      background-color: map-get($colors, black);
+      background-color: map-get($color, black);
       color: white;
     }
   }
@@ -23,7 +23,7 @@
     border: 1px solid black;
 
     &:hover {
-      background-color: map-get($colors, black);
+      background-color: map-get($color, black);
       color: white;
     }
   }
@@ -34,7 +34,7 @@
     border: 1px solid gray;
 
     &:hover {
-      background-color: map-get($colors, black);
+      background-color: map-get($color, black);
       color: white;
     }
   }

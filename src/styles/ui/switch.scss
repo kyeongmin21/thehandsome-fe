@@ -1,0 +1,5 @@
+@import "../colors";
+
+.data-checked\:bg-blue-600[data-checked] {
+  background-color: map-get($color, black);
+}
