@@ -3,6 +3,8 @@ import {useEffect, useState} from 'react';
 import apiHelper from '@/api/apiHelper';
 import UiButton from "@/components/ui/UiButton";
 import UiInput from "@/components/ui/UiInput";
+import { productSchema } from "@/utils/validators/product.schema";
+
 
 export default function CategoryPage() {
     const [products, setProducts] = useState();
@@ -39,20 +41,21 @@ export default function CategoryPage() {
 
 
     const handleAddProduct = () => {
-        if (!newProduct.name || !newProduct.price) {
-            alert('이름과 가격을 입력해주세요.');
+        const result = productSchema.safeParse(newProduct);
+
+        if (!result.success) {
+            const issues = result.error.flatten().fieldErrors;
+            const firstError = Object.values(issues).flat()[0];
+            alert(firstError || '입력값을 확인해주세요.');
             return;
         }
 
-        if (isNaN(Number(newProduct.price))) {
-            alert('숫자만 입력해주세요.');
-            return;
-        }
+        const validatedData = {
+            ...result.data,
+            price: Number(result.data.price),
+        };
 
-        apiHelper.axios.post(`http://localhost:3001/products`, {
-            ...newProduct,
-            price: Number(newProduct.price),
-        })
+        apiHelper.axios.post(`http://localhost:3001/products`, validatedData)
             .then(() => {
                 fetchProducts();
                 setProducts({name: '', price: ''});

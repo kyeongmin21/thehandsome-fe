@@ -18,6 +18,8 @@ export default function MyPage() {
 
             <UiDropdown titles={names}
                          contents={tabContents}/>
+
+
         </>
     )
 }
