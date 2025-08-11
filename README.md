@@ -15,7 +15,7 @@ npm run dev
 - **clsx**: 조건부 클래스 이름을 깔끔하게 조합해주는 헬퍼
 - **@headlessui/react**: Tailwind Labs 제작. 접근성을 고려한 UI 컴포넌트 라이브러리
 - **@heroicons/react**: Tailwind CSS 팀이 만든 공식 SVG 아이콘 세트
-
+- **zustand**: 상태관리 라이브러리
 
 ## 📂 폴더 구조 (예시)
 - `/components` - 공통 컴포넌트 모음
