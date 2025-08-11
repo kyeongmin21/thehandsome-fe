@@ -1,12 +1,15 @@
 import {Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/react'
 import {ChevronDownIcon} from '@heroicons/react/20/solid'
 
-export default function UiDropdown({titles = [], contents = []}) {
+export default function UiDropdown({
+                                       titles = [],
+                                       contents = []
+}) {
     return (
         <div className="h-screen w-full px-4 pt-32">
             <div className="mx-auto w-full max-w-lg divide-y divide-black/5 rounded-xl bg-black/5">
                 {titles.map((title, index) => (
-                    <Disclosure as="div" className="p-6" defaultOpen={true}>
+                    <Disclosure as="div" className="p-6" defaultOpen={true} key={index}>
                         <DisclosureButton className="group flex w-full items-center justify-between">
                         <span className="text-sm/6 font-medium text-black group-data-hover:text-black/80">
                           {title}

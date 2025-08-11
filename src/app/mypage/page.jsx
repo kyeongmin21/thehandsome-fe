@@ -13,13 +13,8 @@ export default function MyPage() {
 
     return (
         <>
-            <UiTab titles={animals}
-                   contents={tabContents}/>
-
-            <UiDropdown titles={names}
-                         contents={tabContents}/>
-
-
+            <UiTab titles={animals} contents={tabContents}/>
+            <UiDropdown titles={names} contents={tabContents}/>
         </>
     )
 }
