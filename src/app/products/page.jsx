@@ -1,17 +1,17 @@
-'use client';
-import {useEffect, useState} from 'react';
-import apiHelper from '@/api/apiHelper';
-import UiButton from "@/components/ui/UiButton";
+'use client'
+
+import apiHelper from "@/api/apiHelper";
+import {useEffect, useState} from "react";
+import {productSchema} from "@/utils/validators/product.schema";
 import UiInput from "@/components/ui/UiInput";
-import { productSchema } from "@/utils/validators/product.schema";
+import UiButton from "@/components/ui/UiButton";
 
-
-export default function CategoryPage() {
-    const [products, setProducts] = useState();
+export default function Products () {
+    const [products, setProducts] = useState([]);
     const [newProduct, setNewProduct] = useState({name: '', price: ''});
 
     const fetchProducts = () => {
-        apiHelper.axios.get('http://localhost:3001/products')
+        apiHelper.axios.get(`http://127.0.0.1:7000/products`)
             .then((res) => {
                 console.log('res', res);
                 setProducts(res)
@@ -20,7 +20,7 @@ export default function CategoryPage() {
     }
 
     const handleDelete = (id) => {
-        apiHelper.axios.delete(`http://localhost:3001/products/${id}`)
+        apiHelper.axios.delete(`http://127.0.0.1:7000/products/${id}`)
             .then(() => {
                 fetchProducts()
                 console.log(`${id}번째 삭제 성공`)
@@ -32,7 +32,7 @@ export default function CategoryPage() {
         if (!productToEdit) return;
 
         const updatedProduct = {...productToEdit, price: Number(newPrice)};
-        apiHelper.axios.put(`http://localhost:3001/products/${id}`, updatedProduct)
+        apiHelper.axios.put(`http://127.0.0.1:7000/products/${id}`, updatedProduct)
             .then(() => {
                 alert(`${id}번째를 수정하시겠습니까?`)
                 fetchProducts()
@@ -55,7 +55,7 @@ export default function CategoryPage() {
             price: Number(result.data.price),
         };
 
-        apiHelper.axios.post(`http://localhost:3001/products`, validatedData)
+        apiHelper.axios.post(`http://127.0.0.1:7000/products`, validatedData)
             .then(() => {
                 fetchProducts();
                 setProducts({name: '', price: ''});
@@ -74,6 +74,7 @@ export default function CategoryPage() {
     useEffect(() => {
         fetchProducts();
     }, []);
+
 
     return (
         <div>
@@ -97,20 +98,23 @@ export default function CategoryPage() {
                 <UiButton btnText="등록" onClick={handleAddProduct}/>
             </div>
             <ul>
-                {Array.isArray(products) && products.map((p) => (
-                    <li key={p.id}>
-                        <div>{p.name}</div>
-                        <UiInput type="number"
-                                 value={p.price ?? ''}
-                                 onChange={(e) => handlePriceChange(p.id, e.target.value)}/>원
-
-                        <UiButton btnText={'수정'}
-                                  onClick={() => handleEdit(p.id, p.price)}/>
-                        <UiButton btnText={'삭제'}
-                                  onClick={() => handleDelete(p.id)}/>
+                {Array.isArray(products) && products.map((p, idx) => (
+                    <li key={idx}>
+                        <div style={{ 'display': 'flex', alignItems: 'center' }}>
+                            <div style={{ alignItems: 'center' }}>{p.name}</div>
+                            <UiInput type="number"
+                                     value={p.price ?? ''}
+                                     onChange={(e) => handlePriceChange(p.id, e.target.value)}/>
+                            <div>원</div>
+                            <UiButton btnText={'수정'}
+                                      onClick={() => handleEdit(p.id, p.price)}/>
+                            <UiButton btnText={'삭제'}
+                                      onClick={() => handleDelete(p.id)}/>
+                        </div>
                     </li>
                 ))}
             </ul>
         </div>
-    );
+    )
 }
+

@@ -1,9 +1,13 @@
-import {Description, Field, Input, Label} from '@headlessui/react'
 import clsx from 'clsx'
+import React, { forwardRef } from 'react'
+import {Description, Field, Input, Label} from '@headlessui/react'
 
-export default function UiInput({label, description, value, onChange, placeholder}) {
+const UiInput = forwardRef(function UiInput(
+    {label, description, value, onChange, placeholder},
+    ref
+) {
     return (
-        <div className="w-full max-w-md px-4">
+        <div className="w-full max-w-md">
             <Field>
                 <Label className="text-sm/6 font-medium text-black">{label}</Label>
                 {description && <Description className="text-sm/6">{description}</Description>}
@@ -11,8 +15,9 @@ export default function UiInput({label, description, value, onChange, placeholde
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}
+                    ref={ref}
                     className={clsx(
-                        'mt-3 block w-full rounded-lg border-none px-3 py-1.5 text-sm/6',
+                        'block w-full rounded-lg border-none px-3 py-1.5 text-sm/6',
                         'outline outline-1 outline-black',
                         'focus:outline-red-500 focus:outline-1 '
                     )}
@@ -20,4 +25,6 @@ export default function UiInput({label, description, value, onChange, placeholde
             </Field>
         </div>
     )
-}
+})
+
+export default UiInput;
