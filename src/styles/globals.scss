@@ -31,9 +31,10 @@ body {
 
 /* PC 폰트 사이즈 */
 :root {
-    --font-small: 0.875rem; /* 14px */
-    --font-medium: 1rem; /* 16px */
-    --font-large: 1.25rem; /* 20px */
+    --font-small: 0.875rem;     /* 14px */
+    --font-medium: 1rem;        /* 16px */
+    --font-large: 1.125rem;     /* 18px */
+    --font-extralarge: 1.25rem; /* 20px */
 }
 
 /* MO 폰트 사이즈 */
@@ -44,7 +45,7 @@ body {
 
     :root {
         --font-small: 0.875rem; /* 12px */
-        --font-medium: 1rem; /* 14px */
+        --font-medium: 1rem;    /* 14px */
         --font-large: 1.125rem; /* 16px */
     }
 }
