@@ -6,23 +6,45 @@
 @import "ui/modal";
 @import "ui/switch";
 
+@import "layout/header";
 @import "colors";
 
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  font-size: 14px;
+    --background: #ffffff;
+    --foreground: #171717;
+    font-size: 14px;
 }
 
 
 @media (prefers-color-scheme: dark) {
-  :root {
+    :root {
 
-  }
+    }
 }
 
 body {
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* PC 폰트 사이즈 */
+:root {
+    --font-small: 0.875rem; /* 14px */
+    --font-medium: 1rem; /* 16px */
+    --font-large: 1.25rem; /* 20px */
+}
+
+/* MO 폰트 사이즈 */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px; /* 모바일 기준 14px */
+    }
+
+    :root {
+        --font-small: 0.875rem; /* 12px */
+        --font-medium: 1rem; /* 14px */
+        --font-large: 1.125rem; /* 16px */
+    }
 }

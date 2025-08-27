@@ -2,30 +2,37 @@
 
 
 @mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
 @mixin device($breakpoint) {
-  @if $breakpoint == mobile {
-    @media (max-width: 767px) { @content; }
-  } @else if $breakpoint == tablet {
-    @media (min-width: 768px) and (max-width: 1023px) { @content; }
-  } @else if $breakpoint == desktop {
-    @media (min-width: 1024px) { @content; }
-  }
+    @if $breakpoint == mobile {
+        @media (max-width: 767px) {
+            @content;
+        }
+    } @else if $breakpoint == tablet {
+        @media (min-width: 768px) and (max-width: 1023px) {
+            @content;
+        }
+    } @else if $breakpoint == desktop {
+        @media (min-width: 1024px) {
+            @content;
+        }
+    }
 }
+
 //   사용법
 //   @include device(mobile) { font-size: 14px; }
 
 
 // 폰트 설정
 @mixin font-setup($size, $weight: normal, $color: #000) {
-  font-size: $size;
-  font-weight: $weight;
-  color: $color;
-  line-height: 1.4;
+    font-size: $size;
+    font-weight: $weight;
+    color: $color;
+    line-height: 1.4;
 }
 
