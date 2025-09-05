@@ -1,0 +1,19 @@
+
+.board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    &-wrap {
+        margin: 50px 0;
+    }
+
+
+
+    &-write {
+        border: 1px solid red;
+        width: 70%;
+        margin: 50px auto;
+    }
+}

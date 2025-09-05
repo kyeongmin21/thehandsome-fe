@@ -16,6 +16,7 @@ npm run serve
 - **clsx**: 조건부 클래스 이름을 깔끔하게 조합해주는 헬퍼
 - **@headlessui/react**: Tailwind Labs 제작. 접근성을 고려한 UI 컴포넌트 라이브러리
 - **@heroicons/react**: Tailwind CSS 팀이 만든 공식 SVG 아이콘 세트
+- **@tanstack/react-table**: 테이블 라이브러리 https://ui.shadcn.com/docs/components/data-table?utm_source=chatgpt.com
 - **zustand**: 상태관리 라이브러리
 
 ## 📂 폴더 구조 (예시)

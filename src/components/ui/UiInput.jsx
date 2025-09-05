@@ -3,11 +3,11 @@ import React, { forwardRef } from 'react'
 import {Description, Field, Input, Label} from '@headlessui/react'
 
 const UiInput = forwardRef(function UiInput(
-    {label, description, value, onChange, placeholder},
+    {label, description, value, onChange, placeholder, className},
     ref
 ) {
     return (
-        <div className="w-full max-w-md">
+        <div className={clsx(className)}>
             <Field>
                 <Label className="text-sm/6 font-medium text-black">{label}</Label>
                 {description && <Description className="text-sm/6">{description}</Description>}
@@ -18,7 +18,7 @@ const UiInput = forwardRef(function UiInput(
                     ref={ref}
                     className={clsx(
                         'block w-full rounded-lg border-none px-3 py-1.5 text-sm/6',
-                        'outline outline-1 outline-black',
+                        'outline outline-1 outline-gray-300',
                         'focus:outline-red-500 focus:outline-1 '
                     )}
                 />

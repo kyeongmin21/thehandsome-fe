@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 const sizeMap = {
-    s: 'px-3 py-1 text-sm',
+    s: 'px-2 py-1 text-sm',
     m: 'px-4 py-2 text-base',
     l: 'px-5 py-3 text-lg'
 };
@@ -13,7 +13,8 @@ const colorMap = {
     grayOutline: 'btn-gray-outline',
     blackFill: 'btn-black-fill',
     blackText: 'btn-black-text',
-    whiteText: 'btn-white-text'
+    whiteText: 'btn-white-text',
+    none: 'border-none bg-transparent text-black'
 };
 
 export default function UiButton({
