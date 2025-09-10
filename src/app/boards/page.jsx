@@ -9,9 +9,8 @@ import Link from "next/link";
 const BoardPage = () => {
     const [boards, setBoards] = useState([]);
     const fetchBoards = () => {
-        apiHelper.axios.get(`http://127.0.0.1:7001/board`)
+        apiHelper.axios.get('/boards')
             .then((res) => {
-            console.log('board', res);
             setBoards(res);
         })
     }
@@ -31,7 +30,7 @@ const BoardPage = () => {
         <div className="board">
             <div className="board-wrap">
                 <DataTable columns={columns} data={boards} />
-                <Link href='/board/write'>
+                <Link href='/boards/write'>
                     <UiButton btnText='작성하기'/>
                 </Link>
             </div>

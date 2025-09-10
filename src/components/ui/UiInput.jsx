@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 import {Description, Field, Input, Label} from '@headlessui/react'
 
 const UiInput = forwardRef(function UiInput(
-    {label, description, value, onChange, placeholder, className},
+    {label, description, name, value, onChange, placeholder, className},
     ref
 ) {
     return (
@@ -12,6 +12,7 @@ const UiInput = forwardRef(function UiInput(
                 <Label className="text-sm/6 font-medium text-black">{label}</Label>
                 {description && <Description className="text-sm/6">{description}</Description>}
                 <Input
+                    name={name}
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}

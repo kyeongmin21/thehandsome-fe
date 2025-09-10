@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: '',
-    timeout: 10000,
+    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    timeout: 10000, // 10초 안에 응답이 안 오면 자동으로 요청을 취소하고 에러 발생
     headers: {
         'Content-Type': 'application/json',
     },

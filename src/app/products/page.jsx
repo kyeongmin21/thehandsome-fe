@@ -11,7 +11,7 @@ export default function Products () {
     const [newProduct, setNewProduct] = useState({name: '', price: ''});
 
     const fetchProducts = () => {
-        apiHelper.axios.get(`http://127.0.0.1:7000/products`)
+        apiHelper.axios.get('/products')
             .then((res) => {
                 console.log('res', res);
                 setProducts(res)
@@ -20,7 +20,7 @@ export default function Products () {
     }
 
     const handleDelete = (id) => {
-        apiHelper.axios.delete(`http://127.0.0.1:7000/products/${id}`)
+        apiHelper.axios.delete(`/products/${id}`)
             .then(() => {
                 fetchProducts()
                 console.log(`${id}번째 삭제 성공`)
@@ -32,7 +32,7 @@ export default function Products () {
         if (!productToEdit) return;
 
         const updatedProduct = {...productToEdit, price: Number(newPrice)};
-        apiHelper.axios.put(`http://127.0.0.1:7000/products/${id}`, updatedProduct)
+        apiHelper.axios.put(`/products/${id}`, updatedProduct)
             .then(() => {
                 alert(`${id}번째를 수정하시겠습니까?`)
                 fetchProducts()
@@ -55,7 +55,7 @@ export default function Products () {
             price: Number(result.data.price),
         };
 
-        apiHelper.axios.post(`http://127.0.0.1:7000/products`, validatedData)
+        apiHelper.axios.post(`/products`, validatedData)
             .then(() => {
                 fetchProducts();
                 setProducts({name: '', price: ''});

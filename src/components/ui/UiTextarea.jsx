@@ -2,12 +2,13 @@ import {Description, Field, Textarea, Label} from '@headlessui/react'
 import clsx from 'clsx'
 
 export default function UiTextarea({
-                                       description, value, onChange, placeholder, className}) {
+                                       description, name, value, onChange, placeholder, className}) {
     return (
         <div className={clsx(className)}>
             <Field>
                 {description && <Description className="text-sm/6">{description}</Description>}
                 <Textarea
+                    name={name}
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}
