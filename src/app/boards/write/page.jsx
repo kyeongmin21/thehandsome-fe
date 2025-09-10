@@ -30,7 +30,7 @@ const BoardWrite = () => {
     }
 
     return (
-        <div className="">
+        <div className="board-write">
             <ul>
                 <UiInput
                     name='title'
