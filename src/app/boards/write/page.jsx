@@ -30,7 +30,7 @@ const BoardWrite = () => {
     }
 
     return (
-        <div className="board-write">
+        <div className="boards-wrap boards-write">
             <ul>
                 <UiInput
                     name='title'
@@ -45,7 +45,7 @@ const BoardWrite = () => {
                     placeholder='내용을 입력해주세요.'/>
 
                 <div className="flex justify-center gap-3 mt-5">
-                    <Link href='/board'><UiButton btnText='취소'/></Link>
+                    <Link href='/boards'><UiButton btnText='취소'/></Link>
                     <UiButton onClick={handleSubmit} btnText='저장' color='blackFill'/>
                 </div>
             </ul>

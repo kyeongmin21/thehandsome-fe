@@ -16,7 +16,6 @@ const BoardEdit = () => {
         const fetchData = async () => {
             try {
                 const data = await apiHelper.get(`/boards/${params.id}`);
-                console.log('데이터', data);
                 setForm({ title: data.title, content: data.content });
             } catch (error) {
                 console.error('글 불러오기 실패', error);
@@ -43,7 +42,7 @@ const BoardEdit = () => {
     }
 
     return (
-        <div className="board-edit">
+        <div className="boards-wrap boards-edit">
             <ul>
                 <UiInput
                     name='title'
