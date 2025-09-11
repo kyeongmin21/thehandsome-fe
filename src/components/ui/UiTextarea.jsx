@@ -1,8 +1,14 @@
-import {Description, Field, Textarea, Label} from '@headlessui/react'
+import {Description, Field, Textarea} from '@headlessui/react'
 import clsx from 'clsx'
 
 export default function UiTextarea({
-                                       description, name, value, onChange, placeholder, className}) {
+                                       description,
+                                       name,
+                                       value,
+                                       onChange,
+                                       placeholder,
+                                       className,
+}) {
     return (
         <div className={clsx(className)}>
             <Field>
@@ -15,7 +21,8 @@ export default function UiTextarea({
                     className={clsx(
                         'mt-3 w-full block rounded-lg border-none px-3 py-1.5 text-sm/6',
                         'outline outline-1 outline-gray-300',
-                        'focus:outline-red-500 focus:outline-1 '
+                        'focus:outline-red-500 focus:outline-1',
+                        className
                     )}
                 />
             </Field>

@@ -23,12 +23,13 @@ export default function UiButton({
                                    onClick,
                                    size = 'm',
                                    color = 'blackOutline',
-                               }) {
+                                   className = '',
+                                 }) {
 
     const sizeStyle = sizeMap[size] || sizeMap.m;
     const colorStyle = colorMap[color] || colorMap.whiteOutline;
     const baseStyle = 'rounded transition duration-200 cursor-pointer';
-    const btnClass = classNames(baseStyle, sizeStyle, colorStyle);
+    const btnClass = classNames(baseStyle, sizeStyle, colorStyle, className);
 
     return (
         <button onClick={onClick}

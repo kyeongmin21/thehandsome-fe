@@ -58,7 +58,7 @@ const BoardEdit = () => {
                     placeholder='내용을 입력해주세요.'/>
 
                 <div className="flex justify-center gap-3 mt-5">
-                    <Link href='/board'><UiButton btnText='취소'/></Link>
+                    <Link href='/boards'><UiButton btnText='취소'/></Link>
                     <UiButton onClick={handleSubmit} btnText='수정' color='blackFill'/>
                 </div>
             </ul>
