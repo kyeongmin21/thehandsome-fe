@@ -13,32 +13,13 @@
 @import "layout/main";
 @import "colors";
 
-
 :root {
     --background: #ffffff;
     --foreground: #171717;
-    font-size: 14px;
-}
-
-
-@media (prefers-color-scheme: dark) {
-    :root {
-
-    }
-}
-
-body {
-    background: var(--background);
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-
-/* PC 폰트 사이즈 */
-:root {
     --font-small: 0.875rem;     /* 14px */
     --font-medium: 1rem;        /* 16px */
     --font-large: 1.125rem;     /* 18px */
-    --font-extralarge: 1.25rem; /* 20px */
+    --font-extralarge: 2rem; /* 32px */
 }
 
 /* MO 폰트 사이즈 */
@@ -52,4 +33,23 @@ body {
         --font-medium: 1rem;    /* 14px */
         --font-large: 1.125rem; /* 16px */
     }
+}
+
+body {
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    font-size: var(--font-extralarge);
+}
+
+h2 {
+    font-size: var(--font-large);
+    font-weight: 400;
+}
+
+h3 {
+    font-size: var(--font-medium);
+    font-weight: bold;
 }
