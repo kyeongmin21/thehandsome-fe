@@ -54,6 +54,7 @@ const BoardEdit = () => {
                     name='content'
                     value={form.content}
                     onChange={handleChange}
+                    height="700px"
                     placeholder='내용을 입력해주세요.'/>
 
                 <div className="flex justify-center gap-3 mt-5">

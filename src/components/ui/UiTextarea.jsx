@@ -8,9 +8,10 @@ export default function UiTextarea({
                                        onChange,
                                        placeholder,
                                        className,
+                                       height= '400px',
 }) {
     return (
-        <div className={clsx(className)}>
+        <div className={clsx(className, "ui-textarea")}>
             <Field>
                 {description && <Description className="text-sm/6">{description}</Description>}
                 <Textarea
@@ -24,6 +25,7 @@ export default function UiTextarea({
                         'focus:outline-red-500 focus:outline-1',
                         className
                     )}
+                    style={{ height }}
                 />
             </Field>
         </div>

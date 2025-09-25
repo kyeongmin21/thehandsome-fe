@@ -13,7 +13,11 @@ export const boardColumns = (router) => [
     {
         accessorKey: "title",
         header: "제목",
-        size: 700,
+        size: 500,
+        cell: ({row}) => (
+            <div style={{ cursor: 'pointer' }}
+                 onClick={() => router.push(`/boards/${row.original.id}`)}>{row.original.title}</div>
+        )
     },
     {
         accessorKey: "created_at",
