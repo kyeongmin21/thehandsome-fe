@@ -21,7 +21,7 @@ export default function UiButton({
                                    btnText,
                                    btnIcon,
                                    onClick,
-                                   size = 'm',
+                                   size = 's',
                                    color = 'blackOutline',
                                    className = '',
                                  }) {

@@ -7,7 +7,8 @@ export const boardColumns = (router) => [
         header: "번호",
         size: 100,
         cell: ({getValue}) => (
-            <div style={{textAlign: "center"}}>{getValue()}</div>
+            <div className="cell"
+                 style={{textAlign: "center"}}>{getValue()}</div>
         ),
     },
     {
@@ -15,7 +16,8 @@ export const boardColumns = (router) => [
         header: "제목",
         size: 500,
         cell: ({row}) => (
-            <div style={{ cursor: 'pointer' }}
+            <div className="cell"
+                 style={{ cursor: 'pointer' }}
                  onClick={() => router.push(`/boards/${row.original.id}`)}>{row.original.title}</div>
         )
     },
@@ -24,7 +26,8 @@ export const boardColumns = (router) => [
         header: "등록일",
         size: 150,
         cell: ({getValue}) => (
-            <div style={{textAlign: "center"}}>{getValue()}</div>
+            <div className="cell"
+                 style={{textAlign: "center"}}>{getValue()}</div>
         ),
     },
     {
@@ -32,7 +35,8 @@ export const boardColumns = (router) => [
         header: "수정일",
         size: 150,
         cell: ({getValue}) => (
-            <div style={{textAlign: "center"}}>{getValue()}</div>
+            <div className="cell"
+                 style={{textAlign: "center"}}>{getValue()}</div>
         ),
     },
     {
@@ -40,7 +44,8 @@ export const boardColumns = (router) => [
         header: "수정/삭제",
         size: 150,
         cell: ({row}) => (
-            <div style={{textAlign: "center"}}>
+            <div className="cell"
+                 style={{textAlign: "center"}}>
                 <UiButton btnText='수정'
                           size='s'
                           className="mr-2"

@@ -1,54 +1,76 @@
-
 .boards {
     display: flex;
     justify-content: center;
     align-items: center;
+}
 
-    &-layout {
-        h1 {
-            width: 70%;
-            margin: 50px auto 0;
+.boards-layout {
+    h1 {
+        width: 80%;
+        margin: 50px auto 0;
+    }
+}
 
-            @media screen and (min-width: 769px) and (max-width: 1024px) {
-                width: 90%;
-            }
+.boards-wrap {
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px;
 
-            @media screen and (max-width: 768px) {
-                width: 95%;
-            }
-
-        }
+    .content {
+        padding: 20px 40px;
+        white-space: pre-line;
     }
 
+    h2 {
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #f0f0f0;
+        width: 100%;
+        padding: 24px 0;
+    }
+}
 
-    &-wrap {
-        width: 70%;
-        margin: 20px auto;
-        padding: 10px;
+.boards-wrap .boards-table table {
+    min-width: 600px; // 모바일에서 테이블 최소 너비
+}
 
+.cell {
+    border: 1px solid green;
+}
 
-        @media screen and (min-width: 769px) and (max-width: 1024px) {
-            width: 90%;
-            border: 1px solid red;
-        }
+/* -------------------------------------------------
+                미디어쿼리 별도 블록
+----------------------------------------------------*/
 
-        @media screen and (max-width: 768px) {
-            width: 95%;
-            margin: auto;
-            border: 1px solid blue;
-        }
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .boards-layout h1 {
+        width: 90%;
+    }
 
+    .boards-wrap {
+        width: 90%;
+        border: 1px solid red;
+    }
 
-        .content {
-            padding: 20px 40px;
-            white-space: pre-line;
-        }
+    .cell {
+        width: 90%;
+        border: 1px solid red;
+    }
+}
 
-        h2 {
-            border-top: 1px solid #000;
-            border-bottom: 1px solid #f0f0f0;
-            width: 100%;
-            padding: 24px 0;
-        }
+@media screen and (max-width: 768px) {
+    .boards-layout h1 {
+        width: 95%;
+    }
+
+    .boards-wrap {
+        width: 95%;
+        margin: auto;
+        border: 1px solid blue;
+    }
+
+    .cell {
+        width: 95%;
+        margin: auto;
+        border: 1px solid blue;
     }
 }
