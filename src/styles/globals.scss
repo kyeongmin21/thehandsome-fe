@@ -1,17 +1,17 @@
-@import "tailwindcss/preflight";
-@import "tailwindcss/theme";
-@import "tailwindcss/utilities";
+@use "tailwindcss/preflight";
+@use "tailwindcss/theme";
+@use "tailwindcss/utilities";
 
-@import "ui/button";
-@import "ui/modal";
-@import "ui/switch";
+@use "ui/button";
+@use "ui/modal";
+@use "ui/switch";
 
-@import "page/boards";
+@use "page/boards";
 
-@import "layout/header";
-@import "layout/footer";
-@import "layout/main";
-@import "colors";
+@use "layout/header";
+@use "layout/footer";
+@use "layout/main";
+@use "colors";
 
 :root {
     --background: #ffffff;
