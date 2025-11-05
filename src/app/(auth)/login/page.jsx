@@ -15,23 +15,24 @@ const LoginPage = () => {
     }
 
     const handleLogin = (e) => {
-
     }
 
-    const handleKaKaoLogin = (e) => {
+    const handleKakaoLogin = (e) => {
+    }
 
+    const handleJoin = (e) => {
     }
 
     return (
         <div className='flex-center'>
-            <div className='login'>
+            <div className='auth-container'>
                 <h1>로그인</h1>
                 <UiInput
                     name='id'
                     value={form.id}
                     className='mt-3'
                     onChange={handleChange}
-                    placeholder='아이디/비밀번호를 입력해 주세요.'/>
+                    placeholder='아이디를 입력해 주세요.'/>
                 <UiInput
                     name='password'
                     value={form.password}
@@ -39,7 +40,6 @@ const LoginPage = () => {
                     className='mt-3 input-pw'
                     onChange={handleChange}
                     placeholder='비밀번호를 입력해 주세요.'/>
-
                 <UiButton
                     onClick={handleLogin}
                     size='m'
@@ -47,12 +47,17 @@ const LoginPage = () => {
                     color={form.id && form.password ? 'blackFill' : 'grayFill'}
                     className='mt-7'/>
                 <UiButton
-                    onClick={handleKaKaoLogin}
+                    onClick={handleKakaoLogin}
                     size='m'
                     color='yellowFill'
                     btnText='카카오 간편로그인'
-                    btnIcon=''
-                   />
+                    btnIcon=''/>
+                <UiButton
+                    onClick={handleJoin}
+                    size='m'
+                    color='grayOutline'
+                    btnText='회원가입'
+                />
                 <div className='find-info'>
                     <ul>
                         <li>아이디 찾기</li>

@@ -1,9 +1,10 @@
 .header {
     width: 100%;
+    height: 100px;
     margin: 0 auto;
     padding: 10px 50px;
-    position: relative;
-
+    position: fixed;
+    z-index: 1;
 
     &-top {
         display: flex;
@@ -63,6 +64,7 @@
         position: fixed;
         top: 0;
         display: flex;
+        height: 70px;
 
         .header-top {
             transform: translateY(-100%); // 초기 상태: 위에 살짝 숨겨두기
@@ -70,13 +72,13 @@
 
             &-logo {
                 width: 300px;
-                transform: translateY(40px); // 위 → 아래로 내려오기
+                transform: translateY(30px); // 위 → 아래로 내려오기
                 transition: transform 0.3s ease;
             }
 
             &-icon {
                 margin-bottom: 0;
-                transform: translateY(30px); // 위 → 아래로 내려오기
+                transform: translateY(20px); // 위 → 아래로 내려오기
                 transition: transform 0.3s ease;
             }
         }
@@ -84,7 +86,7 @@
         .header-category {
             overflow: hidden; // 움직일 때 안 튀어나오게
             margin-right: 240px;
-            margin-top: 5px;
+            height: 50px;
 
             &-left {
                 transform: translateX(50px); // 처음 화면 밖으로
@@ -92,7 +94,7 @@
             }
 
             &-right {
-                transform: translateX(-50px); // 처음 화면 밖으로
+                transform: translateX(-30px); // 처음 화면 밖으로
                 transition: transform 0.3s ease;
             }
         }

@@ -24,8 +24,6 @@ export default () => {
                          alt="메인로고 이미지"/>
                 </Link>
             </div>
-
-
             <div className="header-category">
                 <div className="header-category-left">
                     <ul>
@@ -50,7 +48,11 @@ export default () => {
                 <div className='header-top-icon' >
                     <ul>
                         <li><SlMagnifier size={22}/></li>
-                        <li><SlLogin size={22}/></li>
+                        <li>
+                            <Link href="/login">
+                            <SlLogin size={22}/>
+                            </Link>
+                        </li>
                         <li>
                             <Link href="/login">
                                 <CiUser size={25} strokeWidth={.5}/>

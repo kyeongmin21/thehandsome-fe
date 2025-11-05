@@ -3,9 +3,8 @@
 
 .flex-center {
     @include flex-center;
-    height: calc(90vh - 100px);
 
-    .login {
+    .auth-container {
         display: flex;
         flex-direction: column;
         gap: 16px;

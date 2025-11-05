@@ -1,7 +1,6 @@
 @use '../colors' as *;
 
 
-
 .input-pw {
     position: relative;
 }
@@ -10,7 +9,7 @@
     display: inline-block;
     color: map-get($color, lightgray);
     position: absolute;
-    top: 5px;
+    bottom: 5px;
     right: 5px;
     padding: 5px;
     cursor: pointer;
