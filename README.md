@@ -2,7 +2,7 @@
 ```bash
 npm install
 nvm use 18
-npm run dev
+npm run dev // 프론트 open
 npm run serve
 ```
 
@@ -19,6 +19,9 @@ npm run serve
 - **@heroicons/react**: Tailwind CSS 팀이 만든 공식 SVG 아이콘 세트
 - **@tanstack/react-table**: 테이블 라이브러리 https://ui.shadcn.com/docs/components/data-table?utm_source=chatgpt.com
 - **zustand**: 상태관리 라이브러리
+- **react-icons**: 아이콘 https://react-icons.github.io/react-icons/
+
+
 
 ## 📂 폴더 구조 (예시)
 - `/components` - 공통 컴포넌트 모음
@@ -26,8 +29,7 @@ npm run serve
 - `/styles` 
   - ui : 공통 
 
-
-
+    
 
 ## 📂 백엔드 데이터 확인방법
 - 파이썬에서 `uvicorn app.main:app --reload --port 7000` 명령어 치기 

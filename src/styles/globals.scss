@@ -3,10 +3,13 @@
 @use "tailwindcss/utilities";
 
 @use "ui/button";
+@use "ui/font";
+@use "ui/input";
 @use "ui/modal";
 @use "ui/switch";
 
 @use "page/boards";
+@use "page/login";
 
 @use "layout/header";
 @use "layout/footer";
@@ -16,40 +19,11 @@
 :root {
     --background: #ffffff;
     --foreground: #171717;
-    --font-small: 0.875rem;     /* 14px */
-    --font-medium: 1rem;        /* 16px */
-    --font-large: 1.125rem;     /* 18px */
-    --font-extralarge: 2rem; /* 32px */
 }
 
-/* MO 폰트 사이즈 */
-@media (max-width: 768px) {
-    html {
-        font-size: 14px; /* 모바일 기준 14px */
-    }
 
-    :root {
-        --font-small: 0.875rem; /* 12px */
-        --font-medium: 1rem;    /* 14px */
-        --font-large: 1.125rem; /* 16px */
-    }
-}
 
 body {
     background: var(--background);
     font-family: Arial, Helvetica, sans-serif;
-}
-
-h1 {
-    font-size: var(--font-extralarge);
-}
-
-h2 {
-    font-size: var(--font-large);
-    font-weight: 400;
-}
-
-h3 {
-    font-size: var(--font-medium);
-    font-weight: bold;
 }

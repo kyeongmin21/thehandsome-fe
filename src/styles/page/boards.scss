@@ -33,9 +33,6 @@
     min-width: 600px; // 모바일에서 테이블 최소 너비
 }
 
-.cell {
-    border: 1px solid green;
-}
 
 /* -------------------------------------------------
                 미디어쿼리 별도 블록
@@ -48,12 +45,10 @@
 
     .boards-wrap {
         width: 90%;
-        border: 1px solid red;
     }
 
     .cell {
         width: 90%;
-        border: 1px solid red;
     }
 }
 

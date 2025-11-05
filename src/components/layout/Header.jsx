@@ -49,17 +49,17 @@ export default () => {
             <div className="header-top">
                 <div className='header-top-icon' >
                     <ul>
+                        <li><SlMagnifier size={22}/></li>
+                        <li><SlLogin size={22}/></li>
                         <li>
                             <Link href="/login">
-                                <CiUser size={28} strokeWidth={.5}/>
+                                <CiUser size={25} strokeWidth={.5}/>
                             </Link>
                         </li>
-                        <li><SlMagnifier size={25}/></li>
-                        <li><SlLogin size={25}/></li>
-                        <li><SlHeart size={25}/></li>
+                        <li><SlHeart size={23}/></li>
                         <li>
                             <Link href="/cart">
-                                <SlBag size={25}/>
+                                <SlBag size={23}/>
                             </Link>
                         </li>
                     </ul>

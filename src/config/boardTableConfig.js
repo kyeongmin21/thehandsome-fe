@@ -1,5 +1,6 @@
 import UiButton from '@/components/ui/UiButton';
 import apiHelper from "@/api/apiHelper";
+import dayjs from 'dayjs';
 
 export const boardColumns = (router) => [
     {
@@ -25,19 +26,25 @@ export const boardColumns = (router) => [
         accessorKey: "created_at",
         header: "등록일",
         size: 150,
-        cell: ({getValue}) => (
-            <div className="cell"
-                 style={{textAlign: "center"}}>{getValue()}</div>
-        ),
+        cell: ({getValue}) => {
+            return (
+                <div className="cell" style={{ textAlign: "center" }}>
+                    {dayjs(getValue()).format('YYYY.MM.DD HH:mm')}
+                </div>
+            );
+        },
     },
     {
         accessorKey: "updated_at",
         header: "수정일",
         size: 150,
-        cell: ({getValue}) => (
-            <div className="cell"
-                 style={{textAlign: "center"}}>{getValue()}</div>
-        ),
+        cell: ({ getValue }) => {
+            return (
+                <div className="cell" style={{ textAlign: "center" }}>
+                    {dayjs(getValue()).format('YYYY.MM.DD HH:mm')}
+                </div>
+            );
+        },
     },
     {
         accessorKey: "edit",

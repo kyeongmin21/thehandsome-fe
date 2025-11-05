@@ -3,8 +3,8 @@ import classNames from 'classnames';
 
 const sizeMap = {
     s: 'px-2 py-1 text-sm',
-    m: 'px-4 py-2 text-base',
-    l: 'px-5 py-3 text-lg'
+    m: 'px-4 py-3 text-base',
+    l: 'px-5 py-5 text-lg'
 };
 
 const colorMap = {
@@ -12,6 +12,8 @@ const colorMap = {
     blackOutline: 'btn-black-outline',
     grayOutline: 'btn-gray-outline',
     blackFill: 'btn-black-fill',
+    grayFill: 'bg-gray-300 text-white',
+    yellowFill: 'bg-yellow-300',
     blackText: 'btn-black-text',
     whiteText: 'btn-white-text',
     none: 'border-none bg-transparent text-black'
@@ -28,14 +30,14 @@ export default function UiButton({
 
     const sizeStyle = sizeMap[size] || sizeMap.m;
     const colorStyle = colorMap[color] || colorMap.whiteOutline;
-    const baseStyle = 'rounded transition duration-200 cursor-pointer';
+    const baseStyle = 'transition duration-200 cursor-pointer';
     const btnClass = classNames(baseStyle, sizeStyle, colorStyle, className);
 
     return (
         <button onClick={onClick}
                 className={btnClass}>
-            {btnIcon && <span className="mr-2 inline-block">{btnIcon}</span>}
-            {btnText}
+                {btnIcon && <span className="mr-2 inline-block">{btnIcon}</span>}
+                {btnText}
         </button>
     );
 }
