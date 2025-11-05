@@ -20,7 +20,9 @@ npm run serve
 - **@tanstack/react-table**: 테이블 라이브러리 https://ui.shadcn.com/docs/components/data-table?utm_source=chatgpt.com
 - **zustand**: 상태관리 라이브러리
 - **react-icons**: 아이콘 https://react-icons.github.io/react-icons/
-
+- **react-hook-form**: 폼 관리 라이브러리
+- **@hookform/resolvers**: react-hook-form과 zod를 연결해주는 중간 모듈
+- **zod**: 스키마 유효성 검사 라이브러리
 
 
 ## 📂 폴더 구조 (예시)
