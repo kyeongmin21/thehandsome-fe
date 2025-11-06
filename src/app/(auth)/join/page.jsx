@@ -2,6 +2,7 @@
 import apiHelper from "@/api/apiHelper";
 import UiInput from "@/components/ui/UiInput";
 import UiButton from "@/components/ui/UiButton";
+import ErrorMessage from "@/components/ui/ErrorMessage";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,14 +62,6 @@ const JoinPage = () => {
         }
     }
 
-    const ErrorMessage = ({ message }) => {
-        return message ? (
-            <div style={{ color: 'red', fontSize: '12px', marginTop: '4px' }}>
-                {message}
-            </div>
-        ) : null;
-    };
-    
     return (
         <div className='flex-center'>
             <div className='auth-container'>

@@ -33,7 +33,7 @@ const BoardEdit = () => {
 
     const handleSubmit = async () => {
         try {
-            await apiHelper.put(`/boards/edit/${params.id}`, form);
+            await apiHelper.put(`/boards/${params.id}`, form);
             router.push('/boards')
         } catch (error) {
             console.log(error);

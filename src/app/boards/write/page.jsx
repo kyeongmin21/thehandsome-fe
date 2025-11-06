@@ -20,7 +20,7 @@ const BoardWrite = () => {
 
     const handleSubmit = async () => {
         try {
-            const res = await apiHelper.post("/boards/create", form);
+            const res = await apiHelper.post("/boards", form);
             alert(res.message);
             router.push("/boards");
         } catch (error) {
