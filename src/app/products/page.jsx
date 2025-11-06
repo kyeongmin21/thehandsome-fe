@@ -13,7 +13,6 @@ export default function Products () {
     const fetchProducts = () => {
         apiHelper.axios.get('/products')
             .then((res) => {
-                console.log('res', res);
                 setProducts(res)
             })
             .catch((err) => console.error(err));

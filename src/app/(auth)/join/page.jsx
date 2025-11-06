@@ -37,7 +37,7 @@ const JoinPage = () => {
 
     const onSubmit = async (data) => {
         try {
-            const res = await apiHelper.post("/user/create", data)
+            const res = await apiHelper.post("/join", data)
             alert(`${data.name}님 회원가입이 완료되었습니다.`)
             router.push("/")
         } catch (error) {
@@ -72,60 +72,59 @@ const JoinPage = () => {
     return (
         <div className='flex-center'>
             <div className='auth-container'>
-                <form onSubmit={handleSubmit(onSubmit)}>
                 <h1>회원가입</h1>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <UiInput
+                        label="이름"
+                        name='name'
+                        className='mt-5'
+                        {...register('name')}
+                        placeholder='이름을 입력해 주세요.'/>
+                        <ErrorMessage message={errors.name?.message} />
 
-                <UiInput
-                    label="이름"
-                    name='name'
-                    className='mt-5'
-                    {...register('name')}
-                    placeholder='이름을 입력해 주세요.'/>
-                    <ErrorMessage message={errors.name?.message} />
+                    <UiInput
+                        label="이메일"
+                        {...register('email')}
+                        className='mt-5'
+                        placeholder='이메일을 입력해 주세요.' />
+                    <ErrorMessage message={errors.email?.message} />
 
-                <UiInput
-                    label="이메일"
-                    {...register('email')}
-                    className='mt-5'
-                    placeholder='이메일을 입력해 주세요.' />
-                <ErrorMessage message={errors.email?.message} />
+                    <UiInput
+                        label="아이디"
+                        {...register('user_id')}
+                        className='mt-5'
+                        placeholder='아이디를 입력해 주세요.' />
+                        <ErrorMessage message={errors.user_id?.message} />
 
-                <UiInput
-                    label="아이디"
-                    {...register('user_id')}
-                    className='mt-5'
-                    placeholder='아이디를 입력해 주세요.' />
-                    <ErrorMessage message={errors.user_id?.message} />
+                    <UiInput
+                        label="비밀번호"
+                        {...register('password')}
+                        type="password"
+                        className='mt-5 input-pw'
+                        placeholder='비밀번호를 입력해 주세요. (15자 이내)' />
+                        <ErrorMessage message={errors.password?.message} />
 
-                <UiInput
-                    label="비밀번호"
-                    {...register('password')}
-                    type="password"
-                    className='mt-5 input-pw'
-                    placeholder='비밀번호를 입력해 주세요. (15자 이내)' />
-                    <ErrorMessage message={errors.password?.message} />
+                    <UiInput
+                        label="비밀번호 확인"
+                        {...register('passwordConfirm')}
+                        type="password"
+                        className='mt-5 input-pw'
+                        placeholder='비밀번호를 입력해 주세요. (15자 이내)' />
+                        <ErrorMessage message={errors.passwordConfirm?.message} />
 
-                <UiInput
-                    label="비밀번호 확인"
-                    {...register('passwordConfirm')}
-                    type="password"
-                    className='mt-5 input-pw'
-                    placeholder='비밀번호를 입력해 주세요. (15자 이내)' />
-                    <ErrorMessage message={errors.passwordConfirm?.message} />
+                    <UiInput
+                        label="폰번호"
+                        {...register('phone')}
+                        className='mt-5'
+                        placeholder='- 제외한 숫자만 입력해 주세요.' />
+                        <ErrorMessage message={errors.phone?.message} />
 
-                <UiInput
-                    label="폰번호"
-                    {...register('phone')}
-                    className='mt-5'
-                    placeholder='- 제외한 숫자만 입력해 주세요.' />
-                    <ErrorMessage message={errors.phone?.message} />
-
-                <UiButton
-                    type='submit'
-                    size='m'
-                    btnText='회원가입'
-                    color={idValue && passwordValue && isValid ? 'blackFill' : 'grayFill'}
-                    className='w-full mt-7' />
+                    <UiButton
+                        type='submit'
+                        size='m'
+                        btnText='회원가입'
+                        color={idValue && passwordValue && isValid ? 'blackFill' : 'grayFill'}
+                        className='w-full mt-7' />
                 </form>
             </div>
         </div>
