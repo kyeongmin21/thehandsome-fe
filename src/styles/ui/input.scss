@@ -1,5 +1,5 @@
 @use '../colors' as *;
-
+@use "sass:map";
 
 .input-pw {
     position: relative;
@@ -7,7 +7,7 @@
 
 .eyes-icon {
     display: inline-block;
-    color: map-get($color, lightgray);
+    color: map.get($color, lightgray);
     position: absolute;
     bottom: 5px;
     right: 5px;

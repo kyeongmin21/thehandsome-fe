@@ -1,5 +1,6 @@
 @use "../colors" as *;
+@use "sass:map";
 
 .data-checked\:bg-blue-600[data-checked] {
-  background-color: map-get($color, black);
+  background-color: map.get($color, black);
 }

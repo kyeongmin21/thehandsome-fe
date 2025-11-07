@@ -1,5 +1,6 @@
 @use '../mixins' as *;
 @use '../colors' as *;
+@use "sass:map";
 
 .btn {
   @include flex-center;
@@ -13,7 +14,7 @@
     border: 1px solid white;
 
     &:hover {
-      background-color: map-get($color, black);
+      background-color: map.get($color, black);
       color: white;
     }
   }
@@ -24,7 +25,7 @@
     border: 1px solid black;
 
     &:hover {
-      background-color: map-get($color, black);
+      background-color: map.get($color, black);
       color: white;
     }
   }
@@ -35,7 +36,7 @@
     border: 1px solid gray;
 
     &:hover {
-      background-color: map-get($color, black);
+      background-color: map.get($color, black);
       color: white;
     }
   }
