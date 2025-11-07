@@ -5,15 +5,19 @@ const api = axios.create({
     timeout: 10000, // 10초 안에 응답이 안 오면 자동으로 요청을 취소하고 에러 발생
     headers: {
         'Content-Type': 'application/json',
-    },
-    access_token: '',
+    }
 });
 
 // 요청 인터셉터 (선택)
 api.interceptors.request.use((config) => {
-    // 토큰 붙이기 예시
-    const token = localStorage.getItem('token');
-    if (token) config.headers.Authorization = `Bearer ${token}`;
+    // 토큰 붙이기
+    const accessToken = sessionStorage.getItem('accessToken');
+    // 💡 로그인, 회원가입 등 인증이 필요 없는 API는 토큰을 붙이지 않도록 예외 처리
+    const isAuthUrl = config.url.includes('/login') || config.url.includes('/join');
+
+    if (accessToken && !isAuthUrl) { // 토큰이 있고, 인증 URL이 아닐 때만
+        config.headers.Authorization = `Bearer ${accessToken}`;
+    }
     return config;
 });
 

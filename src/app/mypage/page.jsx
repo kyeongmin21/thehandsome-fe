@@ -1,20 +1,14 @@
-import UiTab from "@/components/ui/UiTab";
-import UiDropdown from "@/components/ui/UiDropdown";
+'use client'
+import useUserStore from "@/store/userStore";
 
-export default function MyPage() {
-    const animals = ['고양이', '강아지', '햄스터']
-    const tabContents = [
-        <p>고양이는 귀엽습니다</p>,
-        <p>강아지는 충직합니다</p>,
-        <p>햄스터는 바쁩니다</p>,
-    ]
-
-    const names = ['김', '박', '최'];
+const MyPage = () => {
+    const userName = useUserStore((state) => state.userName);
 
     return (
         <>
-            <UiTab titles={animals} contents={tabContents}/>
-            <UiDropdown titles={names} contents={tabContents}/>
+            <h1>{`${userName} 마이페이지`}</h1>
         </>
     )
 }
+
+export default MyPage

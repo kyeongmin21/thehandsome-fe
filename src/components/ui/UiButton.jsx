@@ -20,6 +20,7 @@ const colorMap = {
 };
 
 export default function UiButton({
+                                   type = "button",
                                    btnText,
                                    btnIcon,
                                    onClick,
@@ -34,10 +35,12 @@ export default function UiButton({
     const btnClass = classNames(baseStyle, sizeStyle, colorStyle, className);
 
     return (
-        <button onClick={onClick}
-                className={btnClass}>
-                {btnIcon && <span className="mr-2 inline-block">{btnIcon}</span>}
-                {btnText}
+        <button
+            type={type}
+
+            className={btnClass}>
+            {btnIcon && <span className="mr-2 inline-block">{btnIcon}</span>}
+            {btnText}
         </button>
     );
 }

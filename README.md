@@ -49,3 +49,13 @@ npm run serve
 ## 📂 Swagger
 - http://127.0.0.1:7000/docs
 - FastAPI에서 Swagger URL은 항상 /docs (ReDoc은 /redoc)입니다.
+
+
+## 로그인
+- access token 저장: 로그인 성공 시 백엔드에서 받은 JWT 토큰을 sessionStorage에 저장
+- 브라우저: 자동으로 HttpOnly 쿠키(refreshToken) 저장
+
+
+
+
+
