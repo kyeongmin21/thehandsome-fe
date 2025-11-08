@@ -42,9 +42,10 @@ const LoginPage = () => {
                     userId: user.user_id,
                     userName: user.name
                 });
+                alert('로그인 되었습니다.')
+                router.push("/");
             })
             .catch((error) => {
-                console.log('error22', error);
                 const msg = error?.response?.data.detail
                 const errorMap = {
                     NO_ID: {field: "user_id", message: "존재하지 않는 아이디입니다."},

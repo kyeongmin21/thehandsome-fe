@@ -15,9 +15,12 @@ export default () => {
 
 
     const handleLogout = () => {
-        logout();
-        alert('로그아웃처리 되었습니다.')
-        router.push('/')
+        const isConfirmed = confirm('로그아웃 하시겠습니까?');
+        if (isConfirmed) {
+            logout();
+            alert('로그아웃 처리되었습니다.');
+            router.push('/');
+        }
     }
 
     const handleUserClick = () => {
