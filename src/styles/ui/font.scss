@@ -1,23 +1,21 @@
 
-:root {
-  --font-small: 0.875rem;     /* 14px */
-  --font-medium: 1rem;        /* 16px */
-  --font-large: 1.125rem;     /* 18px */
-  --font-extralarge: 2rem;    /* 32px */
-  --font-2extralarge: 2.5rem; /* 40px */
-}
+$font-small: 0.875rem;     /* 14px */
+$font-medium: 1rem;        /* 16px */
+$font-large: 1.125rem;     /* 18px */
+$font-xLarge: 2rem;    /* 32px */
+$font-2xLarge: 2.5rem; /* 40px */
 
 h1 {
-  font-size: var(--font-2extralarge);
+  font-size: $font-2xLarge;
 }
 
 h2 {
-  font-size: var(--font-extralarge);
+  font-size: $font-xLarge;
 
 }
 
 h3 {
-  font-size: var(--font-large);
+  font-size: $font-large;
 }
 
 
