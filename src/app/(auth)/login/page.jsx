@@ -7,9 +7,9 @@ import UiButton from "@/components/ui/UiButton";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import {zodResolver} from "@hookform/resolvers/zod";
-import { loginSchema} from "@/utils/validators/join.schema";
-
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema } from "@/utils/validators/join.schema";
+import { ERROR_MESSAGES } from "@/constants/errorMsg";
 
 const LoginPage = () => {
     const router = useRouter();
@@ -47,29 +47,25 @@ const LoginPage = () => {
             })
             .catch((error) => {
                 const msg = error?.response?.data.detail
-                const errorMap = {
-                    NO_ID: {field: "user_id", message: "존재하지 않는 아이디입니다."},
-                    INVALID_PASSWORD: {field: "password", message: "비밀번호가 올바르지 않습니다."},
-                };
 
-                if (msg?.code && errorMap[msg.code]) {
-                    const { field, message } = errorMap[msg.code];
-                    setError(field, { type: "manual", message });
+                if (Array.isArray(msg)) {
+                    msg.forEach(({ field, code }) => {
+                        const message = ERROR_MESSAGES[code].message;
+                        if (message) {
+                            setError(field, { type: "manual", message });
+                        }
+                    });
                 }
             })
-
     }
-    const onInvalid = (errors) => {
-        console.log("유효성 검사 실패:", errors);
-        // 여기서 alert 또는 사용자 안내 UI 추가 가능
-    };
+
     const handleKakaoLogin = (e) => {}
 
     return (
         <div className='flex-center'>
             <div className='auth-container'>
                 <h1>로그인</h1>
-                <form onSubmit={handleSubmit(onSubmit, onInvalid)}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <UiInput
                         {...register('user_id')}
                         className='mt-3'

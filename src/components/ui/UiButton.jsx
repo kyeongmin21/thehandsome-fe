@@ -37,7 +37,7 @@ export default function UiButton({
     return (
         <button
             type={type}
-
+            onClick={onClick}
             className={btnClass}>
             {btnIcon && <span className="mr-2 inline-block">{btnIcon}</span>}
             {btnText}

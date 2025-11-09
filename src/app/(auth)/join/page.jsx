@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { joinSchema } from "@/utils/validators/join.schema";
-
+import { ERROR_MESSAGES } from "@/constants/errorMsg";
 
 const JoinPage = () => {
     const router = useRouter();
@@ -45,14 +45,8 @@ const JoinPage = () => {
             const msg = error?.response?.data.detail
 
             if (Array.isArray(msg)) {
-                const errorMessages = {
-                    USER_ID_TAKEN: "이미 사용 중인 아이디입니다.",
-                    EMAIL_TAKEN: "이미 사용 중인 이메일입니다.",
-                    PHONE_TAKEN: "이미 사용 중인 폰번호입니다.",
-                };
-
                 msg.forEach(({ field, code }) => {
-                    const message = errorMessages[code];
+                    const message = ERROR_MESSAGES[code].message;
                     if (message) {
                         setError(field, { type: "manual", message });
                     }

@@ -83,7 +83,7 @@ export default () => {
                                     <SlLogout size={22} />
                                 </div>
                             ) : (
-                                <div onClick={() => router.push('/loign')}>
+                                <div onClick={() => router.push('/login')}>
                                     <SlLogin size={22} />
                                 </div>
                             )}

@@ -20,12 +20,15 @@ const useUserStore = create(
             },
 
             // 로그아웃
-            logout: () => set({
-                accessToken: null,
-                userId: null,
-                userName: null,
-                isLoginIn: false
-            }),
+            logout: () => {
+                set({
+                    accessToken: null,
+                    userId: null,
+                    userName: null,
+                    isLoginIn: false
+                });
+                sessionStorage.removeItem("accessToken");
+            },
 
         }),
         {
