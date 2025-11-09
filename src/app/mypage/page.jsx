@@ -18,7 +18,7 @@ export default function InfoPage() {
                         <span className='text'>1,000 </span>M
                     </li>
                     <li>
-                        <span className='title'>H.Point 김경민</span>
+                        <span className='title'>H.Point</span>
                         <span className='text'>500 </span>P
                     </li>
                     <li>

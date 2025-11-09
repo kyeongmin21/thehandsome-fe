@@ -12,6 +12,7 @@ const UiInput = forwardRef(function UiInput({
         onChange,
         placeholder,
         className,
+        disabled,
         type= 'text'
     },
     ref
@@ -33,11 +34,13 @@ const UiInput = forwardRef(function UiInput({
                     placeholder={placeholder}
                     ref={ref}
                     type={inputType}
+                    disabled={disabled}
                     className={clsx(
                         'block w-full py-1.5 text-sm/6',
                         'border-b border-gray-300',
                         'focus:border-b focus:border-black',
                         'focus:outline-none',
+                        'disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed'
                     )}
                 />
                 {type ==='password' && (
