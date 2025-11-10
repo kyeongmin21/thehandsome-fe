@@ -1,7 +1,7 @@
 'use client'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
-import apiHelper from "@/api/apiHelper";
+import apiHelper from "@/utils/apiHelper";
 import DataTable from "@/components/ui/UiTable";
 import UiButton from "@/components/ui/UiButton";
 import Link from "next/link";

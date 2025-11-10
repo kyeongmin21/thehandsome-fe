@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import apiHelper from "@/utils/apiHelper";
 
 const useUserStore = create(
     persist(
@@ -20,14 +21,22 @@ const useUserStore = create(
             },
 
             // 로그아웃
-            logout: () => {
-                set({
-                    accessToken: null,
-                    userId: null,
-                    userName: null,
-                    isLoginIn: false
-                });
-                sessionStorage.removeItem("accessToken");
+            logout: async () => {
+                try {
+                    await apiHelper.post('/logout', {}, {withCredentials: true});
+                } catch (error) {
+                    console.log('서버 로그아웃 실패', error);
+                } finally {
+                    // 상태 초기화
+                    set({
+                        accessToken: null,
+                        userId: null,
+                        userName: null,
+                        isLoginIn: false
+                    });
+                    sessionStorage.removeItem("accessToken");
+                }
+
             },
 
         }),

@@ -1,6 +1,6 @@
 'use client';
 import {useEffect, useState} from 'react';
-import apiHelper from '@/api/apiHelper';
+import apiHelper from '@/utils/apiHelper';
 import UiButton from "@/components/ui/UiButton";
 import UiInput from "@/components/ui/UiInput";
 import { productSchema } from "@/utils/validators/product.schema";

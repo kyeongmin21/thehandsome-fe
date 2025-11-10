@@ -6,7 +6,7 @@ import {useState, useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {joinSchema} from "@/utils/validators/join.schema";
-import apiHelper from "@/api/apiHelper";
+import apiHelper from "@/utils/apiHelper";
 import {ERROR_MESSAGES} from "@/constants/errorMsg";
 
 

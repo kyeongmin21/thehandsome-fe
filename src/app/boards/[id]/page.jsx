@@ -1,6 +1,6 @@
 'use client'
 import {useState, useEffect} from 'react';
-import apiHelper from "@/api/apiHelper";
+import apiHelper from "@/utils/apiHelper";
 import {useParams} from "next/navigation";
 import UiButton from "@/components/ui/UiButton";
 import Link from "next/link";

@@ -5,7 +5,7 @@ import Link from "next/link";
 import UiButton from "@/components/ui/UiButton";
 import {useParams, useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
-import apiHelper from "@/api/apiHelper";
+import apiHelper from "@/utils/apiHelper";
 
 const BoardEdit = () => {
     const router = useRouter();

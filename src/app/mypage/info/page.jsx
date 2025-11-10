@@ -3,9 +3,8 @@
 const MyPageInfo = () => {
 
     return (
-        <div>
-
-        </div>
+        <>
+        </>
     )
 }
 

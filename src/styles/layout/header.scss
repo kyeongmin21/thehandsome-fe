@@ -24,6 +24,10 @@
         ul {
             display: flex;
             gap: 15px;
+
+            li {
+                cursor: pointer;
+            }
         }
     }
 

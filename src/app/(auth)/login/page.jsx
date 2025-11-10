@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link";
-import apiHelper from "@/api/apiHelper";
+import apiHelper from "@/utils/apiHelper";
 import useUserStore from "@/store/userStore";
 import UiInput from "@/components/ui/UiInput";
 import UiButton from "@/components/ui/UiButton";
@@ -33,30 +33,36 @@ const LoginPage = () => {
     const passwordValue = watch("password");
 
     const onSubmit = async (data) => {
-        await apiHelper.post("/login", data)
-            .then((res) => {
-                const { access_token, user } = res;
-                sessionStorage.setItem("accessToken", access_token);
-                setUser({
-                    accessToken: access_token,
-                    userId: user.user_id,
-                    userName: user.name
-                });
-                alert('로그인 되었습니다.')
-                router.push("/");
-            })
-            .catch((error) => {
-                const msg = error?.response?.data.detail
+        try {
+            const cookie = document.cookie ?? "";
 
-                if (Array.isArray(msg)) {
-                    msg.forEach(({ field, code }) => {
-                        const message = ERROR_MESSAGES[code].message;
-                        if (message) {
-                            setError(field, { type: "manual", message });
-                        }
-                    });
-                }
-            })
+            const res = await apiHelper.post(
+                "/login",
+                data,
+                {
+                    withCredentials: true // 쿠키 자동 전송
+                })
+            const { access_token, user } = res;
+            sessionStorage.setItem("accessToken", access_token);
+            setUser({
+                accessToken: access_token,
+                userId: user.user_id,
+                userName: user.name
+            });
+            alert('로그인 되었습니다.')
+            router.push("/");
+        } catch (error) {
+            const msg = error?.response?.data.detail
+
+            if (Array.isArray(msg)) {
+                msg.forEach(({ field, code }) => {
+                    const message = ERROR_MESSAGES[code].message;
+                    if (message) {
+                        setError(field, { type: "manual", message });
+                    }
+                });
+            }
+        }
     }
 
     const handleKakaoLogin = (e) => {}

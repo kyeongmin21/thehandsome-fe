@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import apiHelper from "@/api/apiHelper";
+import apiHelper from "@/utils/apiHelper";
 import UiInput from "@/components/ui/UiInput";
 import UiButton from "@/components/ui/UiButton";
 import UserForm from "@/components/forms/UserForm";

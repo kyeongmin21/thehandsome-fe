@@ -1,5 +1,5 @@
 'use client'
-import apiHelper from "@/api/apiHelper";
+import apiHelper from "@/utils/apiHelper";
 import UiInput from "@/components/ui/UiInput";
 import UiTextarea from "@/components/ui/UiTextarea";
 import UiButton from "@/components/ui/UiButton";

@@ -23,7 +23,7 @@ npm run serve
 - **react-hook-form**: 폼 관리 라이브러리
 - **@hookform/resolvers**: react-hook-form과 zod를 연결해주는 중간 모듈
 - **zod**: 스키마 유효성 검사 라이브러리
-
+- npx auth secret: 자동으로 .env.local 파일에 환경변수가 설정됨.
 
 ## 📂 폴더 구조 (예시)
 - `/components` - 공통 컴포넌트 모음
@@ -35,6 +35,7 @@ npm run serve
 
 ## 📂 백엔드 데이터 확인방법
 - 파이썬에서 `uvicorn app.main:app --reload --port 7000` 명령어 치기 
+- `npm run serve`로 짧은 스크립트로 작성함
 - main.py 안에서 FastAPI 인스턴스를 만들고 boards_router를 포함시켰죠.
 - FastAPI 서버는 main.py 안의 app을 실행해야 /boards 라우터까지 포함돼서 돌아갑니다.
 ``` 
@@ -56,6 +57,12 @@ npm run serve
 - 브라우저: 자동으로 HttpOnly 쿠키(refreshToken) 저장
 
 
+## middleware
+- /app 과 나란한 위치에 middleware.js 파일 생성 : 서버로 요청을 전달할 때, 페이지 접속할 때마다
+- /src/app/api/auth/[...nextauth]/route.js 파일 생성 : 로그인과 세션을 실제로 처리하는 핵심 서버 파일
+- [...nextauth] : “여기 로그인 성공했으니까 쿠키에 토큰 저장할게~”
+- middleware : “그 쿠키 아직 유효한가 확인해볼게~”
+- 이 두 개가 세트로 돌아가야 getToken()이 값을 가져올 수 있음!!
 
 
 

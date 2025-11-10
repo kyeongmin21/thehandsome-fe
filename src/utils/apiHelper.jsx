@@ -5,7 +5,8 @@ const api = axios.create({
     timeout: 10000, // 10초 안에 응답이 안 오면 자동으로 요청을 취소하고 에러 발생
     headers: {
         'Content-Type': 'application/json',
-    }
+    },
+    withCredentials: true, // 브라우저에게 "이 요청에는 인증 정보(쿠키, HTTP 인증 헤더 등)를 포함해야 해"라고 알려줌.
 });
 
 // 요청 인터셉터 (선택)

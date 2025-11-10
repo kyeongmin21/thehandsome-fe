@@ -1,5 +1,5 @@
 import UiButton from '@/components/ui/UiButton';
-import apiHelper from "@/api/apiHelper";
+import apiHelper from "@/utils/apiHelper";
 import dayjs from 'dayjs';
 
 export const boardColumns = (router) => [
