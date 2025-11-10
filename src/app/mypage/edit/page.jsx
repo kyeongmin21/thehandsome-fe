@@ -12,16 +12,9 @@ const Page = () => {
 
     const handleVerify = async () => {
         try {
-            const accessToken = sessionStorage.getItem('accessToken');
             const res = await apiHelper.post(
                 '/mypage/verify-password',
-                { password },
-                {
-                    headers: {
-                        'Authorization': `Bearer ${accessToken}`
-                    },
-                    withCredentials: true // 쿠키 전송
-                }
+                { password }
             )
             if (res.verified) {
                 setIsVerified(true);

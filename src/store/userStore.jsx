@@ -21,7 +21,7 @@ const useUserStore = create(
             // 로그아웃
             logout: async () => {
                 try {
-                    await apiHelper.post('/logout', {}, {withCredentials: true});
+                    await apiHelper.post('/logout');
                 } catch (error) {
                     console.log('서버 로그아웃 실패', error);
                 } finally {

@@ -34,14 +34,9 @@ const LoginPage = () => {
 
     const onSubmit = async (data) => {
         try {
-            const res = await apiHelper.post(
-                "/login",
-                data,
-                {
-                    withCredentials: true // 쿠키 자동 전송
-                })
-
+            const res = await apiHelper.post("/login", data)
             const { user, access_token } = res;
+
             setUser({ userId: user.user_id, userName: user.name });
             sessionStorage.setItem("accessToken", access_token);
 

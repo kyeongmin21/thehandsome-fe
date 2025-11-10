@@ -56,10 +56,7 @@ const UserForm = ({isEdit}) => {
                 alert(`회원정보가 수정되었습니다.`)
                 router.push('/mypage')
             } else {
-                const res = await apiHelper.post(
-                    "/join",
-                    data,
-                    )
+                const res = await apiHelper.post("/join", data)
                 alert(`${data.name}님 회원가입이 완료되었습니다.`)
                 router.push("/login")
             }
@@ -95,7 +92,7 @@ const UserForm = ({isEdit}) => {
         if (isEdit) {
             const fetchUserData = async () => {
                 try {
-                    const res = await apiHelper.get("/mypage/me"); // 내 정보 가져오는 API
+                    const res = await apiHelper.get("/mypage/me");
                     reset({
                         name: res.name,
                         email: res.email,
