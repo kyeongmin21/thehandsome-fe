@@ -4,16 +4,17 @@ import {
     getCoreRowModel,
     getSortedRowModel,
     getFilteredRowModel,
+    getPaginationRowModel,
     flexRender
 } from "@tanstack/react-table";
 import {useState} from "react";
 import UiButton from "@/components/ui/UiButton";
 import UiInput from "@/components/ui/UiInput";
 
-export default function DataTable({columns, data}) {
+export default function DataTable({columns = [], data = []}) {
     const [sorting, setSorting] = useState([]);
     const [columnFilters, setColumnFilters] = useState([]);
-    const [pagination, setPagination] = useState({pageIndex: 0, pageSize: 5}); // 한 페이지에 5개
+    const [pagination, setPagination] = useState({pageIndex: 0, pageSize: 10}); // 한 페이지에 10개
 
     const table = useReactTable({
         data,
@@ -25,7 +26,8 @@ export default function DataTable({columns, data}) {
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
-        pageCount: Math.ceil(data.length / pagination.pageSize),
+        getPaginationRowModel: getPaginationRowModel(),
+        pageCount: Math.max(1, Math.ceil((data?.length || 0) / pagination.pageSize)),
     });
 
     return (
@@ -41,9 +43,9 @@ export default function DataTable({columns, data}) {
             </div>
 
             {/* 테이블 */}
-            <table className="table-auto w-full border-collapse">
+            <table className="table-fixed w-full border-collapse">
                 <thead>
-                {table.getHeaderGroups().map((headerGroup, index) => (
+                {table.getHeaderGroups()?.map((headerGroup, index) => (
                     <tr key={headerGroup.id}>
                         {headerGroup.headers.map(header => (
                             <th
@@ -64,15 +66,23 @@ export default function DataTable({columns, data}) {
                 ))}
                 </thead>
                 <tbody>
-                {table.getRowModel().rows.map(row => (
-                    <tr key={row.id}>
-                        {row.getVisibleCells().map(cell => (
-                            <td key={cell.id} className="border-b border-gray-200 p-4">
-                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                            </td>
-                        ))}
+                {table.getRowModel().rows.length > 0 ? (
+                    table.getRowModel().rows.map(row => (
+                        <tr key={row.id}>
+                            {row.getVisibleCells().map(cell => (
+                                <td key={cell.id} className="border-b border-gray-200 p-4">
+                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                </td>
+                            ))}
+                        </tr>
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan={columns.length} className="text-center p-4">
+                           아직 등록된 게시물이 없습니다.
+                        </td>
                     </tr>
-                ))}
+                )}
                 </tbody>
             </table>
 

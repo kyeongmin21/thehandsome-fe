@@ -11,7 +11,7 @@ const BoardPage = () => {
     const router = useRouter();
     const [boards, setBoards] = useState([]);
     const fetchBoards = () => {
-        apiHelper.axios.get('/boards')
+        apiHelper.get('/boards')
             .then((res) => {
                 setBoards(res);
             })
