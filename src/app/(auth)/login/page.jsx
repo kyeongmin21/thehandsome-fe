@@ -105,7 +105,7 @@ const LoginPage = () => {
 
                 <div className='find-info'>
                     <ul>
-                        <li>아이디 찾기</li>
+                        <li><Link href='/find-id'>아이디 찾기</Link></li>
                         <li>비밀번호 찾기</li>
                     </ul>
                 </div>

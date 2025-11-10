@@ -2,12 +2,12 @@ import UiInput from "@/components/ui/UiInput";
 import ErrorMessage from "@/components/ui/ErrorMessage";
 import UiButton from "@/components/ui/UiButton";
 import {useRouter} from "next/navigation";
-import {useState, useEffect} from "react";
+import {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {joinSchema} from "@/utils/validators/join.schema";
-import apiHelper from "@/utils/apiHelper";
 import {ERROR_MESSAGES} from "@/constants/errorMsg";
+import apiHelper from "@/utils/apiHelper";
 
 
 const UserForm = ({isEdit}) => {
@@ -77,6 +77,19 @@ const UserForm = ({isEdit}) => {
         }
     }
 
+    const handleDelete = async () => {
+        if (!confirm('정말 탈퇴하시겠습니까? 😢')) return;
+        try {
+            await apiHelper.delete("/mypage/me");
+            alert('회원 탈퇴가 완료되었습니다.')
+            sessionStorage.removeItem("access_token");
+            router.push("/");
+        } catch (error) {
+            console.error("회원 탈퇴 실패:", error);
+            alert("회원 탈퇴 중 오류가 발생했습니다.");
+        }
+    }
+
     // 수정 모드이면 내 정보 GET
     useEffect(() => {
         if (isEdit) {
@@ -101,7 +114,6 @@ const UserForm = ({isEdit}) => {
             fetchUserData();
         }
     }, [isEdit, reset]);
-
 
     return (
      <>
@@ -181,7 +193,8 @@ const UserForm = ({isEdit}) => {
              {isEdit && <UiButton className='mt-5'
                                   size='s'
                                   color='grayText'
-                                  btnText='탈퇴하기' />}
+                                  btnText='탈퇴하기'
+                                  onClick={handleDelete}/>}
          </form>
      </>
     )
