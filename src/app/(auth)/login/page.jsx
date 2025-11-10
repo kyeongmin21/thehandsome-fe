@@ -34,23 +34,20 @@ const LoginPage = () => {
 
     const onSubmit = async (data) => {
         try {
-            const cookie = document.cookie ?? "";
-
             const res = await apiHelper.post(
                 "/login",
                 data,
                 {
                     withCredentials: true // 쿠키 자동 전송
                 })
-            const { access_token, user } = res;
+
+            const { user, access_token } = res;
+            setUser({ userId: user.user_id, userName: user.name });
             sessionStorage.setItem("accessToken", access_token);
-            setUser({
-                accessToken: access_token,
-                userId: user.user_id,
-                userName: user.name
-            });
+
             alert('로그인 되었습니다.')
             router.push("/");
+
         } catch (error) {
             const msg = error?.response?.data.detail
 
@@ -65,7 +62,7 @@ const LoginPage = () => {
         }
     }
 
-    const handleKakaoLogin = (e) => {}
+    const handleKakaoLogin = () => {}
 
     return (
         <div className='flex-center'>

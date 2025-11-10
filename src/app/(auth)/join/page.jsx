@@ -1,6 +1,5 @@
 'use client'
 import UserForm from "@/components/forms/UserForm";
-import {useState} from "react";
 
 const JoinPage = () => {
 

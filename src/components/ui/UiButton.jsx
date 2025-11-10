@@ -15,6 +15,7 @@ const colorMap = {
     grayFill: 'bg-gray-300 text-white',
     yellowFill: 'bg-yellow-300',
     blackText: 'btn-black-text',
+    grayText: 'text-gray-500',
     whiteText: 'btn-white-text',
     none: 'border-none bg-transparent text-black'
 };

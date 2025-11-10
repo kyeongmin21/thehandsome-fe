@@ -5,18 +5,16 @@ import apiHelper from "@/utils/apiHelper";
 const useUserStore = create(
     persist(
         (set) => ({
-            accessToken: null,
             userId: null,
             userName: null,
             isLoginIn: false,
 
             // 로그인 성공 시 상태 저장
-            setUser: ({ accessToken, userId, userName }) => {
+            setUser: ({ userId, userName }) => {
                 set({
-                    accessToken,
                     userId,
                     userName,
-                    isLoginIn: !!accessToken
+                    isLoginIn: true,
                 });
             },
 
@@ -29,14 +27,11 @@ const useUserStore = create(
                 } finally {
                     // 상태 초기화
                     set({
-                        accessToken: null,
                         userId: null,
                         userName: null,
                         isLoginIn: false
                     });
-                    sessionStorage.removeItem("accessToken");
                 }
-
             },
 
         }),

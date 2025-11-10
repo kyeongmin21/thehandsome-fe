@@ -6,17 +6,23 @@ import UiButton from "@/components/ui/UiButton";
 import UserForm from "@/components/forms/UserForm";
 import {ERROR_MESSAGES} from "@/constants/errorMsg";
 
-
-
-const Page = (data) => {
+const Page = () => {
     const [password, setPassword] = useState("");
     const [isVerified, setIsVerified] = useState(false);
 
     const handleVerify = async () => {
         try {
-            const res = await apiHelper.post('/mypage/verify-password', {
-                password,
-            })
+            const accessToken = sessionStorage.getItem('accessToken');
+            const res = await apiHelper.post(
+                '/mypage/verify-password',
+                { password },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    },
+                    withCredentials: true // 쿠키 전송
+                }
+            )
             if (res.verified) {
                 setIsVerified(true);
             }

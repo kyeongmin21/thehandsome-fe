@@ -32,6 +32,7 @@ const UserForm = ({isEdit}) => {
             phone: '',
             login_type: '',
             address: '',
+            birth_date: '',
         }
     })
 
@@ -40,14 +41,27 @@ const UserForm = ({isEdit}) => {
     const passwordValue = watch("password");
 
     const onSubmit = async (data) => {
+
+        if (isEdit) {
+            const fieldsToWatch = ['address', 'marketing_agree', 'birth_date'];
+            fieldsToWatch.forEach(name => {
+                if (data[name] === undefined) {
+                    data[name] = watch(name);
+                }
+            });
+        }
         try {
             if (isEdit) {
-                const res = await apiHelper.post("/join", data)
+                const res = await apiHelper.put("/mypage/me", data)
                 alert(`회원정보가 수정되었습니다.`)
+                router.push('/mypage')
             } else {
-                const res = await apiHelper.post("/join", data)
+                const res = await apiHelper.post(
+                    "/join",
+                    data,
+                    )
                 alert(`${data.name}님 회원가입이 완료되었습니다.`)
-                router.push("/")
+                router.push("/login")
             }
         } catch (error) {
             const msg = error?.response?.data.detail
@@ -60,10 +74,8 @@ const UserForm = ({isEdit}) => {
                     }
                 });
             }
-
         }
     }
-
 
     // 수정 모드이면 내 정보 GET
     useEffect(() => {
@@ -75,11 +87,12 @@ const UserForm = ({isEdit}) => {
                         name: res.name,
                         email: res.email,
                         user_id: res.user_id,
-                        phone: res.phone,
                         login_type: res.login_type,
-                        address: res.address || '',
                         password: '',
-                        passwordConfirm: ''
+                        passwordConfirm: '',
+                        phone: res.phone,
+                        address: res.address || '',
+                        birth_date: res.birth_date || ''
                     });
                 } catch (error) {
                     console.log("유저 정보 가져오기 실패", error);
@@ -88,7 +101,6 @@ const UserForm = ({isEdit}) => {
             fetchUserData();
         }
     }, [isEdit, reset]);
-
 
 
     return (
@@ -149,6 +161,14 @@ const UserForm = ({isEdit}) => {
                          className='mt-5'
                          placeholder='주소를 입력해 주세요.' />
                      <ErrorMessage message={errors.address?.message} />
+
+                     <UiInput
+                         label="생년월일"
+                         type='date'
+                         {...register('birth_date')}
+                         className='mt-5'
+                         placeholder='생년월일을 입력해 주세요.' />
+                     <ErrorMessage message={errors.birth_date?.message} />
                  </>
              )}
              <UiButton
@@ -158,7 +178,10 @@ const UserForm = ({isEdit}) => {
                  color={idValue && passwordValue && isValid ? 'blackFill' : 'grayFill'}
                  className='w-full mt-7' />
 
-             {isEdit && <UiButton btnText='탈퇴하기' />}
+             {isEdit && <UiButton className='mt-5'
+                                  size='s'
+                                  color='grayText'
+                                  btnText='탈퇴하기' />}
          </form>
      </>
     )

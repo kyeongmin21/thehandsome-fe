@@ -12,7 +12,7 @@ export default () => {
     const login = useUserStore((state) => state.isLoginIn);
     const logout = useUserStore((state) => state.logout);
     const router = useRouter();
-
+    const setUser = useUserStore((state) => state.setUser);
 
     const handleLogout = () => {
         const isConfirmed = confirm('로그아웃 하시겠습니까?');
@@ -33,13 +33,14 @@ export default () => {
 
     useEffect(() => {
         setMounted(true);
+
         const handleScroll = () => {
             setScrolled(window.scrollY > 0);
         };
         window.addEventListener("scroll", handleScroll);
+
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
-    if (!mounted) return null;
 
     return (
         <div className={`header ${scrolled ? "scrolled" : ""}`}>

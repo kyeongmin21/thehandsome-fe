@@ -46,7 +46,11 @@ const UiInput = forwardRef(function UiInput({
                 {type ==='password' && (
                     <div className="eyes-icon"
                           onClick={handleShowPassword}>
-                        {showPassword ? (<span><LuEye /></span>) : (<span><LuEyeClosed /></span>)}
+                        {showPassword ? (
+                            <span><LuEye className="text-black" /></span>
+                        ) : (
+                            <span><LuEyeClosed className="text-black" /></span>
+                        )}
                     </div>
                 )}
             </Field>
