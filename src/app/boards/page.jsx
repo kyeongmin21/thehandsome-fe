@@ -25,7 +25,11 @@ const BoardPage = () => {
         <div className="boards">
             <div className="boards-wrap board-list">
                 <div className="boards-table">
-                    <DataTable columns={boardColumns(router)} data={boards}/>
+                    <DataTable
+                        columns={boardColumns(router)}
+                        data={boards}
+                        isSearch={true}
+                    />
                 </div>
                 <Link href='/boards/write'>
                     <UiButton btnText='작성하기' size='s'/>

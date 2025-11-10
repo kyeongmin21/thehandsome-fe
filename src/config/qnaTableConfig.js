@@ -18,7 +18,7 @@ export const qnaColumns = (router) => [
         cell: ({row}) => (
             <div className="cell"
                  style={{ cursor: 'pointer' }}
-                 onClick={() => router.push(`/boards/${row.original.id}`)}>{row.original.title}</div>
+                 onClick={() => router.push(`/qna/${row.original.id}`)}>{row.original.title}</div>
         )
     },
     {

@@ -8,7 +8,8 @@ import { LuEye, LuEyeClosed } from "react-icons/lu"
 const UiInput = forwardRef(function UiInput({
         label,
         description,
-        name, value,
+        name,
+        value,
         onChange,
         placeholder,
         className,

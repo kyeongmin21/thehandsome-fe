@@ -1,10 +1,12 @@
 'use client'
 
+import Link from "next/link";
+import apiHelper from "@/utils/apiHelper";
 import DataTable from "@/components/ui/UiTable";
 import {qnaColumns} from "@/config/qnaTableConfig";
 import {useEffect, useState} from "react";
-import apiHelper from "@/utils/apiHelper";
 import {useRouter} from "next/navigation";
+
 
 const MyQna = () => {
     const router = useRouter();
@@ -23,7 +25,10 @@ const MyQna = () => {
         <div>
             <h2>1:1문의</h2>
             <hr />
+            <Link href='/mypage/qna/write' className='' style={{border: '1px solid red;'}}>문의하기</Link>
+            <a href=""></a>
             <DataTable columns={qnaColumns(router)} data={qnaList}/>
+
         </div>
     )
 }

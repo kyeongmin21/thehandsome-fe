@@ -11,7 +11,7 @@ import {useState} from "react";
 import UiButton from "@/components/ui/UiButton";
 import UiInput from "@/components/ui/UiInput";
 
-export default function DataTable({columns = [], data = []}) {
+export default function DataTable({columns = [], data = [], isSearch}) {
     const [sorting, setSorting] = useState([]);
     const [columnFilters, setColumnFilters] = useState([]);
     const [pagination, setPagination] = useState({pageIndex: 0, pageSize: 10}); // 한 페이지에 10개
@@ -33,14 +33,15 @@ export default function DataTable({columns = [], data = []}) {
     return (
         <>
             {/* 검색 */}
-            <div className="flex justify-end mb-2">
+            {isSearch && <div className="flex justify-end mb-2">
                 <UiInput
                     type="text"
                     placeholder="검색"
                     onChange={(e) => {
                         table.getColumn("title")?.setFilterValue(e.target.value);
                     }}/>
-            </div>
+            </div>}
+
 
             {/* 테이블 */}
             <table className="table-fixed w-full border-collapse">
