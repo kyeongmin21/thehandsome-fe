@@ -1,7 +1,7 @@
 'use client'
 
 import QnaForm from "@/components/forms/qnaForm";
-import {useEffect} from "react";
+import {useEffect, Suspense} from "react";
 
 const QnaEdit = () => {
 
@@ -13,7 +13,9 @@ const QnaEdit = () => {
         <>
             <h2>1:1문의 수정</h2>
             <hr />
-            <QnaForm mode='edit' />
+            <Suspense fallback={<p>Loading...</p>}>
+                <QnaForm mode='edit' />
+            </Suspense>
         </>
     )
 }

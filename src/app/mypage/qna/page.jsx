@@ -4,7 +4,7 @@ import Link from "next/link";
 import apiHelper from "@/utils/apiHelper";
 import DataTable from "@/components/ui/UiTable";
 import {qnaColumns} from "@/config/qnaTableConfig";
-import {useEffect, useState} from "react";
+import {useEffect, useState, Suspense} from "react";
 import {useRouter} from "next/navigation";
 import { MdArrowForwardIos } from "react-icons/md";
 
@@ -30,7 +30,9 @@ const MyQna = () => {
                   className='flex justify-end mb-5'>문의하기
                 <div className='pt-1 ml-2'><MdArrowForwardIos /></div>
             </Link>
-            <DataTable columns={qnaColumns(router)} data={qnaList}/>
+            <Suspense fallback={<p>Loading...</p>}>
+                <DataTable columns={qnaColumns(router)} data={qnaList}/>
+            </Suspense>
         </div>
     )
 }

@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import QnaForm from "@/components/forms/qnaForm";
 import apiHelper from '@/utils/apiHelper';
-import UiButton from '@/components/ui/UiButton';
-
 
 const QnaDetail = () => {
     const { id } = useParams();
@@ -26,7 +24,7 @@ const QnaDetail = () => {
         fetchQna();
     }, [id]);
 
-    if (!qna) return <p>로딩 중...</p>;
+    if (!qna) return <p>Loading...</p>;
 
     return (
         <>
