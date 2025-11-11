@@ -37,7 +37,7 @@ const LoginPage = () => {
             const res = await apiHelper.post("/login", data)
             const { user, access_token } = res;
 
-            setUser({ userId: user.user_id, userName: user.name });
+            setUser({ userId: user.user_id, userName: user.name, role: user.role });
             sessionStorage.setItem("accessToken", access_token);
 
             alert('로그인 되었습니다.')

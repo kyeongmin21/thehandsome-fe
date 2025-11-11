@@ -15,8 +15,6 @@ const QnaDetail = () => {
             try {
                 const res = await apiHelper.get(`/mypage/qna/${id}`);
                 setQna(res);
-
-                console.log('읽기 res', res)
             } catch (error) {
                 console.error('QnA 불러오기 실패:', error);
             }

@@ -17,7 +17,6 @@ const QnaForm = ({ mode }) => {
     const isWrite = mode === 'write';
     const isView = mode === 'view';
 
-    console.log('mode', mode)
     const {
         watch,
         reset,

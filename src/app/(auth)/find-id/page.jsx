@@ -16,7 +16,6 @@ const FindIdPage = () => {
     });
 
     const onSubmit = async (data) => {
-        console.log('data' , data.email);
         try {
             const res = await apiHelper.post(
                 "/find/id",

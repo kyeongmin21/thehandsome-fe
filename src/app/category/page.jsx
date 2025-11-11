@@ -13,7 +13,6 @@ export default function CategoryPage() {
     const fetchProducts = () => {
         apiHelper.axios.get('http://localhost:3001/products')
             .then((res) => {
-                console.log('res', res);
                 setProducts(res)
             })
             .catch((err) => console.error(err));

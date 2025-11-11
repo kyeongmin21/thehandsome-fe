@@ -19,9 +19,6 @@ export default function MapPage() {
     const [selectValue, setSelectValue] = useState('')
     const [switchValue, setSwitchValue] = useState(true);
 
-    const handleSave = () => console.log('text 상태:', text);
-    const handleMemoSave = () => console.log('memo:', memo);
-    const handleSelectSave = () => console.log('select:', selectValue);
     const toggleSwitch = () => setSwitchValue(!switchValue);
     const toggleModal = () => setShowModal(!showModal)
 

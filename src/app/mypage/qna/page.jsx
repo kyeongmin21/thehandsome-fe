@@ -15,7 +15,6 @@ const MyQna = () => {
         apiHelper.get('/mypage/qna')
             .then(res => {
                 setQnaList(res);
-                console.log('res 확인', res)
             })
     }
 

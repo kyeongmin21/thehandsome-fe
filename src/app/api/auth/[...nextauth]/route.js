@@ -17,9 +17,6 @@ const handler = NextAuth({
 
                 const user = res.data.user
                 const token = res.data.access_token
-                console.log('확인!! user', user, )
-                console.log('확인!! token', token, )
-
                 return null;
             },
         }),
