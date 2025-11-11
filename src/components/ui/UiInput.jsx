@@ -41,7 +41,7 @@ const UiInput = forwardRef(function UiInput({
                         'border-b border-gray-300',
                         'focus:border-b focus:border-black',
                         'focus:outline-none',
-                        'disabled:bg-gray-100 disabled:text-gray-500 disabled:cursor-not-allowed'
+                        'disabled:text-gray-500 disabled:border-none disabled:bg-transparent disabled:cursor-not-allowed'
                     )}
                 />
                 {type ==='password' && (

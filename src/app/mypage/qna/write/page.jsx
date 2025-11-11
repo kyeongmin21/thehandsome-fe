@@ -6,7 +6,7 @@ const QnaWrite = () => {
         <>
             <h2>1:1문의</h2>
             <hr />
-            <QnaForm />
+            <QnaForm mode='write'/>
         </>
     )
 }

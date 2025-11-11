@@ -1,7 +1,6 @@
-
 import dayjs from 'dayjs';
 
-export const qnaColumns = (router) => [
+export const qnaColumns = (router, isAdmin = false) => [
     {
         accessorKey: "id",
         header: "번호",
@@ -18,7 +17,7 @@ export const qnaColumns = (router) => [
         cell: ({row}) => (
             <div className="cell"
                  style={{ cursor: 'pointer' }}
-                 onClick={() => router.push(`/qna/${row.original.id}`)}>{row.original.title}</div>
+                 onClick={() => router.push(`/mypage/qna/${row.original.id}`)}>{row.original.title}</div>
         )
     },
     {
@@ -33,15 +32,31 @@ export const qnaColumns = (router) => [
             );
         },
     },
-
     {
-        accessorKey: "status",
+        accessorKey: "status_label",
         header: "상태",
         size: 200,
-        cell: ({row}) => (
-            <div className="cell" style={{textAlign: "center"}}>
-
-            </div>
+        cell: ({getValue}) => (
+            <div className="cell"
+                 style={{textAlign: "center"}}>{getValue()}</div>
         ),
     },
+    ...(isAdmin ? [
+        {
+            accessorKey: "author_id",
+            header: "작성자 ID",
+            size: 150,
+            cell: ({getValue}) => (
+                <div className="cell" style={{textAlign: "center"}}>{getValue()}</div>
+            ),
+        },
+        {
+            accessorKey: "author_name",
+            header: "작성자 이름",
+            size: 150,
+            cell: ({getValue}) => (
+                <div className="cell" style={{textAlign: "center"}}>{getValue()}</div>
+            ),
+        }
+    ] : [])
 ];

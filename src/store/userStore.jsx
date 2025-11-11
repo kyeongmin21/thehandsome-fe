@@ -7,13 +7,15 @@ const useUserStore = create(
         (set) => ({
             userId: null,
             userName: null,
+            role: null,
             isLoginIn: false,
 
             // 로그인 성공 시 상태 저장
-            setUser: ({ userId, userName }) => {
+            setUser: ({ userId, userName, role }) => {
                 set({
                     userId,
                     userName,
+                    role,
                     isLoginIn: true,
                 });
             },
@@ -25,12 +27,8 @@ const useUserStore = create(
                 } catch (error) {
                     console.log('서버 로그아웃 실패', error);
                 } finally {
-                    // 상태 초기화
-                    set({
-                        userId: null,
-                        userName: null,
-                        isLoginIn: false
-                    });
+                    localStorage.removeItem("userStorage");
+                    sessionStorage.removeItem("accessToken");
                 }
             },
 
