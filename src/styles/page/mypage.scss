@@ -2,8 +2,13 @@
 @use '../colors' as *;
 @use '@/styles/ui/font';
 
+.mypage-cont {
+    border: 1px solid blue;
+    padding: 150px 50px 30px;
+}
 
 .layout-left {
+
     h4 {
         font-size: 22px;
         margin: 0 0 20px;
@@ -35,7 +40,6 @@
     }
 
 }
-
 
 .layout-right {
     flex: 1;

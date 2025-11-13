@@ -12,17 +12,17 @@ const menuList = [
 
 export default function MyPageLayout({ children }) {
     const pathname = usePathname(); // 현재 URL
-    const currentMenuId = pathname.split("/").pop();
 
     return (
-        <div className="flex w-[90%] mx-auto h-full mt-10">
+        <div className="mypage-cont flex">
 
             {/* 왼쪽 메뉴 */}
             <div className="w-60 layout-left">
                 {menuList.map((menu) => {
                     const href = menu.id ? `/mypage/${menu.id}` : `/mypage`;
                     const isActive =
-                        (menu.id === "" && pathname === "/mypage") || currentMenuId === menu.id;
+                        (menu.id === "" && pathname === "/mypage") ||
+                        (menu.id && pathname.startsWith(`/mypage/${menu.id}`));
 
                     return (
                         <Link href={href}

@@ -4,6 +4,7 @@ import useUserStore from "@/store/userStore";
 export default function InfoPage() {
 
     const userName = useUserStore((state) => state.userName);
+    const userId = useUserStore((state) => state.userId);
     return (
         <div>
             <h2>마이페이지</h2>
@@ -11,6 +12,7 @@ export default function InfoPage() {
             <div className="my-page-info">
                 <ul>
                     <li>
+                        <span className='title'>{userId}</span>
                         <span className='text'>{userName}</span>님
                     </li>
                     <li>

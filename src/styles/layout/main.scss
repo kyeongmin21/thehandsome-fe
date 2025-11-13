@@ -1,0 +1,54 @@
+@use '../colors' as *;
+
+.main-banner {
+    position: relative;
+
+    /* 왼쪽/오른쪽 버튼 기본 스타일 */
+    .swiper-button-prev,
+    .swiper-button-next {
+        color: map-get($color, lightgray);
+        opacity: 0;
+        transition: opacity 0.3s, color 0.3s;
+        pointer-events: auto;       // disabled도 hover 가능하게
+    }
+
+    /* 배너 hover 시 버튼 나타나게 */
+    &:hover .swiper-button-prev,
+    &:hover .swiper-button-next {
+        cursor: pointer;
+        opacity: 1 !important;     // Swiper 기본값 덮어쓰기
+    }
+
+    /* 버튼 hover 시 흰색으로 변경 */
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover,
+    .swiper-button-prev.swiper-button-disabled:hover,
+    .swiper-button-next.swiper-button-disabled:hover {
+        cursor: pointer;
+        color: map-get($color, white) !important;
+    }
+
+    /* disabled 상태도 배너 hover 시 보이도록 */
+    .swiper-button-prev.swiper-button-disabled,
+    .swiper-button-next.swiper-button-disabled {
+        opacity: 0;                // 기본 상태에서는 안보이게
+        pointer-events: auto;      // 그래도 hover 가능
+    }
+
+    &:hover .swiper-button-prev.swiper-button-disabled,
+    &:hover .swiper-button-next.swiper-button-disabled {
+        opacity: 1 !important;
+    }
+
+    .swiper-pagination-bullet {
+        color: #fff!important;
+        border-radius: 0!important;
+        width: 2px;
+        height: 10px;
+
+        &-active {
+            background-color: map-get($color, lightgray);
+        }
+    }
+
+}
