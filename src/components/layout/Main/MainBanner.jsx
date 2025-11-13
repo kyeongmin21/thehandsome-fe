@@ -20,9 +20,8 @@ const MainBanner = () => {
                     slidesPerView={1}
                     autoplay={{
                         delay: 3000,
-                        disableOnInteraction: false, // 사용자가 조작해도 자동 슬라이드 계속
-                    }}
-                >
+                        disableOnInteraction: false,
+                    }}>
                     {bannerSlides.map((slide, idx) => (
                         <SwiperSlide key={idx}>
                             <div className="relative w-full">

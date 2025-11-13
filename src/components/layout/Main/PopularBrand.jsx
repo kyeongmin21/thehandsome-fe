@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 
 const PopularBrand = () => {
     return (
-        <div className='main-layout'>
+        <div className='layout-custom bullet-swiper-cont'>
             <h2>인기 브랜드 신상품</h2>
             <Swiper
                 className='swiper'

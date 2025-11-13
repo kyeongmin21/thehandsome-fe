@@ -2,12 +2,14 @@
 
 import MainBanner from "@/components/layout/Main/MainBanner";
 import PopularBrand from "@/components/layout/Main/PopularBrand";
+import NewItem from "@/components/layout/Main/NewItem";
 
 export default function Home() {
     return (
         <>
-            <MainBanner  style={{ border: '2px solid red; '}}/>
-            <PopularBrand style={{ border: '2px solid red; '}}/>
+            <MainBanner />
+            <PopularBrand />
+            <NewItem />
         </>
     )
 }

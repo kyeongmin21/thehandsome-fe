@@ -190,3 +190,19 @@ export const popularSlides = [
         src: 'https://cdn-img.thehandsome.com/studio/goods/CM/2F/FW/CM2FBQOT381WM1_BK_W01.jpg?RS=700x1055',
     },
 ]
+
+
+export const eventBanner = [
+    {
+        id: 1,
+        src: 'https://cdn-img.thehandsome.com/attachment/display/2023/12/28/69634583-c775-4269-9a3f-8e3f15dfd5ff_10.jpg?AO=1',
+    },
+    {
+        id: 2,
+        src: 'https://cdn-img.thehandsome.com/attachment/display/2023/02/20/42d7463a-4f56-4bcf-adce-28a8c016fb8f_10.jpg?AO=1',
+    },
+    {
+        id: 3,
+        src: 'https://cdn-img.thehandsome.com/attachment/display/2025/01/08/46ab658f-6ad1-4b54-995a-d0daef2df3f3_10.jpg?AO=1',
+    },
+]
