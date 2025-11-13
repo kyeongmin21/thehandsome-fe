@@ -1,8 +1,8 @@
 'use client'
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import { bannerSlides } from "@/config/MainBannerConfig";
+import { Navigation, Pagination, Autoplay} from "swiper/modules";
+import { bannerSlides } from "@/config/MainPageConfig";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -10,9 +10,9 @@ import "swiper/css/pagination";
 const MainBanner = () => {
     return (
         <>
-            <div className="main-banner relative w-full h-[400px]">
+            <div className="main-banner relative w-full">
                 <Swiper
-                    modules={[Navigation, Pagination]}
+                    modules={[Navigation, Pagination, Autoplay]}
                     navigation
                     loop={true}
                     pagination={{ clickable: true }}
@@ -23,14 +23,14 @@ const MainBanner = () => {
                         disableOnInteraction: false, // 사용자가 조작해도 자동 슬라이드 계속
                     }}
                 >
-                    {bannerSlides.map((slide, index) => (
-                        <SwiperSlide key={index}>
+                    {bannerSlides.map((slide, idx) => (
+                        <SwiperSlide key={idx}>
                             <div className="relative w-full">
                                 <Image
                                     src={slide.src}
                                     width={1920}
                                     height={960}
-                                    alt={`메인 배너 이미지 ${index + 1}`}
+                                    alt={`메인 배너 이미지 ${idx + 1}`}
                                     style={{ width: "100%", height: "auto" }}
                                 />
                                 {/* 텍스트 오버레이 */}

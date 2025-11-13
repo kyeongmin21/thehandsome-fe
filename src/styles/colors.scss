@@ -1,7 +1,8 @@
 // 색상 변수 설정
 // 사용방법
 // @use '../colors' as *;
-// color: map-get($color, gray);
+// @use "sass:map";
+// color: map.get($color, gray);
 
 $color: (
         white: #fff,
