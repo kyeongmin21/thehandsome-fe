@@ -29,8 +29,8 @@ const MainBanner = () => {
                                     src={slide.src}
                                     width={1920}
                                     height={960}
+                                    priority
                                     alt={`메인 배너 이미지 ${idx + 1}`}
-                                    style={{ width: "100%", height: "auto" }}
                                 />
                                 {/* 텍스트 오버레이 */}
                                 <div className="absolute inset-0 flex flex-col justify-center items-left text-left text-white px-20 pt-30 animate-fadeIn">

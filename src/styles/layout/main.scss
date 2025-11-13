@@ -1,6 +1,10 @@
 @use '../colors' as *;
 @use "sass:map";
 
+.layout-custom {
+    margin: 80px 50px;
+}
+
 .main-banner {
     position: relative;
 
@@ -54,17 +58,9 @@
 
 }
 
-
-.layout-custom {
-    margin: 100px 50px;
-}
-
-
 .bullet-swiper-cont {
-
-
     .swiper {
-        padding: 20px 0 50px;
+        padding-top: 20px;
     }
     .swiper-wrapper {
         /* 그리드 모드에서 flex-direction을 column으로 강제 */
@@ -79,7 +75,6 @@
         background: #eee;
     }
 
-
     .swiper-pagination-progressbar {
         background: #eee;
         height: 1px!important;
@@ -88,8 +83,6 @@
     .swiper-pagination-progressbar-fill {
         background: #000!important;
     }
-
-
 
     /* 페이지네이션 전체 위치 조정 */
     :is(.swiper-horizontal > .swiper-pagination-bullets,
@@ -125,5 +118,28 @@
 
 }
 
+.bg-light-gray {
+    background-color: #f8f8f8;
+}
 
+.new-items {
+
+    .tab-panels {
+        position: relative!important;
+    }
+    .swiper {
+        position: unset!important;
+    }
+    .swiper-button-prev {
+        color: #333!important;
+        width: 15px!important;
+        left: -30px!important;
+    }
+
+    .swiper-button-next {
+        color: #333!important;
+        width: 15px!important;
+        right: -30px!important;
+    }
+}
 

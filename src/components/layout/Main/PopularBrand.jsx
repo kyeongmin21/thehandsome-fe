@@ -25,8 +25,8 @@ const PopularBrand = () => {
                     <SwiperSlide key={idx}>
                         <Image src={item.src}
                                width={200}
-                               height={250}
-                                alt='인기브랜드 이미지'/>
+                               height={302}
+                               alt={`배너 이미지 ${idx + 1}`}/>
                     </SwiperSlide>
                 ))}
             </Swiper>

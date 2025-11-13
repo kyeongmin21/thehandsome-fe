@@ -2,34 +2,85 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper/modules";
 import {eventBanner} from "@/config/MainPageConfig";
 import Image from "next/image";
+import {Tab} from '@headlessui/react'
+import { newItems } from "@/config/MainPageConfig";
+
 
 const newItem = () => {
     return (
-        <div className="main-banner layout-custom">
-            <Swiper
-                className='swiper'
-                modules={[Navigation, Pagination, Autoplay]}
-                navigation
-                loop={true}
-                pagination={{ clickable: true }}
-                slidesPerView={1}
-                autoplay={{
-                    delay: 3000,
-                    disableOnInteraction: false,
-                }}>
-                {eventBanner.map((slide, idx) => (
-                    <SwiperSlide key={idx}>
-                        <Image
-                            src={slide.src}
-                            width={1920}
-                            height={300}
-                            alt={`띠배너 이미지 ${idx + 1}`}
-                            style={{ width: "100%", height: "auto" }}
-                        />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
+        <>
+            <div className="bg-light-gray py-1 new-items">
+                <div className='layout-custom'>
+                    <h2>새로 들어온 신상품</h2>
+                    <Tab.Group>
+                        <div className="flex w-full">
+                            <Tab.List className="flex flex-col w-1/4 text-lg">
+                                {newItems.map((category) => (
+                                    <Tab key={category.cate}
+                                         className={({ selected }) =>
+                                             `py-2 text-left focus:outline-none ${selected ? 'font-semibold' : 'font-normal '}`
+                                         }>
+                                        {category.cate} {/* 탭 이름 표시 */}
+                                    </Tab>
+                                ))}
+                            </Tab.List>
+
+                            {/* 오른쪽 내용 */}
+                            <Tab.Panels className="w-3/4 tab-panels mr-5">
+                                {newItems.map((category) => (
+                                    <Tab.Panel key={category.cate}>
+                                        <Swiper
+                                            key={category.cate}
+                                            observer={true}
+                                            observeParents={true}
+                                            modules={[Navigation]}
+                                            navigation
+                                            spaceBetween={20}
+                                            slidesPerView={5}>
+                                            {category.items.map((item, index) => (
+                                                <SwiperSlide key={index}>
+                                                    <div className="text-sm">
+                                                        <img src={item.src} alt={item.name} className="w-full h-full object-cover" />
+                                                        <p className='mt-3 text-center font-semibold'>{item.brand}</p>
+                                                        <p className="mt-1 text-center">{item.name}</p>
+                                                        <p className="mt-2 text-center font-semibold">{item.price.toLocaleString()}</p>
+                                                    </div>
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+                                    </Tab.Panel>
+                                ))}
+                            </Tab.Panels>
+                        </div>
+                    </Tab.Group>
+                </div>
+            </div>
+            <div className="main-banner layout-custom">
+                <Swiper
+                    className='swiper'
+                    modules={[Navigation, Pagination, Autoplay]}
+                    navigation
+                    loop={true}
+                    pagination={{ clickable: true }}
+                    slidesPerView={1}
+                    autoplay={{
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    }}>
+                    {eventBanner.map((slide, idx) => (
+                        <SwiperSlide key={idx}>
+                            <Image
+                                src={slide.src}
+                                width={1920}
+                                height={300}
+                                alt={`띠배너 이미지 ${idx + 1}`}
+                                style={{ width: "100%", height: "auto" }}
+                            />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+        </>
     )
 }
 

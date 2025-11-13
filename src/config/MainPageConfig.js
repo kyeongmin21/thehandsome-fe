@@ -192,6 +192,81 @@ export const popularSlides = [
 ]
 
 
+export const newItems = [
+    {
+        id: 1,
+        cate: '여성',
+        items: [
+            { brand: 'O2nd', name: '울 블렌드 칼라 니트 탑', price: 298000, src: 'https://cdn-img.thehandsome.com/studio/goods/O2/2F/FW/O22FBKTO744W_CR_W01.jpg?RS=492x748' },
+            { brand: 'VERONICA BEARD', name: '키샤 탑', price: 29000, src: 'https://cdn-img.thehandsome.com/studio/goods/VB/2F/FW/VB2F9TTO001W_WT_W01.jpg?RS=492x748' },
+            { brand: 'RE/DONE', name: '슈렁큰 봄버', price: 1350000, src: 'https://cdn-img.thehandsome.com/studio/goods/RE/2F/FW/RE2F9WJM302W_BK_W01.jpg?RS=492x748' },
+            { brand: 'LANVIN COLLECTION', name: '벨티드 와이드 데님 팬츠', price: 565000, src: 'https://cdn-img.thehandsome.com/studio/goods/LC/2F/FW/LC2F9NPC241W_BK_W01.jpg?RS=492x748' },
+            { brand: 'SYSTEM', name: '울 밴딩 와이드 팬츠', price: 395000, src: 'https://cdn-img.thehandsome.com/studio/goods/SY/2F/FW/SY2FBWPC427W_SG_W01.jpg?RS=492x748' },
+            { brand: 'SJSJ', name: '여성 원피스', price: 355000, src: 'https://cdn-img.thehandsome.com/studio/goods/SJ/2F/FW/SJ2FBWSH807WP1_PK_W01.jpg?RS=492x748' },
+            { brand: 'OBZEE', name: '알파카 블렌드', price: 495000, src: 'https://cdn-img.thehandsome.com/studio/goods/OB/2F/FW/OB2FBWPC334W_IV_W02.jpg?RS=492x748' },
+            { brand: 'LANVIN', name: '펜슬 스커트', price: 2290000, src: 'https://cdn-img.thehandsome.com/studio/goods/LV/2F/SS/LV2F1WSC002W_BK_W01.jpg?RS=492x748' },
+
+        ]
+    },
+    {
+        id: 2,
+        cate: '남성',
+        items: [
+            { brand: 'RE/DONE', name: '남성 셔츠', price: 70000, src: '/images/men-shirt.jpg' },
+            { brand: 'SYSTEM', name: '남성 바지', price: 90000, src: '/images/men-pants.jpg' },
+            { brand: 'ZARA', name: '남성 니트', price: 50000, src: '/images/men-knit.jpg' },
+            { brand: 'MANGO', name: '남성 재킷', price: 120000, src: '/images/men-jacket.jpg' },
+            { brand: 'H&M', name: '남성 티셔츠', price: 25000, src: '/images/men-tshirt.jpg' },
+            { brand: 'COS', name: '남성 팬츠', price: 70000, src: '/images/men-pants2.jpg' },
+            { brand: 'RE/DONE', name: '남성 코트', price: 150000, src: '/images/men-coat.jpg' },
+            { brand: 'SYSTEM', name: '남성 가디건', price: 60000, src: '/images/men-cardigan.jpg' },
+        ]
+    },
+    {
+        id: 3,
+        cate: '잡화',
+        items: [
+            { brand: 'LONGCHAMP', name: '토트백', price: 120000, src: '/images/bag-tote.jpg' },
+            { brand: 'GUCCI', name: '벨트', price: 180000, src: '/images/belt.jpg' },
+            { brand: 'CHANEL', name: '지갑', price: 250000, src: '/images/wallet.jpg' },
+            { brand: 'NIKE', name: '스니커즈', price: 90000, src: '/images/sneakers.jpg' },
+            { brand: 'ADIDAS', name: '모자', price: 30000, src: '/images/hat.jpg' },
+            { brand: 'HERMES', name: '스카프', price: 220000, src: '/images/scarf.jpg' },
+            { brand: 'PRADA', name: '백팩', price: 200000, src: '/images/backpack.jpg' },
+            { brand: 'VANS', name: '슬립온', price: 60000, src: '/images/slipon.jpg' },
+        ]
+    },
+    {
+        id: 4,
+        cate: '키즈',
+        items: [
+            { brand: 'GAP', name: '키즈 티셔츠', price: 20000, src: '/images/kids-tshirt.jpg' },
+            { brand: 'ZARA', name: '키즈 바지', price: 25000, src: '/images/kids-pants.jpg' },
+            { brand: 'H&M', name: '키즈 원피스', price: 30000, src: '/images/kids-dress.jpg' },
+            { brand: 'NIKE', name: '키즈 운동화', price: 40000, src: '/images/kids-shoes.jpg' },
+            { brand: 'ADIDAS', name: '키즈 후드', price: 35000, src: '/images/kids-hoodie.jpg' },
+            { brand: 'CARTER\'S', name: '키즈 재킷', price: 45000, src: '/images/kids-jacket.jpg' },
+            { brand: 'GAP', name: '키즈 모자', price: 15000, src: '/images/kids-hat.jpg' },
+            { brand: 'ZARA', name: '키즈 가디건', price: 30000, src: '/images/kids-cardigan.jpg' },
+        ]
+    },
+    {
+        id: 5,
+        cate: '뷰티',
+        items: [
+            { brand: 'LANEIGE', name: '립스틱', price: 25000, src: '/images/lipstick.jpg' },
+            { brand: 'CLIO', name: '아이라이너', price: 15000, src: '/images/eyeliner.jpg' },
+            { brand: 'INNISFREE', name: '스킨', price: 20000, src: '/images/skin.jpg' },
+            { brand: 'ETUDE', name: '마스크팩', price: 5000, src: '/images/mask.jpg' },
+            { brand: 'LANCOME', name: '파운데이션', price: 60000, src: '/images/foundation.jpg' },
+            { brand: 'SHISEIDO', name: '크림', price: 80000, src: '/images/cream.jpg' },
+            { brand: 'CHARLOTTE TILBURY', name: '블러셔', price: 40000, src: '/images/blusher.jpg' },
+            { brand: 'DIOR', name: '향수', price: 120000, src: '/images/perfume.jpg' },
+        ]
+    },
+]
+
+
 export const eventBanner = [
     {
         id: 1,
