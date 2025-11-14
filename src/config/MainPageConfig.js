@@ -6,14 +6,19 @@ export const bannerSlides = [
         desc: "이번 시즌 신상품을 만나보세요!"
     },
     {
+        src: "https://cdn-img.thehandsome.com/attachment/display/2025/11/05/ab201166-3809-416b-a895-a0a4d1bf7d0c_10.jpg?RS=1920x960",
+        title: ['Luxury', 'Gift Selection'],
+        desc: '랑방 프리미엄 삭스 기프트 EVENT'
+    },
+    {
         src: "https://cdn-img.thehandsome.com/attachment/display/2025/11/13/b3068e51-5c2a-4e33-8640-611ac8a9edcc_10.jpg?RS=1920x960",
         title: [''],
         desc: ''
     },
     {
-        src: "https://cdn-img.thehandsome.com/attachment/display/2025/11/05/ab201166-3809-416b-a895-a0a4d1bf7d0c_10.jpg?RS=1920x960",
-        title: ['Luxury', 'Gift Selection'],
-        desc: '랑방 프리미엄 삭스 기프트 EVENT'
+        src: " https://cdn-img.thehandsome.com/attachment/display/2025/11/12/5ee47a92-7cc8-44d9-9b68-6839abcd0ade_10.jpg?RS=1920x960",
+        title: ['OUR LEGACY', 'FW Kit & Outer'],
+        desc: '맨즈 니트&아우터 스타일링 가이드'
     },
 ]
 
@@ -123,7 +128,7 @@ export const popularSlides = [
         brand: 'time',
         productName: '캐시미어 블렌드 레더 탭 핸드메이드 쇼츠',
         price: '625,000',
-        src: 'https://cdn-img.thehandsome.com/studio/goods/TM/2F/FW/TM2FAWPC861W_TP_W01.jpg?RS=700x1055',
+        src: 'https://cdn-img.thehandsome.com/studio/goods/TM/2F/FW/TM2FAWPC864W_KG_W01.jpg?RS=700x1055',
     },
     {
         id: 16,
@@ -144,7 +149,7 @@ export const popularSlides = [
         brand: 'time',
         productName: '램스 울 블렌드 브이넥 가디건',
         price: '1,250,000',
-        src: 'https://cdn-img.thehandsome.com/studio/goods/TM/2F/FW/TM2FAKCD163WM1_LG_W01.jpg?RS=700x1055',
+        src: 'https://cdn-img.thehandsome.com/studio/goods/TM/2F/FW/TM2FAWCT267N_LE_W01.jpg?RS=700x1055',
     },
 
     {
@@ -185,9 +190,9 @@ export const popularSlides = [
     {
         id: 24,
         brand: 'the CASHMERE',
-        productName: '캐시미어 블렌드 레더 탭 핸드메이드 쇼츠',
-        price: '625,000',
-        src: 'https://cdn-img.thehandsome.com/studio/goods/CM/2F/FW/CM2FBQOT381WM1_BK_W01.jpg?RS=700x1055',
+        productName: '램스울 블랜드 브이넥 니트 가디건',
+        price: '499,000',
+        src: 'https://cdn-img.thehandsome.com/studio/goods/SY/2F/FW/SY2FBKOT925W_LL_W01.jpg?RS=700x1055',
     },
 ]
 
