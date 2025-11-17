@@ -2,6 +2,8 @@
 
 
 .flex-center {
+    border: 1px solid blue;
+    padding: 120px 0 100px;
     @include flex-center;
 
     .auth-container {
