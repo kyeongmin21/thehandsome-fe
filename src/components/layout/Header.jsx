@@ -4,6 +4,7 @@ import {useRouter} from "next/navigation";
 import {CiUser} from "react-icons/ci";
 import {SlMagnifier, SlLogin, SlLogout, SlHeart, SlBag} from "react-icons/sl";
 import Link from "next/link";
+import Image from "next/image";
 import useUserStore from "@/store/userStore";
 
 export default () => {

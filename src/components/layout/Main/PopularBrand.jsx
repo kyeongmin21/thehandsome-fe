@@ -26,6 +26,7 @@ const PopularBrand = () => {
                 observeParents={true}
                 pagination={{clickable: true, type: 'bullets'}}>
 
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
                 {popularSlides.map((item, idx) => {
                     const disabledHover = [0, 6, 12, 18].includes(idx);
 
@@ -55,6 +56,7 @@ const PopularBrand = () => {
                         </SwiperSlide>
                     );
                 })}
+                </div>
 
             </Swiper>
         </div>
