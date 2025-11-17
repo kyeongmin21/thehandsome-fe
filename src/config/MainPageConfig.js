@@ -22,7 +22,6 @@ export const bannerSlides = [
     },
 ]
 
-
 export const popularSlides = [
     {
         id: 1,
@@ -196,7 +195,6 @@ export const popularSlides = [
     },
 ]
 
-
 export const newItems = [
     {
         id: 1,
@@ -268,7 +266,6 @@ export const newItems = [
     },
 ]
 
-
 export const eventBanner = [
     {
         id: 1,
@@ -282,4 +279,39 @@ export const eventBanner = [
         id: 3,
         src: 'https://cdn-img.thehandsome.com/attachment/display/2025/01/08/46ab658f-6ad1-4b54-995a-d0daef2df3f3_10.jpg?AO=1',
     },
+]
+
+
+
+
+// 각 탭별 매거진 데이터
+export const coverStory = [
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/11/07/c7768420-b024-47f3-8e54-14e739414e63_10.jpg', title: '커버스토리', subTitle: '타임옴므 겨울은 밝아오고'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/11/04/de264aee-20b5-4f6f-a4cd-fa0f13b13ac9_10.jpg', title: '커버스토리', subTitle: '서로 감싸안는 무스너클'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/10/31/f8dcc01f-13b8-4161-b33e-d98e9697ab46_10.jpg', title: '커버스토리', subTitle: '시스템이 그려낸 겨울'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/10/13/51441031-c530-485c-b3af-c89d894c24ae_10.jpg', title: '커버스토리', subTitle: '하루 끝에 닿은 SJSJ의 온기'},
+
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/10/13/9f982186-f611-4a73-9ac4-4c5482b804fc_10.jpg', title: '커버스토리', subTitle: 'DKNY가 기다려온 시월'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/10/02/62d95a26-b5c7-45b8-a840-7b5fc575ac41_10.jpg', title: '커버스토리', subTitle: '더캐시미어의 촘촘하게 엮인 시간'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/09/11/56672429-7021-4f59-8027-198cf528f664_10.jpg', title: '커버스토리', subTitle: '고요한 하루의 균형, 시스템옴므'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/09/17/c3ce681d-12cb-4aa7-b623-268983382b00_10.jpg', title: '커버스토리', subTitle: '완연한 가을로의 초대'},
+]
+
+export const styleGuide = [
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/10/22/67064511-444c-4aa0-99d5-57e5dd216697_10.jpg', title: '스타일 가이드', subTitle: '깊어가는 가을, 함께하는 룩'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/10/16/2166f892-1304-4361-acbd-779373822d7a_10.jpg', title: '스타일 가이드', subTitle: '더한섬닷컴이 걸어온 10년'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/09/22/992d3ecb-80a6-48d5-a1e4-4553eb4a8626_10.jpg', title: '스타일 가이드', subTitle: '가을 아우터 스타일'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/08/26/aac9bb0e-5cd3-4a10-b8e7-e6114bee4c93_10.jpg', title: '스타일 가이드', subTitle: '다가올 가을과 겨울에는'},
+
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/08/19/d21d06f4-02ea-4f95-a154-6dfba35b197d_10.jpg', title: '스타일 가이드', subTitle: '도시 남자의 온앤오프 스타일'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/07/17/5b8de599-1ece-4591-941e-4f1f94fc0754_10.jpg', title: '스타일 가이드', subTitle: '계절을 닮은 스타일'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/07/07/d679f4d0-80b7-442b-bc0c-4a26a192bd02_10.jpg', title: '스타일 가이드', subTitle: '맨즈 시즌오프 200% 활용법'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/06/17/36c522a9-eb2c-40ec-a81e-8225836a562b_10.jpg', title: '스타일 가이드', subTitle: '계절을 오래도록 즐기는 방법'},
+]
+
+export const editorPick = [
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/04/04/6129a252-497d-4d08-bd9b-9a7679d98cbd_10.jpg', title: '트렌드', subTitle: '파스텔 컬러의 매력'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/03/18/51cc9c6b-ca19-4d33-8688-f6cbbcc3bb35_10.jpg', title: '트렌드', subTitle: '지금 가장 완벽한 스포티 재킷'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/03/05/72ed45b7-a343-4915-a6a6-4742abb365e7_10.jpg', title: '트렌드', subTitle: '올해 꼭 알아두어야 할 네오부르주아'},
+    {img: 'https://cdn-img.thehandsome.com/attachment/display/2025/02/17/42cec024-b8bb-4a7e-b19a-4cb1ca386089_10.jpg', title: '트렌드', subTitle: '니트 활용의 모든 것'},
 ]

@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 const MainBanner = () => {
     return (
         <>
-            <div className="main-banner relative w-full">
+            <div className="hover-navigation relative w-full">
                 <Swiper
                     modules={[Navigation, Pagination, Autoplay]}
                     navigation

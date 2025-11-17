@@ -1,3 +1,4 @@
+import {SlHeart} from "react-icons/sl";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper/modules";
 import Image from "next/image";
@@ -8,7 +9,7 @@ import {eventBanner} from "@/config/MainPageConfig";
 const newItem = () => {
     return (
         <>
-            <div className="bg-light-gray py-1 new-items">
+            <div className="new-items bg-light-gray py-1">
                 <div className='layout-custom'>
                     <h2>새로 들어온 신상품</h2>
                     <Tab.Group>
@@ -39,11 +40,12 @@ const newItem = () => {
 
                                             {category.items.map((item, index) => (
                                                 <SwiperSlide key={index}>
-                                                    <div className="text-sm relative w-full aspect-[0.652/1] overflow-hidden">
+                                                    <div className="relative text-sm relative w-full aspect-[0.652/1] overflow-hidden">
                                                         <Image src={item.src}
                                                                alt={item.name}
                                                                width={246}
                                                                height={377}/>
+                                                        <SlHeart className="heart-icon" size={23}/>
                                                     </div>
                                                     <p className='mt-3 text-center font-semibold text-sm'>{item.brand}</p>
                                                     <p className="mt-1 text-center text-sm">{item.name}</p>
@@ -59,7 +61,7 @@ const newItem = () => {
                     </Tab.Group>
                 </div>
             </div>
-            <div className="main-banner layout-custom">
+            <div className="hover-navigation layout-custom">
                 <Swiper
                     className='swiper'
                     modules={[Navigation, Pagination, Autoplay]}
