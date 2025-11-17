@@ -45,9 +45,9 @@ const newItem = () => {
                                                                width={246}
                                                                height={377}/>
                                                     </div>
-                                                    <p className='mt-3 text-center font-semibold'>{item.brand}</p>
-                                                    <p className="mt-1 text-center">{item.name}</p>
-                                                    <p className="mt-2 text-center font-semibold">{item.price.toLocaleString()}</p>
+                                                    <p className='mt-3 text-center font-semibold text-sm'>{item.brand}</p>
+                                                    <p className="mt-1 text-center text-sm">{item.name}</p>
+                                                    <p className="mt-2 text-center font-semibold text-sm">{item.price.toLocaleString()}</p>
                                                 </SwiperSlide>
                                             ))}
 
