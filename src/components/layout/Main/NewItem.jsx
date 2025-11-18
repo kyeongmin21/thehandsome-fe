@@ -1,12 +1,29 @@
+import {useEffect, useState} from "react";
 import {SlHeart} from "react-icons/sl";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper/modules";
 import Image from "next/image";
 import {Tab} from '@headlessui/react'
-import {newItems} from "@/config/MainPageConfig";
 import {eventBanner} from "@/config/MainPageConfig";
+import apiHelper from "@/utils/apiHelper";
+
 
 const newItem = () => {
+    const [list, setList] = useState([]);
+
+    const fetchData = async () => {
+        try {
+            const res = await apiHelper.get('/products')
+            setList(res)
+        } catch (error) {
+            console.log('신상품 리스트 조회 실패', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     return (
         <>
             <div className="new-items bg-light-gray py-1">
@@ -15,7 +32,8 @@ const newItem = () => {
                     <Tab.Group>
                         <div className="flex w-full">
                             <Tab.List className="flex flex-col w-1/4 text-lg mr-10">
-                                {newItems.map((category) => (
+                                {list
+                                    .map((category) => (
                                     <Tab key={category.cate}
                                          className={({selected}) =>
                                              `py-2 text-left focus:outline-none ${selected ? 'font-semibold' : 'font-normal '}`
@@ -27,7 +45,7 @@ const newItem = () => {
 
                             {/* 오른쪽 내용 */}
                             <Tab.Panels className="w-3/4 tab-panels mr-5">
-                                {newItems.map((category) => (
+                                {list.map((category) => (
                                     <Tab.Panel key={category.cate}>
                                         <Swiper
                                             key={category.cate}
@@ -43,9 +61,10 @@ const newItem = () => {
                                                     <div className="relative text-sm relative w-full aspect-[0.652/1] overflow-hidden">
                                                         <Image src={item.src}
                                                                alt={item.name}
+                                                               priority
                                                                width={246}
                                                                height={377}/>
-                                                        <SlHeart className="heart-icon" size={23}/>
+                                                        <SlHeart size={23} className="heart-icon"/>
                                                     </div>
                                                     <p className='mt-3 text-center font-semibold text-sm'>{item.brand}</p>
                                                     <p className="mt-1 text-center text-sm">{item.name}</p>
