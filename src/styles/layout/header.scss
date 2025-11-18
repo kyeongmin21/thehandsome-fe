@@ -1,10 +1,11 @@
 .header {
+    @apply transition-colors duration-100;
     width: 100%;
     min-width: 1280px;
     height: 100px;
     margin: 0 auto;
     padding: 10px 50px;
-    position: fixed;
+    position: relative;
     z-index: 10;
 
     &-top {
@@ -13,13 +14,13 @@
     }
 
     &-top:first-child {
-        margin-bottom: 30px;
+        margin: 10px;
     }
 
     &-top-icon {
         position: absolute;
-        top: 10px;
-        right: 50px;
+        top: 20px;
+        right: 60px;
 
         ul {
             display: flex;
@@ -37,37 +38,31 @@
         justify-content: space-between;
         width: 100%;
 
-        ul {
+        .header-bottom {
             display: flex;
-            gap: 20px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-
-            li {
+            > li {
+                padding: 10px;
                 cursor: pointer;
-                font-size: var(--font-large);
                 &:hover {
-                    font-weight: bold;
+                    font-weight: 600;
                 }
             }
-        }
-
-        &-right {
-            transform: translateX(0);
-            transition: transform 0.3s ease;
         }
 
         &-left {
             transform: translateX(0);
             transition: transform 0.3s ease;
         }
+
+        &-right {
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+        }
     }
-
-
 
     /* 스크롤시 헤더 디자인 */
     &.scrolled {
+        z-index: 100;
         background-color: #fff;
         position: fixed;
         top: 0;
@@ -76,24 +71,24 @@
 
         .header-top {
             transform: translateY(-100%); // 초기 상태: 위에 살짝 숨겨두기
-            margin-bottom: 30px;
+            margin-bottom: 10px;
 
             &-logo {
                 width: 300px;
-                transform: translateY(30px); // 위 → 아래로 내려오기
+                transform: translateY(32px); // 위 → 아래로 내려오기
                 transition: transform 0.3s ease;
             }
 
             &-icon {
                 margin-bottom: 0;
-                transform: translateY(20px); // 위 → 아래로 내려오기
+                transform: translateY(32px); // 위 → 아래로 내려오기
                 transition: transform 0.3s ease;
                 right: 0;
             }
         }
 
         .header-category {
-            overflow: hidden; // 움직일 때 안 튀어나오게
+           // overflow: hidden; // 움직일 때 안 튀어나오게
             margin-right: 240px;
             height: 50px;
 
@@ -103,9 +98,45 @@
             }
 
             &-right {
-                transform: translateX(0px); // 처음 화면 밖으로
+                transform: translateX(10px); // 처음 화면 밖으로
                 transition: transform 0.3s ease;
             }
+        }
+    }
+}
+
+.dropdown-menu {
+    border-top: 1px solid #eee;
+    padding: 0 50px;
+    background-color: #fff;
+    width: 100%;
+    top: 100%;
+    left: 0;
+
+    .menu-box {
+        margin-right: 50px;
+        padding: 15px;
+    }
+
+    .title-menu {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        margin-bottom: 15px;
+        font-weight: 600;
+        list-style: none;
+        cursor: pointer;
+    }
+
+    .sub-menu {
+        display: flex;
+        cursor: pointer;
+        margin-bottom: 10px;
+        font-size: 13px;
+        color: #707070;
+
+        &:hover {
+            color: #333;
         }
     }
 
