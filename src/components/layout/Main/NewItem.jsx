@@ -1,22 +1,38 @@
+
 import {useEffect, useState} from "react";
+import {useRouter} from "next/navigation";
 import {SlHeart} from "react-icons/sl";
+import {FaHeart} from "react-icons/fa";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper/modules";
 import Image from "next/image";
 import {Tab} from '@headlessui/react'
 import {eventBanner} from "@/config/MainPageConfig";
 import apiHelper from "@/utils/apiHelper";
+import useUserStore from "@/store/userStore";
 
 
 const newItem = () => {
+    const router = useRouter();
     const [list, setList] = useState([]);
-
+    const [isWished,setIsWished] = useState(false);
+    const login = useUserStore((state) => state.isLoginIn);
     const fetchData = async () => {
         try {
             const res = await apiHelper.get('/products')
             setList(res)
         } catch (error) {
             console.log('신상품 리스트 조회 실패', error);
+        }
+    }
+
+    const handleWishList = () => {
+        if (login) {
+            const res =
+            setIsWished((prev) => !prev);
+        } else {
+            alert('로그인이 필요한 서비스 입니다.')
+            router.push('/login')
         }
     }
 
@@ -64,7 +80,16 @@ const newItem = () => {
                                                                priority
                                                                width={246}
                                                                height={377}/>
-                                                        <SlHeart size={23} className="heart-icon"/>
+                                                        {isWished ? (
+                                                            <FaHeart size={23}
+                                                                     className="heart-icon"
+                                                                     onClick={handleWishList}/>
+                                                        ) : (
+                                                            <SlHeart size={23}
+                                                                     className="heart-icon"
+                                                                     onClick={handleWishList}/>
+                                                        )}
+
                                                     </div>
                                                     <p className='mt-3 text-center font-semibold text-sm'>{item.brand}</p>
                                                     <p className="mt-1 text-center text-sm">{item.name}</p>

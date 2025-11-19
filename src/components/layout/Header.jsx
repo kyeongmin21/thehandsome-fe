@@ -2,11 +2,12 @@
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {CiUser} from "react-icons/ci";
+import {IoIosArrowForward} from "react-icons/io";
 import {SlMagnifier, SlLogin, SlLogout, SlHeart, SlBag} from "react-icons/sl";
 import Link from "next/link";
 import useUserStore from "@/store/userStore";
 import {MAIN_MENU} from "@/config/Category";
-import {IoIosArrowForward} from "react-icons/io";
+
 
 export default () => {
     const router = useRouter();
