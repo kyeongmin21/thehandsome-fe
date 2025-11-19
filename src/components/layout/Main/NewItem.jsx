@@ -17,6 +17,7 @@ const newItem = () => {
     const [list, setList] = useState([]);
     const [isWished,setIsWished] = useState(false);
     const login = useUserStore((state) => state.isLoginIn);
+
     const fetchData = async () => {
         try {
             const res = await apiHelper.get('/products')
@@ -26,19 +27,46 @@ const newItem = () => {
         }
     }
 
-    const handleWishList = () => {
-        if (login) {
-            const res =
-            setIsWished((prev) => !prev);
-        } else {
+    const fetchWished = async () => {
+        if (!login) return
+        try {
+            const res = await apiHelper.get('/wishlist/my')
+            const wishedMap = {};
+            res.forEach(item => {
+                wishedMap[item.product_code] = true;
+            });
+            setIsWished(wishedMap);
+        }  catch (error) {
+            console.log('위시리스트 조회 실패')
+        }
+    }
+
+    const handleWishList = async (code) => {
+        if (!login) {
             alert('로그인이 필요한 서비스 입니다.')
             router.push('/login')
+        }
+
+        try {
+            const res = await apiHelper.post(
+                '/wishlist/toggle',
+                {product_code: code})
+            setIsWished((prev) => ({
+                ...prev,
+                [code]: !prev[code], // 해당 상품만 토글
+            }))
+        } catch (error) {
+            console.log('위시리스트 토글 실패')
         }
     }
 
     useEffect(() => {
         fetchData()
     }, [])
+
+    useEffect(() => {
+        fetchWished()
+    }, [login])  // login이 true로 바뀌면 fetchWished 실행
 
     return (
         <>
@@ -80,14 +108,10 @@ const newItem = () => {
                                                                priority
                                                                width={246}
                                                                height={377}/>
-                                                        {isWished ? (
-                                                            <FaHeart size={23}
-                                                                     className="heart-icon"
-                                                                     onClick={handleWishList}/>
+                                                        {isWished[item.product_code] ? (
+                                                            <FaHeart size={23} className="heart-icon" onClick={() => handleWishList(item.product_code)}/>
                                                         ) : (
-                                                            <SlHeart size={23}
-                                                                     className="heart-icon"
-                                                                     onClick={handleWishList}/>
+                                                            <SlHeart size={23} className="heart-icon" onClick={() => handleWishList(item.product_code)}/>
                                                         )}
 
                                                     </div>
