@@ -46,6 +46,14 @@ export default () => {
         }
     };
 
+    const handleWishClick = () => {
+        if (login) {
+            router.push("/mypage/wishlist");
+        } else {
+            router.push("/login");
+        }
+    }
+
     useEffect(() => {
         setMounted(true);
         const handleScroll = () => setScrolled(window.scrollY > 0);
@@ -126,8 +134,8 @@ export default () => {
                         {/* 마이페이지 */}
                         <li onClick={handleUserClick}><CiUser size={25} strokeWidth={.5}/></li>
 
-                        {/* 좋아요 */}
-                        <li><SlHeart size={23}/></li>
+                        {/* 마이하트 */}
+                        <li onClick={handleWishClick}><SlHeart size={23}/></li>
 
                         {/* 장바구니 */}
                         <li><Link href="/cart"><SlBag size={23}/></Link></li>

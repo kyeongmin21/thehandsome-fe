@@ -11,23 +11,27 @@ const colorMap = {
     whiteOutline: 'btn-white-outline',
     blackOutline: 'btn-black-outline',
     grayOutline: 'btn-gray-outline',
+
     blackFill: 'btn-black-fill',
     grayFill: 'bg-gray-300 text-white',
     yellowFill: 'bg-yellow-300',
+
     blackText: 'btn-black-text',
     grayText: 'text-gray-500',
     whiteText: 'btn-white-text',
+
+    lightGrayOutline: 'border border-gray-300 text-black bg-white',
     none: 'border-none bg-transparent text-black'
 };
 
 export default function UiButton({
-                                   type = "button",
-                                   btnText,
-                                   btnIcon,
-                                   onClick,
-                                   size = 's',
-                                   color = 'blackOutline',
-                                   className = '',
+                                     type = "button",
+                                     btnText,
+                                     btnIcon,
+                                     onClick,
+                                     size = 's',
+                                     className = '',
+                                     color = 'blackOutline',
                                  }) {
 
     const sizeStyle = sizeMap[size] || sizeMap.m;
