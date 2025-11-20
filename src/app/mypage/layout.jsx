@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 const menuList = [
     { id: "", label: "마이페이지" },
-    { id: "wishlist", label: "위시리스트" },
+    { id: "wishlist", label: "마이하트" },
     { id: "qna", label: "1:1문의" },
     { id: "edit", label: "개인정보 변경/탈퇴" },
 ];

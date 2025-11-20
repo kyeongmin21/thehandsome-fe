@@ -11,8 +11,6 @@ const nextConfig = {
         optimizePackageImports: [
             'swiper',
             'react-icons',
-            '@tanstack/react-query',
-            '@tanstack/react-table',
         ],
         legacyBrowsers: false, // 불필요한 폴리필 제거
     },
