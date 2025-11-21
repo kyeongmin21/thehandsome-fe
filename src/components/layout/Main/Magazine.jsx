@@ -50,13 +50,11 @@ const Magazine = () => {
                     navigation>
                     {contentsMap[activeTab]?.map((item, idx) => (
                         <SwiperSlide key={idx} className="relative text-center">
-                            <div className="relative w-full aspect-[3/4] overflow-hidden">
-                                <Image
-                                    src={item.img}
-                                    alt={item.title}
-                                    width={432}
-                                    height={576}/>
-                            </div>
+                            <Image
+                                src={item.img}
+                                alt={item.title}
+                                width={432}
+                                height={576}/>
                             <h3 className="font-bold mt-3 text-sm">{item.title}</h3>
                             <p className="mt-1 text-xl">{item.subTitle}</p>
                         </SwiperSlide>

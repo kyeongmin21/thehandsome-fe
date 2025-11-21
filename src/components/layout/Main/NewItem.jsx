@@ -74,7 +74,7 @@ const newItem = () => {
                 <div className='layout-custom'>
                     <h2>새로 들어온 신상품</h2>
                     <Tab.Group>
-                        <div className="flex w-full">
+                        <div className="flex w-full min-h-[390px]">
                             <Tab.List className="flex flex-col w-1/4 text-lg mr-10">
                                 {list
                                     .map((category) => (
@@ -102,19 +102,17 @@ const newItem = () => {
 
                                             {category.items.map((item, index) => (
                                                 <SwiperSlide key={index}>
-                                                    <div className="relative text-sm relative w-full aspect-[0.652/1] overflow-hidden">
-                                                        <Image src={item.src}
-                                                               alt={item.name}
-                                                               priority
-                                                               width={246}
-                                                               height={377}/>
-                                                        {isWished[item.product_code] ? (
-                                                            <FaHeart size={23} className="heart-icon" onClick={() => handleWishList(item.product_code)}/>
-                                                        ) : (
-                                                            <SlHeart size={23} className="heart-icon" onClick={() => handleWishList(item.product_code)}/>
-                                                        )}
+                                                    <Image src={item.src}
+                                                           alt={item.name}
+                                                           priority
+                                                           width={246}
+                                                           height={377}/>
+                                                    {isWished[item.product_code] ? (
+                                                        <FaHeart size={23} className="heart-icon" onClick={() => handleWishList(item.product_code)}/>
+                                                    ) : (
+                                                        <SlHeart size={23} className="heart-icon" onClick={() => handleWishList(item.product_code)}/>
+                                                    )}
 
-                                                    </div>
                                                     <p className='mt-3 text-center font-semibold text-sm'>{item.brand}</p>
                                                     <p className="mt-1 text-center text-sm">{item.name}</p>
                                                     <p className="mt-2 text-center font-semibold text-sm">{item.price.toLocaleString()}</p>
