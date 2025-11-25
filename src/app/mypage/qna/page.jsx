@@ -11,16 +11,17 @@ import { MdArrowForwardIos } from "react-icons/md";
 const MyQna = () => {
     const router = useRouter();
     const [qnaList, setQnaList] = useState([]);
+    const fetchQna = async () => {
+        try {
+            const res = await apiHelper.get(`/mypage/qna`);
+            console.log('ㅋㅋㅋ', res)
+            setQnaList(res);
+        } catch (error) {
+            console.error('QnA 리스트 불러오기 실패:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchQna = async () => {
-            try {
-                const res = await apiHelper.get(`/mypage/qna`);
-                setQnaList(res);
-            } catch (error) {
-                console.error('QnA 리스트 불러오기 실패:', error);
-            }
-        };
         fetchQna();
     }, []);
 

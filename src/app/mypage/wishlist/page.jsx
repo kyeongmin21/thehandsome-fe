@@ -122,7 +122,7 @@ const WishList = () => {
 
                                     {isWished[item.product_code] ? (
                                         <FaHeart size={23}
-                                                 className='cursor-pointer opacity-50'
+                                                 className='cursor-pointer'
                                                  onClick={() => handleWishList(item.product_code)}/>
                                     ) : (
                                         <SlHeart size={23}

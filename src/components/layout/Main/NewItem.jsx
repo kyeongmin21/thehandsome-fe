@@ -30,7 +30,7 @@ const newItem = () => {
     const fetchWished = async () => {
         if (!login) return
         try {
-            const res = await apiHelper.get('/wishlist/my')
+            const res = await apiHelper.get('/wishlist/my-wished')
             const wishedMap = {};
             res.forEach(item => {
                 wishedMap[item.product_code] = true;
@@ -66,7 +66,7 @@ const newItem = () => {
 
     useEffect(() => {
         fetchWished()
-    }, [login])  // login이 true로 바뀌면 fetchWished 실행
+    }, [login])
 
     return (
         <>

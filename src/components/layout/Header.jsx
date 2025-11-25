@@ -2,26 +2,33 @@
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {CiUser} from "react-icons/ci";
+import {FaHeart} from "react-icons/fa";
 import {IoIosArrowForward} from "react-icons/io";
 import {SlMagnifier, SlLogin, SlLogout, SlHeart, SlBag} from "react-icons/sl";
 import Link from "next/link";
 import useUserStore from "@/store/userStore";
 import {MAIN_MENU} from "@/config/Category";
+import apiHelper from "@/utils/apiHelper";
 
 
 export default () => {
     const router = useRouter();
     const login = useUserStore((state) => state.isLoginIn);
     const logout = useUserStore((state) => state.logout);
-
-    const [mounted, setMounted] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [isShow, setIsShow] = useState(true);
     const [activeMenuIndex, setActiveMenuIndex] = useState(null);
+    const [isBrandWished, setIsBrandWished] = useState(false);
+    const [brands, setBrands] = useState([]);
+
 
     const mouseEnter = (idx) => {
         setIsShow(true);
         setActiveMenuIndex(idx);
+        // 이미 호출했으면 skip
+        if (!Object.keys(isBrandWished).length && login) {
+            fetchBrandLike();
+        }
     }
 
     const mouseLeave = (idx) => {
@@ -54,8 +61,54 @@ export default () => {
         }
     }
 
+    const fetchBrands = async () => {
+        try {
+            const res = await apiHelper.get('/brands/list')
+            setBrands(Array.isArray(res) ? res : []);
+        } catch (error) {
+            console.log('브랜드 조회 실패')
+        }
+    }
+
+    const fetchBrandLike = async () => {
+        if (!login) return
+        try {
+            const res = await apiHelper.get('/brandlike/my-brands');
+            const brandsMap = {};
+            res.forEach(item => {
+                brandsMap[item.brand_code] = true;
+            });
+            setIsBrandWished(brandsMap);
+        } catch (error) {
+            console.log('브랜드 찜하기 리스트 조회 실패', error)
+        }
+    }
+
+    const handleBrandsClick = async (code) => {
+        if (login) {
+            try {
+                const res = await apiHelper.post(
+                    '/brandlike/toggle',
+                    {brand_code: code});
+                setIsBrandWished((prev) => ({
+                    ...prev,
+                    [code]: !prev[code], // 해당 상품만 토글
+                }))
+            } catch (error) {
+                console.log('브랜드 찜하기 실패', error);
+            }
+        } else {
+            const ok = confirm("로그인이 필요한 서비스입니다.\n로그인 하시겠습니까?");
+            if (ok) {
+                router.push('/login');
+            }
+            return;
+        }
+    }
+
+
     useEffect(() => {
-        setMounted(true);
+        fetchBrands();
         const handleScroll = () => setScrolled(window.scrollY > 0);
         window.addEventListener("scroll", handleScroll);
 
@@ -95,24 +148,50 @@ export default () => {
                 </div>
             </div>
 
-            {isShow && activeMenuIndex !== null && MAIN_MENU[activeMenuIndex]?.data && (
+            {isShow && activeMenuIndex !== null && (
                 <div className="dropdown-menu absolute shadow-lg flex">
-                    {Object.keys(MAIN_MENU[activeMenuIndex]?.data).map((title) => (
-                        <div key={title} className="menu-box">
-                            <h4 className="title-menu">
-                                {title}{MAIN_MENU[activeMenuIndex].type === "brand"
-                                    ? <> 브랜드</>
-                                    : <IoIosArrowForward/>}
-                            </h4>
-                            {MAIN_MENU[activeMenuIndex].data[title].map((sub) => (
-                                <li key={sub} className="sub-menu">
-                                    {MAIN_MENU[activeMenuIndex].type === "brand"
-                                        && <span className='inline-block mr-2'><SlHeart size={16}/></span>}
-                                    {sub}
-                                </li>
-                            ))}
-                        </div>
-                    ))}
+
+                    {/* 카테고리 메뉴 */}
+                    {MAIN_MENU[activeMenuIndex]?.type === "category" &&
+                        Object.keys(MAIN_MENU[activeMenuIndex].data).map((title) => (
+                            <div key={title} className="menu-box">
+                                <h4 className="title-menu">
+                                    {title} <IoIosArrowForward/>
+                                </h4>
+                                <ul>
+                                    {MAIN_MENU[activeMenuIndex].data[title].map((item) => (
+                                        <li key={item} className="sub-menu">{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))
+                    }
+
+                    {/* 브랜드 메뉴 */}
+                    {MAIN_MENU[activeMenuIndex]?.type === "brand" && Array.isArray(brands) &&
+                        brands.map((group) => (
+                            <div key={group.brand_type} className="menu-box">
+                                <h4 className="title-menu">{group.brand_type} 브랜드</h4>
+                                <ul>
+                                    {group.brands.map((item) => (
+                                        <li key={item.brand_code} className="sub-menu">
+                                             <span className="inline-block mr-2" style={{paddingTop: '1px'}}>
+                                                  {isBrandWished[item.brand_code] ? (
+                                                      <FaHeart size={16}
+                                                               onClick={() => handleBrandsClick(item.brand_code)}/>
+                                                  ) : (
+                                                      <SlHeart size={16}
+                                                               onClick={() => handleBrandsClick(item.brand_code)}/>
+                                                  )}
+                                            </span>
+                                            <span>{item.brand_name}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))
+                    }
+
                 </div>
             )}
 
