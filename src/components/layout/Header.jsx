@@ -108,6 +108,10 @@ export default () => {
 
 
     useEffect(() => {
+        const token = sessionStorage.getItem("accessToken");
+        if (!token) {
+            logout();
+        }
         fetchBrands();
         const handleScroll = () => setScrolled(window.scrollY > 0);
         window.addEventListener("scroll", handleScroll);

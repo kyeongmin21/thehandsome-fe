@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import {create} from "zustand";
+import {persist} from "zustand/middleware";
 import apiHelper from "@/utils/apiHelper";
 
 const useUserStore = create(
@@ -11,7 +11,7 @@ const useUserStore = create(
             isLoginIn: false,
 
             // 로그인 성공 시 상태 저장
-            setUser: ({ userId, userName, role }) => {
+            setUser: ({userId, userName, role}) => {
                 set({
                     userId,
                     userName,
@@ -27,6 +27,13 @@ const useUserStore = create(
                 } catch (error) {
                     console.log('서버 로그아웃 실패', error);
                 } finally {
+                    // 상태 초기화
+                    set({
+                        userId: null,
+                        userName: null,
+                        role: null,
+                        isLoginIn: false,
+                    })
                     localStorage.removeItem("userStorage");
                     sessionStorage.removeItem("accessToken");
                 }
