@@ -1,9 +1,12 @@
 "use client";
-import { useState, useMemo } from "react";
+
+import {useState, useMemo} from "react";
 import UiButton from "@/components/ui/UiButton";
 import UiInput from "@/components/ui/UiInput";
+import dayjs from "dayjs";
+import { MdArrowDropUp, MdArrowDropDown } from "react-icons/md";
 
-export default function DataTable({ columns = [], data = [], isSearch }) {
+export default function DataTable({columns = [], data = [], isSearch}) {
     const [search, setSearch] = useState("");
     const [sortColumn, setSortColumn] = useState(null);
     const [sortDirection, setSortDirection] = useState(null);
@@ -36,7 +39,6 @@ export default function DataTable({ columns = [], data = [], isSearch }) {
         return sortedData.slice(start, start + pageSize);
     }, [sortedData, pageIndex]);
 
-    // 컬럼 클릭 시 정렬 토글
     const handleSort = column => {
         if (sortColumn === column) {
             setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -50,7 +52,6 @@ export default function DataTable({ columns = [], data = [], isSearch }) {
 
     return (
         <>
-            {/* 검색 */}
             {isSearch && (
                 <div className="flex justify-end mb-2">
                     <UiInput
@@ -58,7 +59,7 @@ export default function DataTable({ columns = [], data = [], isSearch }) {
                         placeholder="검색"
                         onChange={e => {
                             setSearch(e.target.value);
-                            setPageIndex(0); // 검색 시 1페이지로
+                            setPageIndex(0);
                         }}
                     />
                 </div>
@@ -68,31 +69,55 @@ export default function DataTable({ columns = [], data = [], isSearch }) {
             <table className="table-fixed w-full border-collapse">
                 <thead>
                 <tr>
-                    {columns.map(col => (
-                        <th
-                            key={col.accessor}
-                            className="p-2 cursor-pointer font-normal border-b border-gray-200"
-                            onClick={() => handleSort(col.accessor)}
-                        >
-                            {col.header} {sortColumn === col.accessor ? (sortDirection === "asc" ? " 🔼" : " 🔽") : ""}
+                    {columns.map((col, colIndex) => (
+                        <th key={col.accessorKey + colIndex}
+                            className="p-2 cursor-pointer font-normal border-b"
+                            onClick={() => handleSort(col.accessorKey)}>
+                            <div className='flex justify-center'>
+                                {col.header}{" "}
+                                {sortColumn === col.accessorKey
+                                    ? sortDirection === "asc"
+                                        ? <span><MdArrowDropUp size={22} /></span>
+                                        : <span><MdArrowDropDown size={22} /></span>
+                                    : ""}
+                            </div>
                         </th>
                     ))}
                 </tr>
                 </thead>
                 <tbody>
                 {pagedData.length > 0 ? (
-                    pagedData.map((row, idx) => (
-                        <tr key={idx}>
-                            {columns.map(col => (
-                                <td key={col.accessor} className="border-b border-gray-200 p-4">
-                                    {row[col.accessor]}
-                                </td>
-                            ))}
+                    pagedData.map((row, rowIndex) => (
+                        <tr key={row.id || rowIndex}>
+                            {columns.map((col, colIndex) => {
+                                let value = row[col.accessorKey];
+
+                                if (col.accessorKey === "created_at" && value) {
+                                    value = dayjs(value).format("YYYY.MM.DD HH:mm");
+                                }
+
+                                if (col.accessorKey === "title") {
+                                    return (
+                                        <td key={col.accessorKey + colIndex}
+                                            className="border-b p-2 cursor-pointer  border-gray-300 "
+                                            onClick={() => col.onClick && col.onClick(row)}>
+                                            {value}
+                                        </td>
+                                    );
+                                }
+
+                                return (
+                                    <td key={col.accessorKey + colIndex}
+                                        className="border-b  border-gray-300 p-3 text-center">
+                                        {value}
+                                    </td>
+                                );
+                            })}
                         </tr>
                     ))
                 ) : (
                     <tr>
-                        <td colSpan={columns.length} className="text-center p-4">
+                        <td colSpan={columns.length} className="text-center p-6">
                             아직 등록된 게시물이 없습니다.
                         </td>
                     </tr>
@@ -101,10 +126,20 @@ export default function DataTable({ columns = [], data = [], isSearch }) {
             </table>
 
             {/* 페이지네이션 */}
-            <div className="flex justify-center mt-8">
-                <UiButton btnText="<" size="s" color="none" onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))} disabled={pageIndex === 0} />
-                <span className="m-1 ml-5 mr-5">{pageIndex + 1} / {pageCount}</span>
-                <UiButton btnText=">" size="s" color="none" onClick={() => setPageIndex(prev => Math.min(prev + 1, pageCount - 1))} disabled={pageIndex >= pageCount - 1} />
+            <div className="flex justify-center mt-4 gap-4">
+                <UiButton
+                    btnText="<"
+                    size="s"
+                    color="none"
+                    onClick={() => setPageIndex(prev => Math.max(prev - 1, 0))}
+                    disabled={pageIndex === 0}/>
+                <span className="pt-2">{pageIndex + 1} / {pageCount}</span>
+                <UiButton
+                    btnText=">"
+                    size="s"
+                    color="none"
+                    onClick={() => setPageIndex(prev => Math.min(prev + 1, pageCount - 1))}
+                    disabled={pageIndex >= pageCount - 1}/>
             </div>
         </>
     );

@@ -4,25 +4,30 @@ import Link from "next/link";
 import apiHelper from "@/utils/apiHelper";
 import DataTable from "@/components/ui/UiTable";
 import {qnaColumns} from "@/config/qnaTableConfig";
-import {useEffect, useState, Suspense} from "react";
+import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import { MdArrowForwardIos } from "react-icons/md";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 const MyQna = () => {
     const router = useRouter();
     const [qnaList, setQnaList] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
     const fetchQna = async () => {
+        setIsLoading(true);
         try {
             const res = await apiHelper.get(`/mypage/qna`);
-            console.log('ㅋㅋㅋ', res)
             setQnaList(res);
         } catch (error) {
             console.error('QnA 리스트 불러오기 실패:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchQna();
+        fetchQna()
     }, []);
 
     return (
@@ -33,9 +38,11 @@ const MyQna = () => {
                   className='flex justify-end mb-5'>문의하기
                 <div className='pt-1 ml-2'><MdArrowForwardIos /></div>
             </Link>
-            <Suspense fallback={<p>Loading...</p>}>
+            {isLoading ? (
+                <LoadingSpinner fullScreen/>
+            ): (
                 <DataTable columns={qnaColumns(router)} data={qnaList}/>
-            </Suspense>
+            )}
         </div>
     )
 }
