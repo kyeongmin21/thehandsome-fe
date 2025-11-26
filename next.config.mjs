@@ -22,6 +22,5 @@ const nextConfig = {
         ],
         legacyBrowsers: false, // 불필요한 폴리필 제거
     },
-    swcMinify: false, // dev 모드에서 SWC minify 끄기 → 빌드 속도 향상
 };
 export default nextConfig;
