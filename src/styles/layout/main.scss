@@ -1,9 +1,6 @@
 @use '../colors' as *;
 @use "sass:map";
 
-
-
-
 .layout-custom {
     margin: 80px 50px;
 }
@@ -126,7 +123,6 @@
 }
 
 .new-items {
-
     .tab-panels {
         position: relative!important;
     }

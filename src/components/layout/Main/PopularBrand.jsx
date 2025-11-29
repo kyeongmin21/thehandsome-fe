@@ -63,8 +63,8 @@ const PopularBrand = () => {
 
                 </Swiper>
             ) : (
-                <div className="w-full h-[890px]">
-                    <LoadingSpinner fullScreen/>
+                <div className="h-[500px] spinner">
+                    <LoadingSpinner />
                 </div>
             )}
         </div>
