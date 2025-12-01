@@ -5,21 +5,21 @@ import useUserStore from "@/store/userStore";
 import UiInput from "@/components/ui/UiInput";
 import UiButton from "@/components/ui/UiButton";
 import ErrorMessage from "@/components/ui/ErrorMessage";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { loginSchema } from "@/utils/validators/join.schema";
-import { ERROR_MESSAGES } from "@/constants/errorMsg";
+import {useForm} from "react-hook-form";
+import {useRouter} from "next/navigation";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {loginSchema} from "@/utils/validators/join.schema";
+import {ERROR_MESSAGES} from "@/constants/errorMsg";
 
 const LoginPage = () => {
     const router = useRouter();
-    const { setUser } = useUserStore();
+    const {setUser} = useUserStore();
     const {
         register,
         handleSubmit,
         watch,
         setError,
-        formState: { errors, isValid},
+        formState: {errors, isValid},
     } = useForm({
         zodResolver: zodResolver(loginSchema),
         mode: "onChange",
@@ -35,9 +35,9 @@ const LoginPage = () => {
     const onSubmit = async (data) => {
         try {
             const res = await apiHelper.post("/login", data)
-            const { user, access_token } = res;
+            const {user, access_token} = res;
 
-            setUser({ userId: user.user_id, userName: user.name, role: user.role });
+            setUser({userId: user.user_id, userName: user.name, role: user.role});
             sessionStorage.setItem("accessToken", access_token);
 
             alert('로그인 되었습니다.')
@@ -47,17 +47,15 @@ const LoginPage = () => {
             const msg = error?.response?.data.detail
 
             if (Array.isArray(msg)) {
-                msg.forEach(({ field, code }) => {
+                msg.forEach(({field, code}) => {
                     const message = ERROR_MESSAGES[code].message;
                     if (message) {
-                        setError(field, { type: "manual", message });
+                        setError(field, {type: "manual", message});
                     }
                 });
             }
         }
     }
-
-    const handleKakaoLogin = () => {}
 
     return (
         <div className='flex-center'>
@@ -68,27 +66,21 @@ const LoginPage = () => {
                         {...register('user_id')}
                         className='mt-3'
                         placeholder='아이디를 입력해 주세요.'/>
-                    <ErrorMessage message={errors.user_id?.message} />
+                    <ErrorMessage message={errors.user_id?.message}/>
                     <UiInput
                         {...register('password')}
                         type="password"
                         className='mt-3 input-pw'
                         placeholder='비밀번호를 입력해 주세요.'/>
-                    <ErrorMessage message={errors.password?.message} />
+                    <ErrorMessage message={errors.password?.message}/>
                     <UiButton
                         type='submit'
                         disabled={!isValid}
                         size='m'
                         btnText='로그인'
                         color={idValue && passwordValue && isValid ? 'blackFill' : 'grayFill'}
-                        className='w-full mt-7' />
+                        className='w-full mt-7'/>
                 </form>
-                <UiButton
-                    onClick={handleKakaoLogin}
-                    size='m'
-                    color='yellowFill'
-                    btnText='카카오 간편로그인'
-                    btnIcon=''/>
 
                 <Link href='/join'>
                     <UiButton

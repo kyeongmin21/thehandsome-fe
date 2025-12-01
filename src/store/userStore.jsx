@@ -38,7 +38,6 @@ const useUserStore = create(
                     sessionStorage.removeItem("accessToken");
                 }
             },
-
         }),
         {
             name: "userStorage",

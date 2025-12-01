@@ -58,7 +58,7 @@ const newItem = () => {
                 [code]: !prev[code], // 해당 상품만 토글
             }))
         } catch (error) {
-            console.log('위시리스트 토글 실패')
+            console.log('위시리스트 토글 실패', error)
         }
     }
 
@@ -81,8 +81,7 @@ const newItem = () => {
                             <Tab.Group>
                                 <div className="flex w-full min-h-[390px]">
                                     <Tab.List className="flex flex-col w-1/4 text-lg mr-10">
-                                        {list
-                                            .map((category) => (
+                                        {list.map((category) => (
                                                 <Tab key={category.cate}
                                                      className={({selected}) =>
                                                          `py-2 text-left focus:outline-none ${selected ? 'font-semibold' : 'font-normal '}`

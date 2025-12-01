@@ -57,6 +57,7 @@ export default () => {
         if (login) {
             router.push("/mypage/wishlist");
         } else {
+            alert('로그인이 필요한 서비스입니다.')
             router.push("/login");
         }
     }

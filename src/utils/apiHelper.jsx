@@ -24,10 +24,15 @@ api.interceptors.request.use((config) => {
 // 응답 인터셉터 (선택)
 api.interceptors.response.use(
     (res) => res.data,
-    (err) => {
+    async (error) => {
+        if (error.response?.status === 401) {
+            // accessToken 만료 → refreshToken 쿠키로 갱신
+            await api.post('/refresh');
+            return api(error.config)
+        }
         // 공통 에러 처리 (예: alert 띄우기, 로그아웃 처리 등)
-        console.error('API Error:', err);
-        throw err;
+        console.error('API interceptors error:', error);
+        throw error;
     }
 );
 
