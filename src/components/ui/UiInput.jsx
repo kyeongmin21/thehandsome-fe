@@ -35,6 +35,8 @@ const UiInput = forwardRef(function UiInput({
                     placeholder={placeholder}
                     ref={ref}
                     type={inputType}
+                    autoComplete="off"
+                    autoCapitalize="none"
                     disabled={disabled}
                     className={clsx(
                         'block w-full py-1.5 text-sm/6',

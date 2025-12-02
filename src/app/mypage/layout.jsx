@@ -1,18 +1,17 @@
 'use client'
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import {usePathname} from "next/navigation";
 
 const menuList = [
-    { id: "", label: "마이페이지" },
-    { id: "wishlist", label: "마이하트" },
-    { id: "qna", label: "1:1문의" },
-    { id: "edit", label: "개인정보 변경/탈퇴" },
+    {id: "", label: "마이페이지"},
+    {id: "wishlist", label: "마이하트"},
+    {id: "qna", label: "1:1문의"},
+    {id: "edit", label: "개인정보 변경/탈퇴"},
 ];
 
-export default function MyPageLayout({ children }) {
-    const pathname = usePathname(); // 현재 URL
-
+export default function MyPageLayout({children}) {
+    const pathname = usePathname();
     return (
         <div className="mypage-cont flex">
 

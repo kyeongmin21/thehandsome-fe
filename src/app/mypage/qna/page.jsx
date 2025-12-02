@@ -6,7 +6,7 @@ import DataTable from "@/components/ui/UiTable";
 import {qnaColumns} from "@/config/qnaTableConfig";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
-import { MdArrowForwardIos } from "react-icons/md";
+import {MdArrowForwardIos} from "react-icons/md";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 const MyQna = () => {
@@ -33,14 +33,14 @@ const MyQna = () => {
     return (
         <div>
             <h2>1:1문의</h2>
-            <hr />
+            <hr/>
             <Link href='/mypage/qna/write'
                   className='flex justify-end mb-5'>문의하기
-                <div className='pt-1 ml-2'><MdArrowForwardIos /></div>
+                <div className='pt-1 ml-2'><MdArrowForwardIos/></div>
             </Link>
             {isLoading ? (
-                <LoadingSpinner fullScreen/>
-            ): (
+                <LoadingSpinner/>
+            ) : (
                 <DataTable columns={qnaColumns(router)} data={qnaList}/>
             )}
         </div>

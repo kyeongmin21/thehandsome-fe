@@ -7,9 +7,11 @@ import {MdArrowForwardIos} from "react-icons/md";
 import UiButton from "@/components/ui/UiButton";
 import Image from "next/image";
 import apiHelper from "@/utils/apiHelper";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 const WishList = () => {
     const [activeTab, setActiveTab] = useState("heart");
+    const [isHeartLoading, setIsHeartLoading] = useState(true);
 
     // 만약 isWished 없이 wishList (배열)만 사용한다면, 특정 상품 코드의 찜 여부를 확인하기 위해 매번 **배열 전체를 순회해야함
     // 상품 코드별 찜 여부를 나타내는 객체(Map) : "찜 되었는지" 여부
@@ -30,6 +32,8 @@ const WishList = () => {
             setIsWished(wishedMap);
         } catch (error) {
             console.error('마이페이지 위시리스트 조회 실패', error)
+        } finally {
+            setIsHeartLoading(false)
         }
     }
 
@@ -110,50 +114,58 @@ const WishList = () => {
             {/* 탭별 내용 */}
             {activeTab === "heart" && (
                 <div className="grid grid-cols-1 gap-6 mb-30">
-                    {wishList.length === 0 ? (
-                        <p className="text-center text-gray-500 py-20">저장된 마이하트가 없습니다.</p>
+                    {isHeartLoading ? (
+                        <div className="h-[500px] spinner">
+                            <LoadingSpinner />
+                        </div>
                     ) : (
-                        wishList.map((item, index) => (
-                            <div key={index} className="flex items-center border-b border-gray-300 pb-4 pt-4">
-                                {/* 1. 상품정보 */}
-                                <div className="flex w-1/2 gap-4 items-center">
-                                    <Image
-                                        src={item.src}
-                                        alt={item.name}
-                                        width={120}
-                                        height={140}
-                                        className="rounded"
-                                    />
-                                    <div className="flex flex-col">
-                                        <p className="font-semibold text-sm text-gray-800">{item.brand}</p>
-                                        <p className="font-medium text-sm text-gray-700">{item.name}</p>
+                        <>
+                            {wishList.length === 0 ? (
+                                <p className="text-center text-gray-500 py-20">저장된 마이하트가 없습니다.</p>
+                            ) : (
+                                wishList.map((item, index) => (
+                                    <div key={index} className="flex items-center border-b border-gray-300 pb-4 pt-4">
+                                        {/* 1. 상품정보 */}
+                                        <div className="flex w-1/2 gap-4 items-center">
+                                            <Image
+                                                src={item.src}
+                                                alt={item.name}
+                                                width={120}
+                                                height={140}
+                                                className="rounded"
+                                            />
+                                            <div className="flex flex-col">
+                                                <p className="font-semibold text-sm text-gray-800">{item.brand}</p>
+                                                <p className="font-medium text-sm text-gray-700">{item.name}</p>
+                                            </div>
+                                        </div>
+
+                                        {/* 2. 상품금액 */}
+                                        <div className="w-1/4 text-center">
+                                            <span className='font-bold'>{item.price.toLocaleString()}</span>
+                                            <span className='text-sm'> 원</span>
+                                        </div>
+
+                                        {/* 3. 관리 */}
+                                        <div className=" w-1/4 flex justify-center items-center gap-4">
+                                            <UiButton btnText='쇼핑백 담기'
+                                                      color='blackOutline'
+                                                      className='py-1 px-3 hover:bg-gray-100'/>
+
+                                            {isWished[item.product_code] ? (
+                                                <FaHeart size={18}
+                                                         className='cursor-pointer'
+                                                         onClick={() => handleWishListClick(item.product_code)}/>
+                                            ) : (
+                                                <SlHeart size={18}
+                                                         className='cursor-pointer'
+                                                         onClick={() => handleWishListClick(item.product_code)}/>
+                                            )}
+                                        </div>
                                     </div>
-                                </div>
-
-                                {/* 2. 상품금액 */}
-                                <div className="w-1/4 text-center">
-                                    <span className='font-bold'>{item.price.toLocaleString()}</span>
-                                    <span className='text-sm'> 원</span>
-                                </div>
-
-                                {/* 3. 관리 */}
-                                <div className=" w-1/4 flex justify-center items-center gap-4">
-                                    <UiButton btnText='쇼핑백 담기'
-                                              color='blackOutline'
-                                              className='py-1 px-3 hover:bg-gray-100'/>
-
-                                    {isWished[item.product_code] ? (
-                                        <FaHeart size={18}
-                                                 className='cursor-pointer'
-                                                 onClick={() => handleWishListClick(item.product_code)}/>
-                                    ) : (
-                                        <SlHeart size={18}
-                                                 className='cursor-pointer'
-                                                 onClick={() => handleWishListClick(item.product_code)}/>
-                                    )}
-                                </div>
-                            </div>
-                        ))
+                                ))
+                            )}
+                        </>
                     )}
                 </div>
             )}
