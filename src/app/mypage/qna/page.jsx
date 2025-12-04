@@ -1,13 +1,13 @@
 'use client'
-
-import Link from "next/link";
-import apiHelper from "@/utils/apiHelper";
-import DataTable from "@/components/ui/UiTable";
-import {qnaColumns} from "@/config/qnaTableConfig";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
+import {qnaColumns} from "@/config/qnaTableConfig";
 import {MdArrowForwardIos} from "react-icons/md";
+import DataTable from "@/components/ui/UiTable";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import Link from "next/link";
+import apiHelper from "@/utils/apiHelper";
+
 
 const MyQna = () => {
     const router = useRouter();
@@ -39,7 +39,7 @@ const MyQna = () => {
                 <div className='pt-1 ml-2'><MdArrowForwardIos/></div>
             </Link>
             {isLoading ? (
-                <LoadingSpinner/>
+                <LoadingSpinner fullScreen/>
             ) : (
                 <DataTable columns={qnaColumns(router)} data={qnaList}/>
             )}

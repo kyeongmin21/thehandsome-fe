@@ -1,10 +1,16 @@
 'use client'
-import useUserStore from "@/store/userStore";
+
+import {useSession} from "next-auth/react";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 export default function InfoPage() {
+    const {data: session, status} = useSession();
 
-    const userName = useUserStore((state) => state.userName);
-    const userId = useUserStore((state) => state.userId);
+    // 로딩 중이면 UI 잠시 숨기거나 로딩 표시
+    if (status === "loading") {
+        return <LoadingSpinner fullScreen/>;
+    }
+
     return (
         <div>
             <h2>마이페이지</h2>
@@ -12,8 +18,8 @@ export default function InfoPage() {
             <div className="my-page-info">
                 <ul>
                     <li>
-                        <span className='title'>{userId}</span>
-                        <span className='text'>{userName}</span>님
+                        <span className='title'>{session?.user?.id}</span>
+                        <span className='text'>{session?.user?.name}</span>님
                     </li>
                     <li>
                         <span className='title'>한섬마일리지</span>
