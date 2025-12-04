@@ -130,9 +130,10 @@ const WishList = () => {
                                             <Image
                                                 src={item.src}
                                                 alt={item.name}
-                                                width={120}
-                                                height={140}
-                                                className="rounded"
+                                                width={246}
+                                                height={377}
+                                                priority
+                                                className="rounded w-[120px] h-auto"
                                             />
                                             <div className="flex flex-col">
                                                 <p className="font-semibold text-sm text-gray-800">{item.brand}</p>
