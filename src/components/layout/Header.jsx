@@ -1,32 +1,32 @@
 'use client'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
+import {signOut, useSession} from "next-auth/react"
 import {CiUser} from "react-icons/ci";
 import {FaHeart} from "react-icons/fa";
 import {IoIosArrowForward} from "react-icons/io";
 import {SlMagnifier, SlLogin, SlLogout, SlHeart, SlBag} from "react-icons/sl";
 import Link from "next/link";
-import useUserStore from "@/store/userStore";
 import {MAIN_MENU} from "@/config/Category";
 import apiHelper from "@/utils/apiHelper";
 
 
-export default () => {
+export default ({ initialSession }) => {
     const router = useRouter();
-    const login = useUserStore((state) => state.isLoginIn);
-    const logout = useUserStore((state) => state.logout);
+    const {data: session, status} = useSession();
+    const currentSession = status === 'loading' ? initialSession : session;
+
     const [scrolled, setScrolled] = useState(false);
     const [isShow, setIsShow] = useState(true);
     const [activeMenuIndex, setActiveMenuIndex] = useState(null);
     const [isBrandWished, setIsBrandWished] = useState(false);
     const [brands, setBrands] = useState([]);
 
-
     const mouseEnter = (idx) => {
         setIsShow(true);
         setActiveMenuIndex(idx);
         // 이미 호출했으면 skip
-        if (!Object.keys(isBrandWished).length && login) {
+        if (!Object.keys(isBrandWished).length && currentSession) {
             fetchBrandLike();
         }
     }
@@ -36,17 +36,17 @@ export default () => {
         setActiveMenuIndex(idx);
     }
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         const isConfirmed = confirm('로그아웃 하시겠습니까?');
-        if (isConfirmed) {
-            logout();
-            alert('로그아웃 처리되었습니다.');
-            router.push('/');
-        }
+        if (!isConfirmed) return
+
+        await signOut({redirect: false})
+        alert('로그아웃 처리되었습니다.');
+        router.push('/');
     }
 
     const handleUserClick = () => {
-        if (login) {
+        if (currentSession) {
             router.push("/mypage");
         } else {
             router.push("/login");
@@ -54,7 +54,7 @@ export default () => {
     };
 
     const handleWishClick = () => {
-        if (login) {
+        if (currentSession) {
             router.push("/mypage/wishlist");
         } else {
             alert('로그인이 필요한 서비스입니다.')
@@ -72,7 +72,7 @@ export default () => {
     }
 
     const fetchBrandLike = async () => {
-        if (!login) return
+        if (!currentSession) return
         try {
             const res = await apiHelper.get('/brandlike/my-brands');
             const brandsMap = {};
@@ -86,7 +86,7 @@ export default () => {
     }
 
     const handleBrandsClick = async (code) => {
-        if (login) {
+        if (currentSession) {
             try {
                 const res = await apiHelper.post(
                     '/brandlike/toggle',
@@ -109,16 +109,14 @@ export default () => {
 
 
     useEffect(() => {
-        const token = sessionStorage.getItem("accessToken");
-        if (!token) {
-            logout();
-        }
         fetchBrands();
         const handleScroll = () => setScrolled(window.scrollY > 0);
         window.addEventListener("scroll", handleScroll);
 
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+
 
     return (
         <div className={`header ${scrolled ? "scrolled" : ""} `}
@@ -208,7 +206,7 @@ export default () => {
 
                         {/* 로그인/로그아웃 */}
                         <li>
-                            {login ? (
+                            {currentSession ? (
                                 <div onClick={handleLogout}><SlLogout size={22}/></div>
                             ) : (
                                 <div onClick={() => router.push('/login')}><SlLogin size={22}/></div>
