@@ -1,19 +1,20 @@
 'use client'
-import Link from "next/link";
-import apiHelper from "@/utils/apiHelper";
-import useUserStore from "@/store/userStore";
-import UiInput from "@/components/ui/UiInput";
-import UiButton from "@/components/ui/UiButton";
-import ErrorMessage from "@/components/ui/ErrorMessage";
 import {useForm} from "react-hook-form";
 import {useRouter} from "next/navigation";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {signIn} from 'next-auth/react';
+import UiButton from "@/components/ui/UiButton";
+import ErrorMessage from "@/components/ui/ErrorMessage";
+import Link from "next/link";
+import UiInput from "@/components/ui/UiInput";
 import {loginSchema} from "@/utils/validators/join.schema";
 import {ERROR_MESSAGES} from "@/constants/errorMsg";
+import {useState} from "react";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 const LoginPage = () => {
     const router = useRouter();
-    const {setUser} = useUserStore();
+    const [loading, setLoading] = useState(false);
     const {
         register,
         handleSubmit,
@@ -33,19 +34,20 @@ const LoginPage = () => {
     const passwordValue = watch("password");
 
     const onSubmit = async (data) => {
-        try {
-            const res = await apiHelper.post("/login", data)
-            const {user, access_token} = res;
+        setLoading(true);
+        const result = await signIn('credentials', {
+            redirect: false, // 리다이렉트 방지
+            user_id: data.user_id,
+            password: data.password
+        })
 
-            setUser({userId: user.user_id, userName: user.name, role: user.role});
-            sessionStorage.setItem("accessToken", access_token);
+        setLoading(false);
 
+        if (result?.ok) {
             alert('로그인 되었습니다.')
             router.push("/");
-
-        } catch (error) {
-            const msg = error?.response?.data.detail
-
+        } else {
+            const msg = JSON.parse(result.error)
             if (Array.isArray(msg)) {
                 msg.forEach(({field, code}) => {
                     const message = ERROR_MESSAGES[code].message;
@@ -59,6 +61,7 @@ const LoginPage = () => {
 
     return (
         <div className='flex-center'>
+            {loading && <LoadingSpinner fullScreen />}
             <div className='auth-container'>
                 <h1>로그인</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>

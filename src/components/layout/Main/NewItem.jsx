@@ -1,15 +1,15 @@
 import {useEffect, useState} from "react";
+import {useSession} from "next-auth/react";
 import {useRouter} from "next/navigation";
 import {SlHeart} from "react-icons/sl";
 import {FaHeart} from "react-icons/fa";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper/modules";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import Image from "next/image";
+import apiHelper from "@/utils/apiHelper";
 import {Tab} from '@headlessui/react'
 import {eventBanner} from "@/config/MainPageConfig";
-import apiHelper from "@/utils/apiHelper";
-import useUserStore from "@/store/userStore";
-import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 
 const newItem = () => {
@@ -17,7 +17,7 @@ const newItem = () => {
     const [isMounted, setIsMounted] = useState(false);
     const [list, setList] = useState([]);
     const [isWished, setIsWished] = useState(false);
-    const login = useUserStore((state) => state.isLoginIn);
+    const { data: session} = useSession();
 
     const fetchData = async () => {
         try {
@@ -30,7 +30,7 @@ const newItem = () => {
     }
 
     const fetchWished = async () => {
-        if (!login) return
+        if (!session) return
         try {
             const res = await apiHelper.get('/wishlist/my-wished')
             const wishedMap = {};
@@ -44,7 +44,7 @@ const newItem = () => {
     }
 
     const handleWishList = async (code) => {
-        if (!login) {
+        if (!session) {
             alert('로그인이 필요한 서비스 입니다.')
             router.push('/login')
         }
@@ -69,7 +69,7 @@ const newItem = () => {
 
     useEffect(() => {
         fetchWished()
-    }, [login])
+    }, [session])
 
     return (
         <>
