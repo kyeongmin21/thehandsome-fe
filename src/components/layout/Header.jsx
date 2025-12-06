@@ -1,5 +1,5 @@
 'use client'
-import {useEffect, useState} from "react";
+import {useEffect, useState, memo} from "react";
 import {useRouter} from "next/navigation";
 import {signOut, useSession} from "next-auth/react"
 import {CiUser} from "react-icons/ci";
@@ -7,28 +7,24 @@ import {FaHeart} from "react-icons/fa";
 import {IoIosArrowForward} from "react-icons/io";
 import {SlMagnifier, SlLogin, SlLogout, SlHeart, SlBag} from "react-icons/sl";
 import Link from "next/link";
-import {MAIN_MENU} from "@/config/Category";
 import apiHelper from "@/utils/apiHelper";
+import {MAIN_MENU} from "@/config/Category";
 
 
-export default ({ initialSession }) => {
+const Header = ({ initSession, initBrandLike = {} }) => {
     const router = useRouter();
     const {data: session, status} = useSession();
-    const currentSession = status === 'loading' ? initialSession : session;
+    const currentSession = status === 'loading' ? initSession : session;
 
     const [scrolled, setScrolled] = useState(false);
     const [isShow, setIsShow] = useState(true);
     const [activeMenuIndex, setActiveMenuIndex] = useState(null);
-    const [isBrandWished, setIsBrandWished] = useState(false);
+    const [isBrandWished, setIsBrandWished] = useState(() => initBrandLike);
     const [brands, setBrands] = useState([]);
 
     const mouseEnter = (idx) => {
         setIsShow(true);
         setActiveMenuIndex(idx);
-        // 이미 호출했으면 skip
-        if (!Object.keys(isBrandWished).length && currentSession) {
-            fetchBrandLike();
-        }
     }
 
     const mouseLeave = (idx) => {
@@ -71,19 +67,6 @@ export default ({ initialSession }) => {
         }
     }
 
-    const fetchBrandLike = async () => {
-        if (!currentSession) return
-        try {
-            const res = await apiHelper.get('/brandlike/my-brands');
-            const brandsMap = {};
-            res.forEach(item => {
-                brandsMap[item.brand_code] = true;
-            });
-            setIsBrandWished(brandsMap);
-        } catch (error) {
-            console.log('브랜드 찜하기 리스트 조회 실패', error)
-        }
-    }
 
     const handleBrandsClick = async (code) => {
         if (currentSession) {
@@ -112,10 +95,8 @@ export default ({ initialSession }) => {
         fetchBrands();
         const handleScroll = () => setScrolled(window.scrollY > 0);
         window.addEventListener("scroll", handleScroll);
-
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
-
 
 
     return (
@@ -227,3 +208,7 @@ export default ({ initialSession }) => {
         </div>
     )
 }
+
+export default memo(Header, (prevProps, nextProps) => {
+
+});

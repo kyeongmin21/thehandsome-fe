@@ -87,14 +87,13 @@ export const authOptions = {
                 return token;
             }
 
-            // 3. 토큰이 만료되었거나 만료 시간이 임박한 경우
-            // refreshAccessToken 함수를 호출하여 토큰 갱신을 시도
+            // 3. 만료 -> refresh로 갱신
             console.log("Access Token 만료 또는 만료 임박. 갱신 시도...");
             return refreshAccessToken(token);
         },
 
         async session({session, token}) {
-            // 세션에 백엔드 토큰 추가
+            // 세션 콜백: 프론트로 전달되는 값
             session.user = token.user;
             session.accessToken = token.accessToken;
             session.refreshToken = token.refreshToken;
