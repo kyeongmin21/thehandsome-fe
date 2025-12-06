@@ -69,16 +69,23 @@ const Header = ({ initSession, initBrandLike = {} }) => {
 
 
     const handleBrandsClick = async (code) => {
+        const isWished = !!isBrandWished[code];
+
+        // 낙관적 업데이트: UI를 즉시 변경
+        const prevState = isBrandWished;
+        setIsBrandWished(prev => ({
+            ...prev,
+            [code]: !isWished, // 즉시 상태를 반전
+        }))
+
         if (currentSession) {
             try {
                 const res = await apiHelper.post(
                     '/brandlike/toggle',
                     {brand_code: code});
-                setIsBrandWished((prev) => ({
-                    ...prev,
-                    [code]: !prev[code], // 해당 상품만 토글
-                }))
+                // API 성공시 아무것도 하지 않음. 이미 낙관적 업데이트에서 변경됨
             } catch (error) {
+                setIsBrandWished(prevState); // 상태를 클릭 전 상태로 되돌림
                 console.log('브랜드 찜하기 실패', error);
             }
         } else {
