@@ -1,23 +1,25 @@
 'use client'
 import {useSession} from "next-auth/react";
 import {useRouter} from "next/navigation";
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {useQuery} from "@tanstack/react-query";
 import {SlHeart} from "react-icons/sl";
 import {FaHeart} from "react-icons/fa";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper/modules";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import useToggleWish from "@/hooks/queries/useToggleWish";
+import useMyWishedMap from "@/hooks/queries/useMyWishedMap";
 import Image from "next/image";
 import apiHelper from "@/utils/apiHelper";
 import {Tab} from '@headlessui/react'
 import {eventBanner} from "@/config/MainPageConfig";
-import useToggleWish from "@/hooks/queries/useToggleWish";
+
 
 const NewItem = () => {
     const router = useRouter();
     const {data: session} = useSession();
-    const userId = session?.user?.id;
     const {toggleWish} = useToggleWish();
+    const {wishedMap, isWishedLoading} = useMyWishedMap();
 
     const {data: list = [], isLoading, isError} = useQuery({
         queryKey: ['products'],
@@ -26,18 +28,7 @@ const NewItem = () => {
         }
     });
 
-    const {data: wishedMap = {}, isLoading: isWishedLoading} = useQuery({
-        queryKey: ['wishlist', userId],
-        queryFn: async () => {
-            if (!session) return {};
-            const res = await apiHelper.get('/wishlist/my-wished');
-            return res.reduce((acc, item) => {
-                acc[item.product_code] = true;
-                return acc;
-            }, {});
-        },
-        enabled: !!userId, // session 이 있을 때만 쿼리실행
-    })
+
 
     const handleWishList = async (code) => {
         if (!session) {
@@ -102,12 +93,19 @@ const NewItem = () => {
                                                                    priority
                                                                    width={246}
                                                                    height={377}/>
-                                                            {wishedMap[item.product_code] ? (
-                                                                <FaHeart size={23} className="heart-icon"
-                                                                         onClick={() => handleWishList(item.product_code)}/>
+                                                            {isWishedLoading ? (
+                                                                <>
+                                                                    <h2>뭐가들어오냥</h2>
+                                                                    <div className="heart-icon-placeholder w-6 h-6 animate-pulse bg-gray-200" />
+                                                                </>
                                                             ) : (
-                                                                <SlHeart size={23} className="heart-icon"
-                                                                         onClick={() => handleWishList(item.product_code)}/>
+                                                                wishedMap[item.product_code] ? (
+                                                                    <FaHeart size={23} className="heart-icon"
+                                                                                 onClick={() => handleWishList(item.product_code)}/>
+                                                                    ) : (
+                                                                        <SlHeart size={23} className="heart-icon"
+                                                                                 onClick={() => handleWishList(item.product_code)}/>
+                                                                    )
                                                             )}
 
                                                             <p className='mt-3 text-center font-semibold text-sm'>{item.brand}</p>

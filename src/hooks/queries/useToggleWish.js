@@ -23,17 +23,21 @@ const useToggleWish = () => {
             const prevWishlist = queryClient.getQueryData(['wishlist', userId]);
 
             // UI를 즉시 업데이트 (낙관적 업데이트)
-            queryClient.setQueryData(['wishlist', userId], (oldMap) => {
-                // oldMap이 없으면 빈 객체로 시작
-                const newMap = oldMap ? {...oldMap} : {};
+            queryClient.setQueryData(['wishlist', userId], (old) => {
+                if (!old) return {wishedMap: {[code]: true}, wishListItems: []};
 
-                // 해당 상품의 위시리스트 상태를 토글
-                if (newMap[code]) {
-                    delete newMap[code]; // 위시 해제
+                const newWishedMap = {...old.wishedMap};
+
+                if (newWishedMap[code]) {
+                    delete newWishedMap[code]; // 위시 해제
                 } else {
-                    newMap[code] = true; // 위시 설정
+                    newWishedMap[code] = true; // 위시 설정
                 }
-                return newMap;
+
+                return {
+                    ...old,
+                    wishedMap: newWishedMap
+                };
             });
 
             return {prevWishlist};
