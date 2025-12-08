@@ -16,7 +16,7 @@ export default async function RootLayout({children}) {
         <html lang="en">
         <body>
         <div className="flex flex-col min-h-screen">
-            <RootProviders>
+            <RootProviders session={session}>
                 <ProgressBar/>
                 <AuthStatus />
                 <Header initSession={session} initBrandLike={brandLike}/>
