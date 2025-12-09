@@ -7,6 +7,7 @@ const useToggleWish = () => {
     const queryClient = useQueryClient();
     const {data: session} = useSession();
     const userId = session?.user?.id;
+    const queryKey = ['wishlist', userId];
 
     const {mutate: toggleWish} = useMutation({
         mutationFn: (code) => {
@@ -17,13 +18,13 @@ const useToggleWish = () => {
             if (!userId) return;
 
             // 뮤테이션 실행 전에 기존 쿼리를 취소하여 데이터 충돌 방지
-            await queryClient.cancelQueries({queryKey: ['wishlist', userId]});
+            await queryClient.cancelQueries({queryKey});
 
             // 현재 위시리스트 데이터 스냅샷 저장 (롤백을 위해)
-            const prevWishlist = queryClient.getQueryData(['wishlist', userId]);
+            const prevWishlist = queryClient.getQueryData(queryKey);
 
             // UI를 즉시 업데이트 (낙관적 업데이트)
-            queryClient.setQueryData(['wishlist', userId], (old) => {
+            queryClient.setQueryData(queryKey, (old) => {
                 if (!old) return {wishedMap: {[code]: true}, wishListItems: []};
 
                 const newWishedMap = {...old.wishedMap};
@@ -46,15 +47,13 @@ const useToggleWish = () => {
             console.error('위시리스트 토글 실패', error)
             // 롤백 실행
             if (context?.prevWishlist && userId) {
-                queryClient.setQueryData(['wishlist', userId], context.prevWishlist);
+                queryClient.setQueryData(queryKey, context.prevWishlist);
             }
         },
         // 성공/실패와 관계없이 최종적으로 쿼리 무효화 (서버 상태와 동기화)
         onSettled: () => {
             if (userId) {
-                queryClient.invalidateQueries({
-                    queryKey: ['wishlist', userId]
-                });
+                void queryClient.invalidateQueries({queryKey});
             }
         }
     });

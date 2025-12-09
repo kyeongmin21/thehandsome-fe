@@ -1,6 +1,6 @@
 'use client'
 
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {FaHeart} from "react-icons/fa";
 import {SlHeart} from "react-icons/sl";
 import {MdArrowForwardIos} from "react-icons/md";
@@ -8,53 +8,25 @@ import UiButton from "@/components/ui/UiButton";
 import useToggleWish from "@/hooks/queries/useToggleWish";
 import useMyWishedMap from "@/hooks/queries/useMyWishedMap";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import useMyBrandList from "@/hooks/queries/useMyBrands";
+import useToggleBrand from "@/hooks/queries/useToggleBrand";
 import Image from "next/image";
-import apiHelper from "@/utils/apiHelper";
 
 
 const WishList = () => {
     const [activeTab, setActiveTab] = useState("heart");
-    const [brandList, setBrandList] = useState([]);
-    const [isBrandWished, setIsBrandWished] = useState({});
-
-    const {toggleWish} = useToggleWish();
+    const {brandWishedMap, brandList,isBrandListLoading} = useMyBrandList();
     const {wishedMap, wishListItems, isWishedLoading} = useMyWishedMap();
+    const {toggleWish} = useToggleWish();
+    const {toggleBrand} = useToggleBrand();
 
-
-    const handleWishList= async (code) => {
-        toggleWish(code)
+    const handleWishList = async (code) => {
+        toggleWish(code);
     }
 
     const handleBrandClick = async (code) => {
-        try {
-            const res = await apiHelper.post('/brandlike/toggle', { brand_code: code })
-            setIsBrandWished((prev) => ({
-                ...prev,
-                [code]: !prev[code],
-            }))
-        } catch (error) {
-            console.log('브랜드 찜 토글 실패', error)
-        }
-
+        toggleBrand(code);
     }
-
-    const fetchBrandList = async () => {
-        try {
-            const res = await apiHelper.get('/brandlike/my-brands')
-            setBrandList(res);
-            const brandWishedMap = {};
-            res.forEach(item => {
-                brandWishedMap[item.brand_code] = true;
-            })
-            setIsBrandWished(brandWishedMap);
-        } catch (error) {
-            console.error('마이페이지 브랜드 찜목록 조회 실패', error)
-        }
-    }
-
-    useEffect(() => {
-        fetchBrandList()
-    }, [])
 
     return (
         <div>
@@ -91,7 +63,7 @@ const WishList = () => {
                 <div className="grid grid-cols-1 gap-6 mb-30">
                     {isWishedLoading ? (
                         <div className="h-[500px] spinner">
-                          <LoadingSpinner />
+                            <LoadingSpinner/>
                         </div>
                     ) : (
                         wishListItems.map((item, index) => (
@@ -142,29 +114,31 @@ const WishList = () => {
 
             {activeTab === "brand" && (
                 <div>
-                    {brandList.length === 0 ? (
+                    {isBrandListLoading ? (
+                        <LoadingSpinner/>
+                    ) : brandList.length === 0 ? (
                         <p className="text-center text-gray-500 py-20">저장된 브랜드가 없습니다.</p>
                     ) : (
-                     brandList.map((item, index) => (
-                         <div key={index} className="flex items-center justify-between mb-5">
-                             <div className="flex items-center">
-                                 <p className='mr-2'>{item.brand_name}</p>
-                                 <p>{isBrandWished[item.brand_code] ? (
-                                         <FaHeart size={18}
-                                                  className='cursor-pointer'
-                                                  onClick={() => handleBrandClick(item.brand_code)}/>
-                                     ) : (
-                                         <SlHeart size={18}
-                                                  className='cursor-pointer'
-                                                  onClick={() => handleBrandClick(item.brand_code)}/>
-                                     )}
-                                 </p>
-                             </div>
-                             <p className='cursor-pointer flex'>브랜드 바로가기
-                             <span style={{ padding: '3px 0 0 5px'}}><MdArrowForwardIos /></span>
-                             </p>
-                         </div>
-                     ))
+                        brandList.map((item, index) => (
+                            <div key={index} className="flex items-center justify-between mb-5">
+                                <div className="flex items-center">
+                                    <p className='mr-2'>{item.brand_name}</p>
+                                    <p>{brandWishedMap[item.brand_code] ? (
+                                        <FaHeart size={18}
+                                                 className='cursor-pointer'
+                                                 onClick={() => handleBrandClick(item.brand_code)}/>
+                                    ) : (
+                                        <SlHeart size={18}
+                                                 className='cursor-pointer'
+                                                 onClick={() => handleBrandClick(item.brand_code)}/>
+                                    )}
+                                    </p>
+                                </div>
+                                <p className='cursor-pointer flex'>브랜드 바로가기
+                                    <span style={{padding: '3px 0 0 5px'}}><MdArrowForwardIos/></span>
+                                </p>
+                            </div>
+                        ))
                     )}
                 </div>
             )}

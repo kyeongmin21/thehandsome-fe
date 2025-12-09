@@ -9,8 +9,10 @@ const useMyWishedMap = () => {
     const isSessionLoading = status === 'loading'
 
     const {
-        data = {wishedMap: {}, wishListItems: []},
-        isLoading: isWishedQueryLoading} = useQuery({
+        data,
+        isLoading: isWishedQueryLoading,
+        isError
+    } = useQuery({
         queryKey: ['wishlist', userId],
         queryFn: async () => {
             const res = await apiHelper.get('/wishlist/my-wished');
@@ -29,7 +31,7 @@ const useMyWishedMap = () => {
     const {wishedMap, wishListItems} = data;
     const isWishedLoading = isWishedQueryLoading || isSessionLoading;
 
-    return {wishedMap, wishListItems, isWishedLoading};
+    return {wishedMap, wishListItems, isWishedLoading, isError};
 };
 
 export default useMyWishedMap;
