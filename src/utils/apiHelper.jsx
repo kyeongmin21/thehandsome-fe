@@ -55,10 +55,13 @@ api.interceptors.request.use(async (config) => {
 
     const session = await getCachedSession();
 
-    console.log('🔑 인터셉터에서 캐시된 세션:', session);
-    console.log(`➡️ 인터셉터 실행: ${config.method.toUpperCase()} ${config.url}`);
+    // console.log('🔑 인터셉터에서 캐시된 세션:', session);
+    // console.log(`➡️ 인터셉터 실행: ${config.method.toUpperCase()} ${config.url}`);
 
-    const isAuthUrl = config.url.includes("/login") || config.url.includes("/join") || config.url.includes("/refresh");
+    const isAuthUrl = config.url.includes("/login") ||
+                    config.url.includes("/join") ||
+                    config.url.includes("/refresh") ||
+                    config.url.includes("/api/auth/session");
 
     if (!session || !session.accessToken || isAuthUrl) {
         return config;
@@ -73,7 +76,7 @@ api.interceptors.request.use(async (config) => {
 api.interceptors.response.use(
     (res) => res.data,
     async (error) => {
-        // 토큰 갱신 로직은 NextAuth에 있으므로, 여기서는 에러를 그대로 reject 합니다.
+        // 토큰 갱신 로직은 NextAuth에 있으므로, 여기서는 에러를 그대로 reject
         return Promise.reject(error);
     }
 );

@@ -1,25 +1,35 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import apiHelper from "@/utils/apiHelper";
+import axios from 'axios';
+
+// 무한 루프 차단하기 위해 (인터셉터를 전혀 등록하지 않은 순수한 Axios 인스턴스)
+const refreshApi = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    timeout: 5000,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
 
 
-// 토큰 갱신 함수
 async function refreshAccessToken(token) {
-
     try {
-        const res = await apiHelper.post(
+        const res = await refreshApi.post(
             '/refresh',
             {refresh_token: token.refreshToken})
         return {
             ...token,
-            accessToken: res.access_token,
-            accessTokenExpires: Date.now() + res.expires_in * 1000,
+            accessToken: res.data.access_token,
+            refreshToken: res.data.refresh_token,
+            accessTokenExpires: Date.now() + res.data.expires_in * 1000,
         };
     } catch (error) {
         console.error("🚨 토큰 갱신 실패:", error?.response?.status || error);
         return {
             ...token,
             error: "RefreshAccessTokenError",
+            refreshToken: token.refresh_token,
         };
     }
 }
@@ -38,6 +48,7 @@ export const authOptions = {
                         });
 
                     const {user, access_token, refresh_token, expires_in} = res;
+
                     if (!user) return null;
 
                     // 백엔드에서 받은 토큰과 유저 정보 반환
@@ -67,13 +78,15 @@ export const authOptions = {
         // 로그인 시 백엔드 토큰을 JWT에 저장
         // jwt() 콜백이 매 요청마다 실행되면 만료 체크 => 자동 갱신
         async jwt({token, user}) {
-            // 1. 최초 로그인
+            // 1. 최초 로그인: 백엔드 사용자 정보와 토큰 정보를 토큰 객체에 저장
             if (user) {
-                // 백엔드 사용자 정보와 토큰 정보를 토큰 객체에 저장
                 return {
                     ...token,
-                    id: user.id,
-                    role: user.role,
+                    user: {
+                        id: user.id,
+                        name: user.name,
+                        role: user.role,
+                    },
                     accessToken: user.access_token,
                     refreshToken: user.refresh_token,
                     accessTokenExpires: Date.now() + user.expires_in * 1000,
@@ -82,18 +95,21 @@ export const authOptions = {
 
             // 2. jwt() 콜백에서 user가 undefined인 경우 -> 이미 로그인 되어있어 token기반으로 호출되는 모든 요청
             // 토큰이 존재하지만 아직 만료되지 않은 경우 (대부분의 요청)
-            // 토큰 만료 시간이 없거나 (오류 방지) 만료 시간이 현재 시간보다 큰 경우
-            if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
+            const fiveMinutes = 5 * 60 * 1000;
+            if (token.accessTokenExpires && Date.now() < token.accessTokenExpires - fiveMinutes) {
                 return token;
             }
 
-            // 3. 만료 -> refresh로 갱신
-            console.log("Access Token 만료 또는 만료 임박. 갱신 시도...");
+            if (!token.refreshToken) {
+                console.error("🚨 토큰 갱신 불가: refreshToken이 없음");
+                return { ...token, error: "MissingRefreshTokenError" };
+            }
+
             return refreshAccessToken(token);
         },
 
+        // 세션 콜백: 프론트로 전달되는 값
         async session({session, token}) {
-            // 세션 콜백: 프론트로 전달되는 값
             session.user = token.user;
             session.accessToken = token.accessToken;
             session.refreshToken = token.refreshToken;
