@@ -3,9 +3,9 @@ import QueryProvider from '@/app/provider/QueryProvider';
 import SessionProvider from '@/app/provider/SessionProvider';
 
 
-export default function RootProvider({children, session}) {
+export default function RootProvider({children}) {
     return (
-        <SessionProvider session={session}>
+        <SessionProvider>
             <QueryProvider>
                 {children}
             </QueryProvider>

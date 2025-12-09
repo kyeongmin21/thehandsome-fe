@@ -14,10 +14,10 @@ import useToggleBrand from "@/hooks/queries/useToggleBrand";
 import useBrandList from "@/hooks/queries/useBrandList";
 
 
-const Header = ({ initSession }) => {
+const Header = () => {
     const router = useRouter();
     const {data: session, status} = useSession();
-    const currentSession = status === 'loading' ? initSession : session;
+    const isAuthenticated = status === 'authenticated';
 
     const [scrolled, setScrolled] = useState(false);
     const [isShow, setIsShow] = useState(true);
@@ -48,7 +48,7 @@ const Header = ({ initSession }) => {
     }
 
     const handleUserClick = () => {
-        if (currentSession) {
+        if (isAuthenticated) {
             router.push("/mypage");
         } else {
             router.push("/login");
@@ -56,7 +56,7 @@ const Header = ({ initSession }) => {
     };
 
     const handleWishClick = () => {
-        if (currentSession) {
+        if (isAuthenticated) {
             router.push("/mypage/wishlist");
         } else {
             alert('로그인이 필요한 서비스입니다.')
@@ -64,7 +64,8 @@ const Header = ({ initSession }) => {
         }
     }
 
-    const handleBrandsClick = async (code) => {
+    const handleBrandsClick = async (event, code) => {
+        event.stopPropagation();
         toggleBrand(code);
     }
 
@@ -138,10 +139,10 @@ const Header = ({ initSession }) => {
                                              <span className="inline-block mr-2" style={{paddingTop: '1px'}}>
                                                   {wishedBrandMap[item.brand_code] ? (
                                                       <FaHeart size={16}
-                                                               onClick={() => handleBrandsClick(item.brand_code)}/>
+                                                               onClick={(event) => handleBrandsClick(event, item.brand_code)}/>
                                                   ) : (
                                                       <SlHeart size={16}
-                                                               onClick={() => handleBrandsClick(item.brand_code)}/>
+                                                               onClick={(event) => handleBrandsClick(event, item.brand_code)}/>
                                                   )}
                                             </span>
                                             <span>{item.brand_name}</span>
@@ -163,7 +164,7 @@ const Header = ({ initSession }) => {
 
                         {/* 로그인/로그아웃 */}
                         <li>
-                            {currentSession ? (
+                            {isAuthenticated ? (
                                 <div onClick={handleLogout}><SlLogout size={22}/></div>
                             ) : (
                                 <div onClick={() => router.push('/login')}><SlLogin size={22}/></div>
@@ -185,6 +186,4 @@ const Header = ({ initSession }) => {
     )
 }
 
-export default memo(Header, (prevProps, nextProps) => {
-
-});
+export default Header;
