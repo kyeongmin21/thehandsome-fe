@@ -5,12 +5,10 @@ import RootProviders from "@/app/provider/RootProvider";
 import ProgressBar from "@/components/common/ProgressBar";
 import AuthStatus from "@/components/AuthStatus";
 import {serverSession} from '@/utils/getServerSession';
-import {serverBrandLike} from "@/utils/getServerBrandLike";
 
 
 export default async function RootLayout({children}) {
     const session = await serverSession();
-    const brandLike = await serverBrandLike()
 
     return (
         <html lang="en">
@@ -19,7 +17,7 @@ export default async function RootLayout({children}) {
             <RootProviders session={session}>
                 <ProgressBar/>
                 <AuthStatus />
-                <Header initSession={session} initBrandLike={brandLike}/>
+                <Header initSession={session}/>
                 <div className='main-children flex-1'>{children}</div>
                 <div className='h-[0px]'><Footer/></div>
             </RootProviders>

@@ -7,7 +7,7 @@ const useToggleBrand = () => {
     const queryClient = useQueryClient();
     const {data: session} = useSession();
     const userId = session?.user?.id;
-    const queryKey = ['brandList', userId];
+    const queryKey = ['myWishedBrands', userId];
 
     const {mutate: toggleBrand} = useMutation({
         mutationFn: (code) => {

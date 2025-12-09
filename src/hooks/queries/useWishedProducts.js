@@ -3,7 +3,7 @@ import {useSession} from "next-auth/react";
 import apiHelper from "@/utils/apiHelper";
 
 
-const useMyWishedMap = () => {
+const useWishedProducts = () => {
     const {data: session, status} = useSession();
     const userId = session?.user?.id;
     const isSessionLoading = status === 'loading'
@@ -34,4 +34,4 @@ const useMyWishedMap = () => {
     return {wishedMap, wishListItems, isWishedLoading, isError};
 };
 
-export default useMyWishedMap;
+export default useWishedProducts;

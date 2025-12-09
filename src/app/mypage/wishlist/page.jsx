@@ -6,17 +6,17 @@ import {SlHeart} from "react-icons/sl";
 import {MdArrowForwardIos} from "react-icons/md";
 import UiButton from "@/components/ui/UiButton";
 import useToggleWish from "@/hooks/queries/useToggleWish";
-import useMyWishedMap from "@/hooks/queries/useMyWishedMap";
+import useWishedProducts from "@/hooks/queries/useWishedProducts";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
-import useMyBrandList from "@/hooks/queries/useMyBrands";
+import useMyBrandList from "@/hooks/queries/useWishedBrands";
 import useToggleBrand from "@/hooks/queries/useToggleBrand";
 import Image from "next/image";
 
 
 const WishList = () => {
     const [activeTab, setActiveTab] = useState("heart");
-    const {brandWishedMap, brandList,isBrandListLoading} = useMyBrandList();
-    const {wishedMap, wishListItems, isWishedLoading} = useMyWishedMap();
+    const {wishedBrandList, wishedBrandMap, isWishedBrandLoading} = useMyBrandList();
+    const {wishListItems, wishedMap, isWishedLoading} = useWishedProducts();
     const {toggleWish} = useToggleWish();
     const {toggleBrand} = useToggleBrand();
 
@@ -114,16 +114,16 @@ const WishList = () => {
 
             {activeTab === "brand" && (
                 <div>
-                    {isBrandListLoading ? (
+                    {isWishedBrandLoading ? (
                         <LoadingSpinner/>
-                    ) : brandList.length === 0 ? (
+                    ) : wishedBrandList.length === 0 ? (
                         <p className="text-center text-gray-500 py-20">저장된 브랜드가 없습니다.</p>
                     ) : (
-                        brandList.map((item, index) => (
+                        wishedBrandList.map((item, index) => (
                             <div key={index} className="flex items-center justify-between mb-5">
                                 <div className="flex items-center">
                                     <p className='mr-2'>{item.brand_name}</p>
-                                    <p>{brandWishedMap[item.brand_code] ? (
+                                    <p>{wishedBrandMap[item.brand_code] ? (
                                         <FaHeart size={18}
                                                  className='cursor-pointer'
                                                  onClick={() => handleBrandClick(item.brand_code)}/>

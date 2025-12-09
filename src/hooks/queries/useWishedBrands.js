@@ -12,25 +12,25 @@ const useMyBrandList = () => {
         isLoading: isBrandQueryLoading,
         isError
     } = useQuery({
-        queryKey: ['brandList', userId],
+        queryKey: ['myWishedBrands', userId],
         queryFn: async () => {
             const res = await apiHelper.get('/brandlike/my-brands');
 
-            const brandWishedMap = res.reduce((acc, item) => {
+            const wishedBrandMap = res.reduce((acc, item) => {
                 acc[item.brand_code] = true;
                 return acc;
             }, {});
 
-            return {brandWishedMap, brandList: res};
+            return {wishedBrandMap, wishedBrandList: res};
         },
         enabled: !!userId,
-        initialData: {brandWishedMap: {}, brandList: []},
+        initialData: {wishedBrandMap: {}, wishedBrandList: []},
     });
 
-    const {brandWishedMap, brandList} = data;
-    const isBrandLoading = isBrandQueryLoading || isSessionLoading;
+    const {wishedBrandMap, wishedBrandList} = data;
+    const isWishedBrandLoading = isBrandQueryLoading || isSessionLoading;
 
-    return {brandWishedMap, brandList, isBrandLoading, isError};
+    return {wishedBrandMap, wishedBrandList, isWishedBrandLoading, isError};
 };
 
 export default useMyBrandList;

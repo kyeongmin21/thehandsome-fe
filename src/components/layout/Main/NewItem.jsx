@@ -8,7 +8,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Navigation, Pagination} from "swiper/modules";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import useToggleWish from "@/hooks/queries/useToggleWish";
-import useMyWishedMap from "@/hooks/queries/useMyWishedMap";
+import useWishedProducts from "@/hooks/queries/useWishedProducts";
 import Image from "next/image";
 import apiHelper from "@/utils/apiHelper";
 import {Tab} from '@headlessui/react'
@@ -19,7 +19,7 @@ const NewItem = () => {
     const router = useRouter();
     const {data: session} = useSession();
     const {toggleWish} = useToggleWish();
-    const {wishedMap, isWishedLoading} = useMyWishedMap();
+    const {wishedMap, isWishedLoading} = useWishedProducts();
 
     const {data: list = [], isLoading, isError} = useQuery({
         queryKey: ['products'],
