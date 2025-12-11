@@ -1,6 +1,6 @@
 'use client'
 
-import QnaForm from "@/components/forms/qnaForm";
+import QnaForm from "@/components/forms/QnaForm";
 import {useEffect, Suspense} from "react";
 
 const QnaEdit = () => {

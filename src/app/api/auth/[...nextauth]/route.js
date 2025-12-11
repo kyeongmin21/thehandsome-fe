@@ -94,7 +94,7 @@ export const authOptions = {
             }
 
             // 2. jwt() 콜백에서 user가 undefined인 경우 -> 이미 로그인 되어있어 token기반으로 호출되는 모든 요청
-            // 토큰이 존재하지만 아직 만료되지 않은 경우 (대부분의 요청)
+            // 토큰이 존재하지만 아직 만료되지 않은 경우 (대부분의 요청): 현재시간 - 5분
             const fiveMinutes = 5 * 60 * 1000;
             if (token.accessTokenExpires && Date.now() < token.accessTokenExpires - fiveMinutes) {
                 return token;

@@ -3,7 +3,7 @@
 import {useEffect, useState} from 'react';
 import {useParams} from 'next/navigation';
 import {useSession} from "next-auth/react";
-import QnaForm from "@/components/forms/qnaForm";
+import QnaForm from "@/components/forms/QnaForm";
 import UiButton from "@/components/ui/UiButton";
 import apiHelper from '@/utils/apiHelper';
 import UiTextarea from "@/components/ui/UiTextarea";

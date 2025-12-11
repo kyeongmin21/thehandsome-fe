@@ -1,4 +1,4 @@
-import QnaForm from "@/components/forms/qnaForm";
+import QnaForm from "@/components/forms/QnaForm";
 
 
 const QnaWrite = () => {
