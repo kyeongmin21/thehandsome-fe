@@ -93,21 +93,13 @@ const NewItem = () => {
                                                                    priority
                                                                    width={246}
                                                                    height={377}/>
-                                                            {isWishedLoading ? (
-                                                                <>
-                                                                    <h2>뭐가들어오냥</h2>
-                                                                    <div className="heart-icon-placeholder w-6 h-6 animate-pulse bg-gray-200" />
-                                                                </>
+                                                            {wishedMap[item.product_code] ? (
+                                                                <FaHeart size={23} className="heart-icon"
+                                                                         onClick={() => handleWishList(item.product_code)}/>
                                                             ) : (
-                                                                wishedMap[item.product_code] ? (
-                                                                    <FaHeart size={23} className="heart-icon"
-                                                                                 onClick={() => handleWishList(item.product_code)}/>
-                                                                    ) : (
-                                                                        <SlHeart size={23} className="heart-icon"
-                                                                                 onClick={() => handleWishList(item.product_code)}/>
-                                                                    )
+                                                                <SlHeart size={23} className="heart-icon"
+                                                                         onClick={() => handleWishList(item.product_code)}/>
                                                             )}
-
                                                             <p className='mt-3 text-center font-semibold text-sm'>{item.brand}</p>
                                                             <p className="mt-1 text-center text-sm">{item.name}</p>
                                                             <p className="mt-2 text-center font-semibold text-sm">{item.price.toLocaleString()}</p>

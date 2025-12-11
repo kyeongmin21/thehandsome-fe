@@ -7,7 +7,7 @@ const useToggleWish = () => {
     const queryClient = useQueryClient();
     const {data: session} = useSession();
     const userId = session?.user?.id;
-    const queryKey = ['myWishedBrands', userId];
+    const queryKey = ['wishlist', userId];
 
     const {mutate: toggleWish} = useMutation({
         mutationFn: (code) => {
