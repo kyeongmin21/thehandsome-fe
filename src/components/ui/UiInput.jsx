@@ -10,6 +10,7 @@ const UiInput = forwardRef(function UiInput({
         description,
         name,
         value,
+        style,
         onChange,
         placeholder,
         className,
@@ -25,7 +26,7 @@ const UiInput = forwardRef(function UiInput({
 
     return (
         <div className={clsx(className)}>
-            <Field>
+            <Field className="relative">
                 <Label className="text-sm/6 font-medium text-black">{label}</Label>
                 {description && <Description className="text-sm/6">{description}</Description>}
                 <Input
@@ -34,6 +35,7 @@ const UiInput = forwardRef(function UiInput({
                     onChange={onChange}
                     placeholder={placeholder}
                     ref={ref}
+                    style={style}
                     type={inputType}
                     autoComplete="off"
                     autoCapitalize="none"

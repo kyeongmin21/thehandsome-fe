@@ -35,17 +35,15 @@ const Page = () => {
             <h2>개인정보 수정</h2>
             <hr />
             {isVerified ? (
-                <>
-                    <UserForm isEdit={true} />
-                </>
+                <UserForm isEdit={true} />
             ) : (
                 <>
                     <p className='text-sm mb-5'>정보를 안전하게 보호하기 위해 비밀번호를 다시 한 번 입력해주세요.</p>
-                    <div className='flex'>
+                    <div className='flex gap-4'>
                         <UiInput label=""
                                  type='password'
                                  value={password}
-                                 className='w-90'
+                                 className='w-70'
                                  placeholder='비밀번호를 입력해 주세요.'
                                  onChange={e => setPassword(e.target.value)}/>
                         <UiButton  type='button'
@@ -55,6 +53,7 @@ const Page = () => {
                                    className='px-5'
                                    onClick={handleVerify}/>
                     </div>
+
                 </>
             )}
         </div>
