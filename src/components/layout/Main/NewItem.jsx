@@ -19,16 +19,24 @@ const NewItem = () => {
     const router = useRouter();
     const {data: session} = useSession();
     const {toggleWish} = useToggleWish();
-    const {wishedMap, isWishedLoading} = useWishedProducts();
+    const {wishedMap} = useWishedProducts();
 
     const {data: list = [], isLoading, isError} = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
-            return await apiHelper.get('/products');
+            return await apiHelper.get('/products/grouped');
         }
     });
 
-
+    const cateText = {
+        women: "여성",
+        men: "남성",
+        acc: '잡화',
+        golf: '골프',
+        kids: '키즈',
+        beauty: "뷰티",
+        lifestyle: '라이프스타일'
+    };
 
     const handleWishList = async (code) => {
         if (!session) {
@@ -62,13 +70,15 @@ const NewItem = () => {
                             <h2>새로 들어온 신상품</h2>
                             <Tab.Group>
                                 <div className="flex w-full min-h-[390px]">
+
+                                    {/* 왼쪽 탭내용 */}
                                     <Tab.List className="flex flex-col w-1/4 text-lg mr-10">
                                         {list.map((category) => (
                                             <Tab key={category.cate}
                                                  className={({selected}) =>
                                                      `py-2 text-left focus:outline-none ${selected ? 'font-semibold' : 'font-normal '}`
                                                  }>
-                                                {category.cate}
+                                                {cateText[category.cate]}
                                             </Tab>
                                         ))}
                                     </Tab.List>
