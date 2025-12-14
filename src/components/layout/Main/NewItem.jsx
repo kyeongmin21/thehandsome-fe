@@ -13,7 +13,7 @@ import Image from "next/image";
 import apiHelper from "@/utils/apiHelper";
 import {Tab} from '@headlessui/react'
 import {eventBanner} from "@/config/MainPageConfig";
-
+import {NEW_ITEM_CATEGORY} from "@/constants/category";
 
 const NewItem = () => {
     const router = useRouter();
@@ -27,16 +27,6 @@ const NewItem = () => {
             return await apiHelper.get('/products/grouped');
         }
     });
-
-    const cateText = {
-        women: "여성",
-        men: "남성",
-        acc: '잡화',
-        golf: '골프',
-        kids: '키즈',
-        beauty: "뷰티",
-        lifestyle: '라이프스타일'
-    };
 
     const handleWishList = async (code) => {
         if (!session) {
@@ -78,7 +68,7 @@ const NewItem = () => {
                                                  className={({selected}) =>
                                                      `py-2 text-left focus:outline-none ${selected ? 'font-semibold' : 'font-normal '}`
                                                  }>
-                                                {cateText[category.cate]}
+                                                {NEW_ITEM_CATEGORY[category.cate]}
                                             </Tab>
                                         ))}
                                     </Tab.List>
