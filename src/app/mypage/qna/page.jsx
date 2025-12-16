@@ -35,7 +35,8 @@ const MyQna = () => {
             <h2>1:1문의</h2>
             <hr/>
             <Link href='/mypage/qna/write'
-                  className='flex justify-end mb-5'>문의하기
+                  className='flex justify-end mb-5'
+                  aria-label='문의하기 글 작성으로 이동'>문의하기
                 <div className='pt-1 ml-2'><MdArrowForwardIos/></div>
             </Link>
             {isLoading ? (

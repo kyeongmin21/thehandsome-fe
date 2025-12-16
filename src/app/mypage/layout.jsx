@@ -26,7 +26,8 @@ export default function MyPageLayout({children}) {
                     return (
                         <Link href={href}
                               key={menu.id}
-                              className={`block py-2 ${isActive ? "text-black" : "text-gray-400"}`}>
+                              className={`block py-2 ${isActive ? "text-black" : "text-gray-400"}`}
+                              aria-label='마이페이지 탭 이동'>
                             {menu.label}
                         </Link>
                     )

@@ -22,7 +22,9 @@ const BoardRead = () => {
             <h2 className='title'>{value.title}</h2>
             <div className='content'>{value.content}</div>
             <div className="flex justify-center gap-3 mt-5">
-                <Link href='/boards'><UiButton btnText='목록'/></Link>
+                <Link href='/boards' aria-label='게시판 목록으로 이동'>
+                    <UiButton btnText='목록'/>
+                </Link>
             </div>
         </div>
     )

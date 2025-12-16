@@ -80,7 +80,7 @@ const Header = () => {
         <div className={`header ${scrolled ? "scrolled" : ""} `}
              onMouseLeave={mouseLeave}>
             <div className="header-top first">
-                <Link href='/'>
+                <Link href='/' aria-label='메인으로 이동'>
                     <img className="header-top-logo"
                          src="https://www.thehandsome.com/images/common/header-footer-logo.svg"
                          alt="메인로고 이미지"/>
@@ -178,7 +178,11 @@ const Header = () => {
                         <li onClick={handleWishClick}><SlHeart size={23}/></li>
 
                         {/* 장바구니 */}
-                        <li><Link href="/cart"><SlBag size={23}/></Link></li>
+                        <li>
+                            <Link href="/cart" aria-label='장바구니로 이동'>
+                                <SlBag size={23}/>
+                            </Link>
+                        </li>
                     </ul>
                 </div>
             </div>

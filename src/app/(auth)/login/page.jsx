@@ -85,7 +85,7 @@ const LoginPage = () => {
                         className='w-full mt-7'/>
                 </form>
 
-                <Link href='/join'>
+                <Link href='/join' aria-label='회원가입 이동'>
                     <UiButton
                         size='m'
                         color='grayOutline'
@@ -95,7 +95,7 @@ const LoginPage = () => {
 
                 <div className='find-info'>
                     <ul>
-                        <li><Link href='/find-id'>아이디 찾기</Link></li>
+                        <li><Link href='/find-id' aria-label='아이디 찾기로 이동'>아이디 찾기</Link></li>
                         <li>비밀번호 찾기</li>
                     </ul>
                 </div>

@@ -119,7 +119,9 @@ const QnaForm = ({ mode }) => {
 
                     {/* 오른쪽 버튼: 모드에 따라 다르게 */}
                     {isView ? (
-                        <Link href={`/mypage/qna/edit/${id}`} className="flex-1">
+                        <Link href={`/mypage/qna/edit/${id}`}
+                              className="flex-1"
+                              aria-label='마이페이지 qna 수정'>
                             <UiButton
                                 type="button"
                                 size="m"

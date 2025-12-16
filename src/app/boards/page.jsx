@@ -31,7 +31,7 @@ const BoardPage = () => {
                         isSearch={true}
                     />
                 </div>
-                <Link href='/boards/write'>
+                <Link href='/boards/write' aria-label='게시판 작성하기 이동'>
                     <UiButton btnText='작성하기' size='s'/>
                 </Link>
             </div>
