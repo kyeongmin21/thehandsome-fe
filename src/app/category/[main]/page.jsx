@@ -1,10 +1,12 @@
 import ProductList from '@/components/product/ProductList';
 
-const MainCategoryPage = async (props) => {
-    const {main} = await props.params;
+const PAGE_SIZE = 8;
+const MainCategoryPage = async ({params, searchParams}) => {
+    const {main} = await params;
+    const page = Number(searchParams.page ?? 1);
 
     const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products?main=${main}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/products?main=${main}&page=${page}&size=${PAGE_SIZE}`,
         {cache: "no-store"}
     );
 
