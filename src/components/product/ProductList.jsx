@@ -90,7 +90,7 @@ const ProductList = ({initialProducts}) => {
                         className={`px-3 transition-all cursor-pointer
                     ${pageNum === page
                             ? 'text-sm '
-                            : 'text-sm text-gray-500 hover:text-black'
+                            : 'text-sm text-gray-400 hover:text-black'
                         }`}
                     >
                         {pageNum}
