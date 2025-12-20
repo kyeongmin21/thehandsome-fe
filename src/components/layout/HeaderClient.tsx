@@ -1,42 +1,49 @@
 'use client'
 
-import Link from "next/link";
-import {MAIN_MENU} from "@/config/Category";
-import {useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
-import {signOut, useSession} from "next-auth/react"
-import {CiUser} from "react-icons/ci";
-import {FaHeart} from "react-icons/fa";
-import {IoIosArrowForward} from "react-icons/io";
-import {SlMagnifier, SlLogin, SlLogout, SlHeart, SlBag} from "react-icons/sl";
-import useMyBrandList from "@/hooks/queries/useWishedBrands";
-import useToggleBrand from "@/hooks/queries/useToggleBrand";
-import useBrandList from "@/hooks/queries/useBrandList";
+import Image from "next/image";
+import Link from 'next/link';
+import {MAIN_MENU} from '@/config/Category';
+import {signOut} from 'next-auth/react';
+import {useRouter} from 'next/navigation';
+import {CiUser} from 'react-icons/ci';
+import {SlMagnifier, SlLogin, SlLogout, SlHeart, SlBag} from 'react-icons/sl';
+import {IoIosArrowForward} from 'react-icons/io';
+import {FaHeart} from 'react-icons/fa';
+import {useEffect, useState} from 'react';
+import useBrandList from '@/hooks/queries/useBrandList';
+import useMyBrandList from '@/hooks/queries/useWishedBrands';
+import useToggleBrand from '@/hooks/queries/useToggleBrand';
+import type {MouseEvent} from 'react';
+import {Session} from 'next-auth';
 
 
-const Header = () => {
+interface HeaderClientProps {
+    session: Session | null; // 로그인 안 된 경우 null
+}
+
+export const HeaderClient = ({session}: HeaderClientProps) => {
     const router = useRouter();
-    const {data: session, status} = useSession();
-    const isAuthenticated = status === 'authenticated';
+    const isAuthenticated = !!session
 
     const [scrolled, setScrolled] = useState(false);
     const [isShow, setIsShow] = useState(true);
-    const [activeMenuIndex, setActiveMenuIndex] = useState(null);
+    const [activeMenuIndex, setActiveMenuIndex] = useState<number | null>(null);
 
     const {brandList} = useBrandList();
-    const {wishedBrandList, wishedBrandMap, isWishedBrandLoading} = useMyBrandList();
+    const {wishedBrandMap} = useMyBrandList();
     const {toggleBrand} = useToggleBrand();
 
 
-    const mouseEnter = (idx) => {
+    const mouseEnter = (idx: number) => {
         setIsShow(true);
         setActiveMenuIndex(idx);
     }
 
-    const mouseLeave = (idx) => {
+    const mouseLeave = () => {
         setIsShow(false);
-        setActiveMenuIndex(idx);
+        setActiveMenuIndex(null);
     }
+
 
     const handleLogout = async () => {
         const isConfirmed = confirm('로그아웃 하시겠습니까?');
@@ -49,57 +56,62 @@ const Header = () => {
 
     const handleUserClick = () => {
         if (isAuthenticated) {
-            router.push("/mypage");
+            router.push('/mypage');
         } else {
-            router.push("/login");
+            router.push('/login');
         }
     };
 
     const handleWishClick = () => {
         if (isAuthenticated) {
-            router.push("/mypage/wishlist");
+            router.push('/mypage/wishlist');
         } else {
             alert('로그인이 필요한 서비스입니다.')
-            router.push("/login");
+            router.push('/login');
         }
     }
 
-    const handleBrandsClick = async (event, code) => {
+    const handleBrandsClick = async (event: MouseEvent<HTMLElement | SVGElement>, code: string) => {
         event.stopPropagation();
         toggleBrand(code);
     }
 
+
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 0);
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
 
     return (
-        <div className={`header ${scrolled ? "scrolled" : ""} `}
+        <div className={`header ${scrolled ? 'scrolled' : ''} `}
              onMouseLeave={mouseLeave}>
-            <div className="header-top first">
+            <div className='header-top first'>
                 <Link href='/' aria-label='메인으로 이동'>
-                    <img className="header-top-logo"
-                         src="https://www.thehandsome.com/images/common/header-footer-logo.svg"
-                         alt="메인로고 이미지"/>
+                    <Image className='header-top-logo'
+                           src='https://www.thehandsome.com/images/common/header-footer-logo.svg'
+                           alt='메인로고 이미지'
+                           width={200}
+                           height={50}
+                           priority={true}  // 중요한 이미지면 바로 로딩
+                    />
                 </Link>
             </div>
 
-            <div className="header-category">
-                <div className="header-category-left">
-                    <ul className="header-bottom header-menu">
+            <div className='header-category'>
+                <div className='header-category-left'>
+                    <ul className='header-bottom header-menu'>
                         {MAIN_MENU.map((menu, index) => (
                             <li key={`${menu.label}-${index}`}
                                 onMouseEnter={() => mouseEnter(index)}>
-                                <span className="cursor-pointer">{menu.label}</span>
+                                <span className='cursor-pointer'>{menu.label}</span>
                             </li>
                         ))}
                     </ul>
                 </div>
 
-                <div className="header-category-right">
+                <div className='header-category-right'>
                     <ul className='header-bottom'>
                         <li>매거진</li>
                         <li>기획전</li>
@@ -110,33 +122,36 @@ const Header = () => {
             </div>
 
             {isShow && activeMenuIndex !== null && (
-                <div className="dropdown-menu absolute shadow-lg flex">
+                <div className='dropdown-menu absolute shadow-lg flex'>
 
                     {/* 카테고리 메뉴 */}
-                    {MAIN_MENU[activeMenuIndex]?.type === "category" &&
-                        Object.keys(MAIN_MENU[activeMenuIndex].data).map((title) => (
-                            <div key={title} className="menu-box">
-                                <h4 className="title-menu">
-                                    {title} <IoIosArrowForward/>
-                                </h4>
-                                <ul>
-                                    {MAIN_MENU[activeMenuIndex].data[title].map((item) => (
-                                        <li key={item} className="sub-menu">{item}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))
-                    }
+                    {MAIN_MENU[activeMenuIndex]?.type === 'category' && (
+                        Object.keys(MAIN_MENU[activeMenuIndex].data).map((title) => {
+                            const items = MAIN_MENU[activeMenuIndex].data?.[title] as string[];
+                            return (
+                                <div key={title} className='menu-box'>
+                                    <h4 className='title-menu'>
+                                        {title} <IoIosArrowForward/>
+                                    </h4>
+                                    <ul>
+                                        {items.map((item) => (
+                                            <li key={item} className='sub-menu'>{item}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            );
+                        })
+                    )}
 
                     {/* 브랜드 메뉴 */}
-                    {MAIN_MENU[activeMenuIndex]?.type === "brand" &&
+                    {MAIN_MENU[activeMenuIndex]?.type === 'brand' &&
                         brandList.map((group) => (
-                            <div key={group.brand_type} className="menu-box">
-                                <h4 className="title-menu">{group.brand_type} 브랜드</h4>
+                            <div key={group.brand_type} className='menu-box'>
+                                <h4 className='title-menu'>{group.brand_type} 브랜드</h4>
                                 <ul>
                                     {group.brands.map((item) => (
-                                        <li key={item.brand_code} className="sub-menu">
-                                             <span className="inline-block mr-2" style={{paddingTop: '1px'}}>
+                                        <li key={item.brand_code} className='sub-menu'>
+                                             <span className='inline-block mr-2' style={{paddingTop: '1px'}}>
                                                   {wishedBrandMap[item.brand_code] ? (
                                                       <FaHeart size={16}
                                                                onClick={(event) => handleBrandsClick(event, item.brand_code)}/>
@@ -152,11 +167,10 @@ const Header = () => {
                             </div>
                         ))
                     }
-
                 </div>
             )}
 
-            <div className="header-top">
+            <div className='header-top'>
                 <div className='header-top-icon'>
                     <ul>
                         {/* 검색 */}
@@ -179,7 +193,7 @@ const Header = () => {
 
                         {/* 장바구니 */}
                         <li>
-                            <Link href="/cart" aria-label='장바구니로 이동'>
+                            <Link href='/cart' aria-label='장바구니로 이동'>
                                 <SlBag size={23}/>
                             </Link>
                         </li>
@@ -188,6 +202,4 @@ const Header = () => {
             </div>
         </div>
     )
-}
-
-export default Header;
+};

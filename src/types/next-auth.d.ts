@@ -1,6 +1,4 @@
-// next-auth 타입 확장용
-import NextAuth from "next-auth";
-import {JWT} from "next-auth/jwt";
+import {DefaultSession} from "next-auth";
 
 // 1. 백엔드에서 주는 유저 객체 구조
 interface MyUser {
@@ -37,9 +35,9 @@ declare module "next-auth/jwt" {
             name: string;
             role: string;
         };
-        accessToken: string;
-        refreshToken: string;
-        accessTokenExpires: number;
+        accessToken?: string;
+        refreshToken?: string;
+        accessTokenExpires?: number;
         error?: string;
     }
 }

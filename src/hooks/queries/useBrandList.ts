@@ -1,5 +1,6 @@
-import {useQuery} from "@tanstack/react-query";
-import apiHelper from "@/utils/apiHelper";
+import {useQuery} from '@tanstack/react-query';
+import apiHelper from '@/utils/apiHelper';
+import {BrandGroup} from '@/types/brand';
 
 
 const useBrandList = () => {
@@ -7,10 +8,10 @@ const useBrandList = () => {
         data: brandList = [],
         isLoading,
         isError,
-    } = useQuery({
+    } = useQuery<BrandGroup[]>({
         queryKey: ['brands'],
         queryFn: async () => {
-            return await apiHelper.get('/brands/list');
+            return await apiHelper.get<BrandGroup[]>('/brands/list');
         },
         staleTime: 0,
     });

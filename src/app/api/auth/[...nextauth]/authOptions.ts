@@ -16,31 +16,28 @@ const refreshApi = axios.create({
 });
 
 
+interface RefreshResponse {
+    access_token: string;
+    refresh_token: string;
+    expires_in: number;
+}
 async function refreshAccessToken(token: JWT): Promise<JWT> {
     try {
-        const res = await refreshApi.post(
+        const res = await refreshApi.post<RefreshResponse>(
             '/refresh',
             {refresh_token: token.refreshToken})
-        const {access_token, refresh_token, expires_in} = res.data;
-
         return {
             ...token,
-            accessToken: access_token,
-            refreshToken: refresh_token,
-            accessTokenExpires: Date.now() + expires_in * 1000,
+            accessToken: res.data.access_token,
+            refreshToken: res.data.refresh_token,
+            accessTokenExpires: Date.now() + res.data.expires_in * 1000,
         };
-    } catch (error: unknown) {
-        if (axios.isAxiosError(error)) {
-            console.error('토큰 갱신실패 (API)', error.response?.status, error.response?.data);
-        } else if (error instanceof Error) {
-            console.error('토큰 갱신실패 (일반)', error.message);
-        } else {
-            console.error('토큰 갱신실패 (알수없음)', error);
-        }
-
+    } catch (error: any) {
+        console.error("🚨 토큰 갱신 실패:", error?.response?.status || error);
         return {
             ...token,
             error: 'RefreshAccessTokenError',
+            refreshToken: token.refresh_token as string,
         };
     }
 }
@@ -137,7 +134,11 @@ export const authOptions: NextAuthOptions = {
 
         // 세션 콜백: 프론트로 전달되는 값
         async session({session, token}) {
-            session.user = token.user;
+            session.user = {
+                ...token.user,       // id, name, role
+                email: null,         // TS 요구
+                image: null
+            };
             session.accessToken = token.accessToken;
             session.refreshToken = token.refreshToken;
             session.error = token.error;

@@ -1,15 +1,11 @@
 import QueryProvider from '@/app/provider/QueryProvider';
 import SessionProvider from '@/app/provider/SessionProvider';
-import {getServerSession} from "next-auth";
-import {authOptions} from '@/app/api/auth/[...nextauth]/authOptions';
 import type {PropsWithChildren} from "react";
 
 
-export default async function RootProvider({children}: PropsWithChildren) {
-    const session = await getServerSession(authOptions);
-
+export default function RootProvider({children}: PropsWithChildren) {
     return (
-        <SessionProvider session={session}>
+        <SessionProvider>
             <QueryProvider>
                 {children}
             </QueryProvider>

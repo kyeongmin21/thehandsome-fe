@@ -29,8 +29,8 @@ export default async function RootLayout({children}: PropsWithChildren) {
                 <AuthStatus />
                 <Header/>
                 <main className='main-children flex-1'>{children}</main>
-                <div className='h-[0px]'><Footer/></div>
             </RootProviders>
+            <div className='h-[0px]'><Footer/></div>
         </div>
         </body>
         </html>
