@@ -1,24 +1,26 @@
 'use client'
 import clsx from 'clsx'
-import React, { useState, forwardRef } from 'react'
+import React, {useState, Ref, InputHTMLAttributes} from 'react'
 import {Description, Field, Input, Label} from '@headlessui/react'
-import { LuEye, LuEyeClosed } from "react-icons/lu"
+import {LuEye, LuEyeClosed} from "react-icons/lu"
 
 
-const UiInput = forwardRef(function UiInput({
-        label,
-        description,
-        name,
-        value,
-        style,
-        onChange,
-        placeholder,
-        className,
-        disabled,
-        type= 'text'
-    },
-    ref
-) {
+// 우리가 원하는 커스텀 props + <input>이 받을 수 있는 모든 속성들 자동 포함
+interface UiInputProps extends InputHTMLAttributes<HTMLInputElement> {
+    label?: string;
+    description?: string;
+    className?: string;
+    ref?: Ref<HTMLInputElement>;
+}
+
+const UiInput = ({
+                     label,
+                     description,
+                     className,
+                     type = 'text',
+                     ref,
+                     ...rest
+                 }: UiInputProps) => {
 
     const [showPassword, setShowPassword] = useState(false)
     const handleShowPassword = () => {setShowPassword(!showPassword)}
@@ -30,16 +32,11 @@ const UiInput = forwardRef(function UiInput({
                 <Label className="text-sm/6 font-medium text-black">{label}</Label>
                 {description && <Description className="text-sm/6">{description}</Description>}
                 <Input
-                    name={name}
-                    value={value}
-                    onChange={onChange}
-                    placeholder={placeholder}
+                    {...rest}
                     ref={ref}
-                    style={style}
                     type={inputType}
                     autoComplete="off"
                     autoCapitalize="none"
-                    disabled={disabled}
                     className={clsx(
                         'block w-full py-1.5 text-sm/6',
                         'border-b border-gray-300',
@@ -48,19 +45,19 @@ const UiInput = forwardRef(function UiInput({
                         'disabled:text-gray-500 disabled:border-none disabled:bg-transparent disabled:cursor-not-allowed'
                     )}
                 />
-                {type ==='password' && (
+                {type === 'password' && (
                     <div className="eyes-icon"
-                          onClick={handleShowPassword}>
+                         onClick={handleShowPassword}>
                         {showPassword ? (
-                            <span><LuEye className="text-black" /></span>
+                            <span><LuEye className="text-black"/></span>
                         ) : (
-                            <span><LuEyeClosed className="text-black" /></span>
+                            <span><LuEyeClosed className="text-black"/></span>
                         )}
                     </div>
                 )}
             </Field>
         </div>
     )
-})
+}
 
 export default UiInput;

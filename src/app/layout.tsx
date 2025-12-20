@@ -1,9 +1,11 @@
 import "../styles/globals.scss"
+import type {PropsWithChildren} from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import RootProviders from "@/app/provider/RootProvider";
 import ProgressBar from "@/components/common/ProgressBar";
 import AuthStatus from "@/components/AuthStatus";
+
 
 export const metadata = {
     title: {
@@ -16,7 +18,7 @@ export const metadata = {
     },
 };
 
-export default async function RootLayout({children}) {
+export default async function RootLayout({children}: PropsWithChildren) {
 
     return (
         <html lang="ko">

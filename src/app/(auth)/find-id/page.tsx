@@ -1,31 +1,49 @@
 'use client'
-import {useState} from "react";
-import {useForm} from "react-hook-form";
+import {JSX, useState} from "react";
+import {useForm, SubmitHandler} from "react-hook-form";
 import UiButton from "@/components/ui/UiButton";
 import UiInput from "@/components/ui/UiInput";
 import apiHelper from "@/utils/apiHelper";
 
-const FindIdPage = () => {
-    const [foundId, setFoundId] = useState('');
+
+interface FindIdForm {
+    email: string;
+}
+
+interface FindIdResponse {
+    user_id: string;
+}
+
+
+const FindIdPage = (): JSX.Element => {
+    const [foundId, setFoundId] = useState<string>('');
+
     const {
         register,
         handleSubmit,
-        formState: { errors, isValid},
-    } = useForm({
+        formState: {errors},
+        setError,
+    } = useForm<FindIdForm>({
         mode: "onChange",
     });
 
-    const onSubmit = async (data) => {
+    const onSubmit: SubmitHandler<FindIdForm> = async (data) => {
         try {
-            const res = await apiHelper.post(
+            const res = await apiHelper.post<FindIdResponse>(
                 "/find/id",
                 { email: data.email }
             );
-            setFoundId(res.user_id); // 받은 아이디 상태에 저장
-        } catch (error) {
-            console.error("아이디 찾기 실패:", error);
-            alert(error?.response?.data?.detail || "아이디를 찾을 수 없습니다.");
-            setFoundId("");
+            setFoundId(res.user_id);
+        } catch (error: any) {
+            const details = error.response?.data?.detail;
+            if (details && details.length > 0) {
+                setError('email', {
+                    type: 'server',
+                    message: '올바른 이메일 주소가 아닙니다.'
+                });
+            } else {
+                alert('알 수 없는 에러가 발생했습니다.');
+            }
         }
     }
 
@@ -39,7 +57,7 @@ const FindIdPage = () => {
                         {...register('email', { required: true })}
                         placeholder='이메일을 입력해 주세요.'
                     />
-                    {errors.email && <div className="text-red-500 mt-1 text-sm">이메일을 입력해 주세요.</div>}
+                    {errors.email && <div className="text-red-500 mt-1 text-sm">{errors.email.message}</div>}
                     <UiButton
                         type='submit'
                         size='m'

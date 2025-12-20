@@ -2,6 +2,11 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useSession} from "next-auth/react";
 import apiHelper from "@/utils/apiHelper";
 
+interface WishlistData {
+    wishListItems: any[];
+    wishedMap: Record<string, boolean>;
+}
+
 
 const useToggleWish = () => {
     const queryClient = useQueryClient();
@@ -10,10 +15,10 @@ const useToggleWish = () => {
     const queryKey = ['wishlist', userId];
 
     const {mutate: toggleWish} = useMutation({
-        mutationFn: (code) => {
+        mutationFn: (code: string) => {
             return apiHelper.post('/wishlist/toggle', {product_code: code});
         },
-        async onMutate(code) {
+        async onMutate(code: string) {
             // 세션이 없으면 낙관적 업데이트를 시도하지 않습니다.
             if (!userId) return;
 
@@ -24,7 +29,7 @@ const useToggleWish = () => {
             const prevWishlist = queryClient.getQueryData(queryKey);
 
             // UI를 즉시 업데이트 (낙관적 업데이트)
-            queryClient.setQueryData(queryKey, (old) => {
+            queryClient.setQueryData<WishlistData>(queryKey, (old) => {
                 if (!old) return {wishedMap: {[code]: true}, wishListItems: []};
 
                 const newWishedMap = {...old.wishedMap};

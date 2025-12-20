@@ -1,7 +1,10 @@
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import apiHelper from "@/utils/apiHelper";
+import {JWT} from 'next-auth/jwt'
+import {LoginResponse} from "@/types/next-auth";
+import NextAuth, {NextAuthOptions} from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import apiHelper from '@/utils/apiHelper';
 import axios from 'axios';
+
 
 // 무한 루프 차단하기 위해 (인터셉터를 전혀 등록하지 않은 순수한 Axios 인스턴스)
 const refreshApi = axios.create({
@@ -13,42 +16,57 @@ const refreshApi = axios.create({
 });
 
 
-async function refreshAccessToken(token) {
+async function refreshAccessToken(token: JWT): Promise<JWT> {
     try {
         const res = await refreshApi.post(
             '/refresh',
             {refresh_token: token.refreshToken})
+        const {access_token, refresh_token, expires_in} = res.data;
+
         return {
             ...token,
-            accessToken: res.data.access_token,
-            refreshToken: res.data.refresh_token,
-            accessTokenExpires: Date.now() + res.data.expires_in * 1000,
+            accessToken: access_token,
+            refreshToken: refresh_token,
+            accessTokenExpires: Date.now() + expires_in * 1000,
         };
-    } catch (error) {
-        console.error("🚨 토큰 갱신 실패:", error?.response?.status || error);
+    } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+            console.error('토큰 갱신실패 (API)', error.response?.status, error.response?.data);
+        } else if (error instanceof Error) {
+            console.error('토큰 갱신실패 (일반)', error.message);
+        } else {
+            console.error('토큰 갱신실패 (알수없음)', error);
+        }
+
         return {
             ...token,
-            error: "RefreshAccessTokenError",
-            refreshToken: token.refresh_token,
+            error: 'RefreshAccessTokenError',
         };
     }
 }
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
-            name: "Credentials",
+            name: 'Credentials',
+            credentials: {
+                user_id: {label: 'ID', type: 'text'},
+                password: {label: 'Password', type: 'password'},
+            },
             async authorize(credentials) {
+                if (!credentials?.user_id || !credentials.password) {
+                    throw new Error('아이디와 비밀번호를 입력해주세요.');
+                }
+
                 try {
                     const res = await apiHelper.post(
                         '/login',
                         {
                             user_id: credentials.user_id,
                             password: credentials.password
-                        });
+                        }) as LoginResponse;
 
                     const {user, access_token, refresh_token, expires_in} = res;
-
                     if (!user) return null;
 
                     // 백엔드에서 받은 토큰과 유저 정보 반환
@@ -59,32 +77,41 @@ export const authOptions = {
                         access_token: access_token,
                         refresh_token: refresh_token,
                         expires_in: expires_in,
+                    };
+
+                } catch (error: unknown) {
+                    let message = '로그인 실패';
+
+                    if (axios.isAxiosError(error)) {
+                        const errorDetail = error.response?.data?.detail;
+                        if (Array.isArray(errorDetail)) {
+                            message = errorDetail[0]?.msg || message;
+                        } else if (typeof errorDetail === 'string') {
+                            message = errorDetail;
+                        }
+                    } else if (error instanceof Error) {
+                        message = error.message;
                     }
 
-                } catch (error) {
-                    const msg = error?.response?.data?.detail
-                    if (Array.isArray(msg)) {
-                        throw new Error(JSON.stringify(msg));
-                    }
-                    throw new Error("로그인 실패");
+                    throw new Error(message);
                 }
             },
         }),
     ],
     session: {
-        strategy: "jwt"
+        strategy: 'jwt'
     },
     callbacks: {
         // 로그인 시 백엔드 토큰을 JWT에 저장
         // jwt() 콜백이 매 요청마다 실행되면 만료 체크 => 자동 갱신
-        async jwt({token, user}) {
+        async jwt({token, user}): Promise<JWT> {
             // 1. 최초 로그인: 백엔드 사용자 정보와 토큰 정보를 토큰 객체에 저장
             if (user) {
                 return {
                     ...token,
                     user: {
                         id: user.id,
-                        name: user.name,
+                        name: user.name!,
                         role: user.role,
                     },
                     accessToken: user.access_token,
@@ -101,8 +128,8 @@ export const authOptions = {
             }
 
             if (!token.refreshToken) {
-                console.error("🚨 토큰 갱신 불가: refreshToken이 없음");
-                return { ...token, error: "MissingRefreshTokenError" };
+                console.error('토큰 갱신 불가: refreshToken이 없음');
+                return {...token, error: 'MissingRefreshTokenError'};
             }
 
             return refreshAccessToken(token);
@@ -118,11 +145,13 @@ export const authOptions = {
         },
     },
     pages: {
-        signIn: "/login",
+        signIn: '/login',
     },
     secret: process.env.NEXTAUTH_SECRET
 
 }
+
+export default authOptions;
 const handler = NextAuth(authOptions);
 
 export {handler as GET, handler as POST};

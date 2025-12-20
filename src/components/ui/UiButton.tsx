@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {Ref, ReactNode, MouseEventHandler, ButtonHTMLAttributes} from 'react';
 import classNames from 'classnames';
 
 const sizeMap = {
     s: 'px-2 py-1 text-sm',
     m: 'px-4 py-3 text-base',
     l: 'px-5 py-5 text-lg'
-};
+} as const;
 
 const colorMap = {
     whiteOutline: 'btn-white-outline',
@@ -22,17 +22,26 @@ const colorMap = {
 
     lightGrayOutline: 'border border-gray-300 text-black bg-white',
     none: 'border-none bg-transparent text-black'
-};
+} as const;
 
-export default function UiButton({
-                                     type = "button",
-                                     btnText,
-                                     btnIcon,
-                                     onClick,
-                                     size = 's',
-                                     className = '',
-                                     color = 'blackOutline',
-                                 }) {
+interface UiButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    btnText?: string;
+    btnIcon?: ReactNode;
+    size?: keyof typeof sizeMap;
+    color?: keyof typeof colorMap;
+    ref?: Ref<HTMLButtonElement>;
+}
+
+const UiButton = ({
+                      type = "button",
+                      size = 's',
+                      className = '',
+                      color = 'blackOutline',
+                      ref,
+                      btnText,
+                      btnIcon,
+                      ...rest
+                  }: UiButtonProps) => {
 
     const sizeStyle = sizeMap[size] || sizeMap.m;
     const colorStyle = colorMap[color] || colorMap.whiteOutline;
@@ -41,11 +50,15 @@ export default function UiButton({
 
     return (
         <button
+            {...rest}
+            ref={ref}
             type={type}
-            onClick={onClick}
-            className={btnClass}>
+            className={btnClass}
+        >
             {btnIcon && <span className="mr-2 inline-block">{btnIcon}</span>}
-            {btnText}
+                {btnText}
         </button>
     );
 }
+
+export default UiButton;

@@ -1,10 +1,11 @@
 'use client';
 import React, {useState} from 'react';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
+import type {PropsWithChildren} from "react";
 
 
 // React Query를 앱 전체에서 사용할 수 있게 초기화하는 Provider 컴포넌트
-export default function QueryProvider({children}) {
+export default function QueryProvider({children}: PropsWithChildren) {
     const [queryClient] = useState(() =>
         new QueryClient({
             defaultOptions: {

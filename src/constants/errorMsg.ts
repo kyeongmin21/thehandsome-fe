@@ -8,4 +8,4 @@ export const ERROR_MESSAGES = {
     PHONE_TAKEN: { field: "phone", message: "이미 사용 중인 폰번호입니다." },
 
     UNKNOWN_ERROR: { field: null, message: "알 수 없는 오류가 발생했습니다." },
-};
+} as const;

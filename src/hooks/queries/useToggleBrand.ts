@@ -2,6 +2,10 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useSession} from "next-auth/react";
 import apiHelper from "@/utils/apiHelper";
 
+interface BrandData {
+    wishedBrandList: any[];
+    wishedBrandMap: Record<string, boolean>
+}
 
 const useToggleBrand = () => {
     const queryClient = useQueryClient();
@@ -10,11 +14,11 @@ const useToggleBrand = () => {
     const queryKey = ['myWishedBrands', userId];
 
     const {mutate: toggleBrand} = useMutation({
-        mutationFn: (code) => {
+        mutationFn: (code: string) => {
             return apiHelper.post('/brandlike/toggle', {brand_code: code});
         },
 
-        async onMutate(code) {
+        async onMutate(code: string) {
             if (!userId) return;
 
             // 뮤테이션 실행 전에 기존 쿼리를 취소하여 데이터 충돌 방지
@@ -24,7 +28,7 @@ const useToggleBrand = () => {
             const prevBrandList = queryClient.getQueryData(queryKey);
 
             // UI를 즉시 업데이트 (낙관적 업데이트)
-            queryClient.setQueryData(queryKey, (old) => {
+            queryClient.setQueryData<BrandData>(queryKey, (old) => {
                 const currentData = old || {
                     wishedBrandMap: {},
                     wishedBrandList: []

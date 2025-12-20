@@ -1,5 +1,6 @@
 'use client'
 
+import type {PropsWithChildren} from 'react';
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 
@@ -10,7 +11,8 @@ const menuList = [
     {id: "edit", label: "개인정보 변경/탈퇴"},
 ];
 
-export default function MyPageLayout({children}) {
+
+export default function MyPageLayout({children}: PropsWithChildren) {
     const pathname = usePathname();
     return (
         <div className="mypage-cont flex">

@@ -1,20 +1,16 @@
-import axios from 'axios';
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosError} from 'axios';
 import {getSession} from "next-auth/react";
+import type { Session } from 'next-auth';
 
+let sessionCache: Session | null = null;
+let sessionPromise: Promise<Session | null> | null = null;
 
-let sessionCache = null;
-let sessionPromise = null;
-
-async function getCachedSession() {
+async function getCachedSession(): Promise<Session | null> {
     // 이미 캐시된 세션이 있다면 즉시 반환
-    if (sessionCache) {
-        return sessionCache;
-    }
+    if (sessionCache) return sessionCache;
 
     // 이미 getSession 호출이 진행 중이라면, 해당 Promise를 기다립니다.
-    if (sessionPromise) {
-        return sessionPromise;
-    }
+    if (sessionPromise) return sessionPromise;
 
     // 새로운 Promise를 생성하고 저장
     sessionPromise = getSession();
@@ -36,7 +32,7 @@ async function getCachedSession() {
 }
 
 
-const api = axios.create({
+const api: AxiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     timeout: 20000,
     headers: {
@@ -54,13 +50,10 @@ api.interceptors.request.use(async (config) => {
 
     const session = await getCachedSession();
 
-    // console.log('🔑 인터셉터에서 캐시된 세션:', session);
-    // console.log(`➡️ 인터셉터 실행: ${config.method.toUpperCase()} ${config.url}`);
-
-    const isAuthUrl = config.url.includes("/login") ||
-                    config.url.includes("/join") ||
-                    config.url.includes("/refresh") ||
-                    config.url.includes("/api/auth/session");
+    const isAuthUrl = config.url?.includes("/login") ||
+                    config.url?.includes("/join") ||
+                    config.url?.includes("/refresh") ||
+                    config.url?.includes("/api/auth/session");
 
     if (!session || !session.accessToken || isAuthUrl) {
         return config;
@@ -74,17 +67,26 @@ api.interceptors.request.use(async (config) => {
 // 응답 인터셉터: 서버로 부터 받은 응답데이터
 api.interceptors.response.use(
     (res) => res.data,
-    async (error) => {
-        // 토큰 갱신 로직은 NextAuth에 있으므로, 여기서는 에러를 그대로 reject
-        return Promise.reject(error);
-    }
+    (error: AxiosError) => Promise.reject(error)
 );
 
-export default {
-    get: api.get,
-    post: api.post,
-    put: api.put,
-    delete: api.delete,
-    patch: api.patch,
+const apiHelper = {
+    get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+        return api.get(url, config);
+    },
+    post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+        return api.post(url, data, config);
+    },
+    put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+        return api.put(url, data, config);
+    },
+    delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+        return api.delete(url, config);
+    },
+    patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+        return api.patch(url, data, config);
+    },
     axios: api,
 };
+
+export default apiHelper;

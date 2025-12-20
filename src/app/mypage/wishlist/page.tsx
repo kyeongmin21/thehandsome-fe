@@ -12,19 +12,36 @@ import useMyBrandList from "@/hooks/queries/useWishedBrands";
 import useToggleBrand from "@/hooks/queries/useToggleBrand";
 import Image from "next/image";
 
+interface WishedProduct {
+    product_code: string;
+    src: string;
+    name: string;
+    brand: string;
+    price: number;
+}
+
+interface WishedBrand {
+    brand_code: string;
+    brand_name: string;
+}
+
+type TabType = 'heart' | 'brand';
+
+
 
 const WishList = () => {
-    const [activeTab, setActiveTab] = useState("heart");
+    const [activeTab, setActiveTab] = useState<TabType>("heart");
     const {wishedBrandList, wishedBrandMap, isWishedBrandLoading} = useMyBrandList();
     const {wishListItems, wishedMap, isWishedLoading} = useWishedProducts();
     const {toggleWish} = useToggleWish();
     const {toggleBrand} = useToggleBrand();
 
-    const handleWishList = async (code) => {
+    // 이 함수는 비동기적으로 실행되지만, 완료된 후에 어떤 값(숫자나 문자열 등)을 돌려주지는 않습니다
+    const handleWishList = async (code: string): Promise<void> => {
         toggleWish(code);
     }
 
-    const handleBrandClick = async (code) => {
+    const handleBrandClick = async (code: string): Promise<void> => {
         toggleBrand(code);
     }
 
@@ -66,7 +83,7 @@ const WishList = () => {
                             <LoadingSpinner/>
                         </div>
                     ) : (
-                        wishListItems.map((item, index) => (
+                        wishListItems.map((item: WishedProduct, index: number) => (
                             <div key={index} className="flex items-center border-b border-gray-300 pb-4 pt-4">
                                 {/* 1. 상품정보 */}
                                 <div className="flex w-1/2 gap-4 items-center">
@@ -119,7 +136,7 @@ const WishList = () => {
                     ) : wishedBrandList.length === 0 ? (
                         <p className="text-center text-gray-500 py-20">저장된 브랜드가 없습니다.</p>
                     ) : (
-                        wishedBrandList.map((item, index) => (
+                        wishedBrandList.map((item: WishedBrand, index: number) => (
                             <div key={index} className="flex items-center justify-between mb-5">
                                 <div className="flex items-center">
                                     <p className='mr-2'>{item.brand_name}</p>

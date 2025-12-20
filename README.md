@@ -55,7 +55,7 @@ npm run serve
 
 
 ## 🔑 인증 및 토큰 관리 (Next-auth 기반)
--  `/src/app/api/auth/[...nextauth]/route.js`: **로그인 및 세션 처리를 담당하는 핵심 서버 파일**입니다. 백엔드와 통신하여 JWT 토큰을 받아 세션을 구성합니다.
+-  `/src/app/api/auth/[...nextauth]/route.ts`: **로그인 및 세션 처리를 담당하는 핵심 서버 파일**입니다. 백엔드와 통신하여 JWT 토큰을 받아 세션을 구성합니다.
 * **JWT 토큰 관리:**
     * **Access Token:** 로그인 성공 시 백엔드로부터 받은 $\text{Access Token}$은 $\text{Next-auth}$에 의해 **$\text{JWT}$ 세션 쿠키** 내부에 암호화되어 저장됩니다.
     * **Refresh Token:** 로그인 성공 응답 **Body에 포함**되어 클라이언트에서 직접 저장 및 관리합니다.

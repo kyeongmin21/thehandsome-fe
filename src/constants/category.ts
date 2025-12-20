@@ -7,4 +7,4 @@ export const NEW_ITEM_CATEGORY = {
     kids: '키즈',
     beauty: "뷰티",
     lifestyle: '라이프스타일'
-}
+} as const;
