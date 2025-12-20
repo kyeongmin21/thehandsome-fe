@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {MAIN_MENU} from "@/config/Category";
-import {useEffect, useState, memo} from "react";
+import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import {signOut, useSession} from "next-auth/react"
 import {CiUser} from "react-icons/ci";
