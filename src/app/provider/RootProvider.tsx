@@ -1,7 +1,7 @@
 import QueryProvider from '@/app/provider/QueryProvider';
 import SessionProvider from '@/app/provider/SessionProvider';
 import {getServerSession} from "next-auth";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {authOptions} from '@/app/api/auth/[...nextauth]/authOptions';
 import type {PropsWithChildren} from "react";
 
 
