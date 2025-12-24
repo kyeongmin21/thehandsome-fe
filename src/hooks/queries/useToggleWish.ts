@@ -1,11 +1,7 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {useSession} from "next-auth/react";
 import apiHelper from "@/utils/apiHelper";
-
-interface WishlistData {
-    wishListItems: any[];
-    wishedMap: Record<string, boolean>;
-}
+import {MyWishedData} from "@/types/wishlist";
 
 
 const useToggleWish = () => {
@@ -29,7 +25,7 @@ const useToggleWish = () => {
             const prevWishlist = queryClient.getQueryData(queryKey);
 
             // UI를 즉시 업데이트 (낙관적 업데이트)
-            queryClient.setQueryData<WishlistData>(queryKey, (old) => {
+            queryClient.setQueryData<MyWishedData>(queryKey, (old) => {
                 if (!old) return {wishedMap: {[code]: true}, wishListItems: []};
 
                 const newWishedMap = {...old.wishedMap};

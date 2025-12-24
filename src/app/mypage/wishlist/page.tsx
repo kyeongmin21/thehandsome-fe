@@ -11,22 +11,7 @@ import LoadingSpinner from "@/components/common/LoadingSpinner";
 import useMyBrandList from "@/hooks/queries/useWishedBrands";
 import useToggleBrand from "@/hooks/queries/useToggleBrand";
 import Image from "next/image";
-
-interface WishedProduct {
-    product_code: string;
-    src: string;
-    name: string;
-    brand: string;
-    price: number;
-}
-
-interface WishedBrand {
-    brand_code: string;
-    brand_name: string;
-}
-
-type TabType = 'heart' | 'brand';
-
+import {WishedProduct, WishedBrand, TabType} from "@/types/wishlist";
 
 
 const WishList = () => {

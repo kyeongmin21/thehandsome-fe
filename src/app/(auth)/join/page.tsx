@@ -1,9 +1,7 @@
-'use client'
-import {JSX} from "react";
 import UserForm from "@/components/forms/UserForm";
 
 
-const JoinPage = (): JSX.Element => {
+const JoinPage = () => {
     return (
         <div className="flex-center">
             <div className="auth-container">

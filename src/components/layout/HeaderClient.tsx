@@ -15,6 +15,7 @@ import useMyBrandList from '@/hooks/queries/useWishedBrands';
 import useToggleBrand from '@/hooks/queries/useToggleBrand';
 import type {MouseEvent} from 'react';
 import {Session} from 'next-auth';
+import {BrandItem} from "@/types/brand";
 
 
 interface HeaderClientProps {
@@ -149,7 +150,7 @@ export const HeaderClient = ({session}: HeaderClientProps) => {
                             <div key={group.brand_type} className='menu-box'>
                                 <h4 className='title-menu'>{group.brand_type} 브랜드</h4>
                                 <ul>
-                                    {group.brands.map((item) => (
+                                    {group.brands.map((item: BrandItem) => (
                                         <li key={item.brand_code} className='sub-menu'>
                                              <span className='inline-block mr-2' style={{paddingTop: '1px'}}>
                                                   {wishedBrandMap[item.brand_code] ? (

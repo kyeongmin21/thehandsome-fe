@@ -1,17 +1,8 @@
 import {useQuery} from "@tanstack/react-query";
 import {useSession} from "next-auth/react";
 import apiHelper from "@/utils/apiHelper";
+import {BrandItem, MyBrandListData} from "@/types/brand";
 
-
-interface BrandItem {
-    brand_code: string;
-    brand_name: string;
-}
-
-interface MyBrandListData {
-    wishedBrandMap: Record<string, boolean>;
-    wishedBrandList: BrandItem[];
-}
 
 const useMyBrandList = () => {
     const {data: session, status} = useSession();

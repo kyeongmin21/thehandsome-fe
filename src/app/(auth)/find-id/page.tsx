@@ -1,5 +1,5 @@
 'use client'
-import {JSX, useState} from "react";
+import {useState} from "react";
 import {useForm, SubmitHandler} from "react-hook-form";
 import UiButton from "@/components/ui/UiButton";
 import UiInput from "@/components/ui/UiInput";
@@ -15,7 +15,7 @@ interface FindIdResponse {
 }
 
 
-const FindIdPage = (): JSX.Element => {
+const FindIdPage = () => {
     const [foundId, setFoundId] = useState<string>('');
 
     const {

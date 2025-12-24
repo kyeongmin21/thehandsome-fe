@@ -66,7 +66,7 @@ npm run serve
 
 
 ## middleware
-- /app 과 나란한 위치에 middleware.js 파일 생성
+- /app 과 나란한 위치에 middleware.ts 파일 생성
 - 토큰의 존재 유무에 따라 /mypage 경로 및 하위 경로의 접근을 제어하는 역할만 수행
 
 
