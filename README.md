@@ -16,6 +16,7 @@ npm run serve
 - **React**: v15
 - **Next.js**: v19
 - **Next-auth**: v4
+- **Typescript**: v5
 - **Tailwind CSS**: v4
 - **tanstack/react-query**: v5
 
@@ -48,6 +49,8 @@ npm run serve
 - `/hooks` - 커스텀 훅
 - `/utles` - 범용 유틸리티 함수
 - `/styles` - CSS 스타일링
+- `/types` - TypeScript 타입 정의 모음
+- `/utils` - 검증, API 공통 처리 등 범용 유틸리티 함수
 
 
 <br/>
