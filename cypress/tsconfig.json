@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "lib": ["es5", "dom"],
+        "types": ["cypress", "node"],
+        "module": "commonjs",
+        "isolatedModules": false,
+        "esModuleInterop": true
+    },
+    "include": [
+        "**/*.ts",
+        "**/*.tsx",
+        "../cypress.config.ts"  // 설정 파일까지 포함시켜주는 것이 안전합니다
+    ],
+    "exclude": ["../node_modules"]
+}
