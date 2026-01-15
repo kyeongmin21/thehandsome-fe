@@ -49,11 +49,14 @@ const ProductList = ({initialProducts}: ProductListProps) => {
             brand: product.brand,
             quantity: 1
         });
-        alert('장바구니에 상품이 담겼습니다.')
+
+        const goToCart = window.confirm('장바구니에 상품이 담겼습니다. 장바구니로 이동하시겠습니까?');
+
+        if (goToCart) {
+            router.push('/cart');
+        }
     }
 
-    const items = useCartStore((state) => state.items);
-    console.log('현재 장바구니:', items);
 
     return (
         <>

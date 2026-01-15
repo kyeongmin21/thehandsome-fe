@@ -21,6 +21,8 @@ interface RefreshResponse {
     refresh_token: string;
     expires_in: number;
 }
+
+
 async function refreshAccessToken(token: JWT): Promise<JWT> {
     try {
         const res = await refreshApi.post<RefreshResponse>(

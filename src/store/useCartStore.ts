@@ -1,5 +1,5 @@
-import {create} from "zustand/react";
-
+import {create} from 'zustand/react';
+import {persist} from 'zustand/middleware';
 
 interface CartItem {
     product_code: string;
@@ -15,22 +15,28 @@ interface CartState {
     addItem: (product: CartItem) => void;
 }
 
-export const useCartStore = create<CartState>((set) => ({
-    items: [],
-    addItem: (product: CartItem) => set((state) => {
-        const isExist = state.items.find((item) => item.product_code === product.product_code);
+export const useCartStore = create<CartState>()(
+    persist(
+        (set) => ({
+            items: [],
+            addItem: (product: CartItem) => set((state) => {
+                const isExist = state.items.find((item) => item.product_code === product.product_code);
 
-        if (isExist) {
-            return {
-                items: state.items.map((item) =>
-                item.product_code === product.product_code
-                ? {...item, quantity: item.quantity + 1}
-                : item)
-            }
+                if (isExist) {
+                    return {
+                        items: state.items.map((item) =>
+                            item.product_code === product.product_code
+                                ? { ...item, quantity: item.quantity + 1 }
+                                : item
+                        )
+                    };
+                }
+
+                return { items: [...state.items, { ...product, quantity: 1 }] };
+            }),
+        }),
+        {
+            name: 'cart-storage', // 로컬 스토리지에 저장될 이름
         }
-
-        return { items: [...state.items, { ...product, quantity: 1 }] };
-    })
-}))
-export default class useCounterStore {
-}
+    )
+);
