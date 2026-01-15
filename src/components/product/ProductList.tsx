@@ -1,4 +1,5 @@
 'use client'
+
 import Image from 'next/image';
 import {SlHeart} from 'react-icons/sl';
 import {FaHeart} from 'react-icons/fa';
@@ -6,6 +7,8 @@ import {useSession} from 'next-auth/react';
 import {useRouter, useSearchParams} from 'next/navigation';
 import useToggleWish from '@/hooks/queries/useToggleWish';
 import useWishedProducts from '@/hooks/queries/useWishedProducts';
+import UiButton from '@/components/ui/UiButton';
+import {useCartStore} from '@/store/useCartStore';
 import {ProductListProps} from '@/types/product';
 
 
@@ -36,6 +39,21 @@ const ProductList = ({initialProducts}: ProductListProps) => {
         router.push(`?${params.toString()}`);
     };
 
+    const addItem = useCartStore((state) => state.addItem);
+    const handleAddToCart = (product: any) => {
+        addItem({
+            product_code: product.product_code,
+            name: product.name,
+            price: product.price,
+            src: product.src,
+            brand: product.brand,
+            quantity: 1
+        });
+        alert('장바구니에 상품이 담겼습니다.')
+    }
+
+    const items = useCartStore((state) => state.items);
+    console.log('현재 장바구니:', items);
 
     return (
         <>
@@ -69,9 +87,11 @@ const ProductList = ({initialProducts}: ProductListProps) => {
 
                         <p className='mt-2 font-semibold'>{product.brand}</p>
                         <p className='mt-1'>{product.name}</p>
-                        <p className='mt-2 font-semibold'>
+                        <p className='mt-2 mb-2 font-semibold'>
                             {product.price.toLocaleString()}원
                         </p>
+                        <UiButton btnText='장바구니'
+                                  onClick={() => handleAddToCart(product)}/>
                     </div>
                 ))}
             </div>
