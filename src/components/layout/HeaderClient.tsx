@@ -92,9 +92,9 @@ export const HeaderClient = ({session}: HeaderClientProps) => {
                 <Link href='/' aria-label='메인으로 이동'>
                     <Image className='header-top-logo'
                            src='https://www.thehandsome.com/images/common/header-footer-logo.svg'
-                           alt='메인로고 이미지'
+                           alt='헤더로고 이미지'
                            width={200}
-                           height={50}
+                           height={25}
                            priority={true}  // 중요한 이미지면 바로 로딩
                     />
                 </Link>

@@ -31,7 +31,7 @@ const Footer= () => {
                                 src='https://www.thehandsome.com/images/common/header-footer-logo.svg'
                                 alt='메인로고 이미지'
                                 width={200}
-                                height={50}
+                                height={25}
                             />
                             <div className='fci-text'>
                                 <div>
