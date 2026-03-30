@@ -46,7 +46,7 @@ const useToggleWish = () => {
         },
         onError: (error, variables, context) => {
             console.error('위시리스트 토글 실패', error)
-            // 롤백 실행
+            // 실패하면 이전데이터로 롤백
             if (context?.prevWishlist && userId) {
                 queryClient.setQueryData(queryKey, context.prevWishlist);
             }
