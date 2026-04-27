@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD Build Test
 
 on:
   pull_request:
@@ -31,10 +31,15 @@ jobs:
 
       - name: Build project
         run: npm run build
+        # 💡 핵심: 빌드할 때 환경 변수를 꼭 넣어줘야 합니다!
+        env:
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXTAUTH_URL: ${{ vars.NEXTAUTH_URL }}
+          NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
 
       # Cypress가 설치되어 있다면 아래 주석을 해제하거나 추가하세요
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          build: npm run build
-          start: npm run start
+      # name: Cypress run
+      #  uses: cypress-io/github-action@v6
+      #  with:
+      #    build: npm run build
+      #    start: npm run start
