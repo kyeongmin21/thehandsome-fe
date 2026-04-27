@@ -5,9 +5,10 @@ import Footer from "@/components/layout/Footer";
 import RootProviders from "@/app/provider/RootProvider";
 import ProgressBar from "@/components/common/ProgressBar";
 import AuthStatus from "@/components/AuthStatus";
+import {Metadata} from "next";
 
 
-export const metadata = {
+export const metadata: Metadata = {
     title: {
         default: "더한섬닷컴",
         template: "", // 하위 페이지 제목이 있을 때 연결 방식
