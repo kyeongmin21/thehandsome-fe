@@ -1,0 +1,14 @@
+name: CI/CD Build Test  # 워크플로우 이름
+
+on:
+  push:
+    branches: [ "main", "develop" ]  # 어떤 브랜치에 푸시될 때 실행할지
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # ... 이후 생략 (아까 작성하신 build 단계들)
