@@ -19,8 +19,7 @@ const nextConfig = {
         optimizePackageImports: [
             'swiper',
             'react-icons',
-        ],
-        legacyBrowsers: false, // 불필요한 폴리필 제거
+        ]
     },
 };
 export default nextConfig;
