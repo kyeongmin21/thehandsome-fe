@@ -44,22 +44,22 @@ const api: AxiosInstance = axios.create({
 // 요청 인터셉터: 토큰을 헤더에 추가하여 서버로 보내기!
 api.interceptors.request.use(async (config) => {
     // SSR (서버) 환경에서는 세션 토큰에 접근할 수 없으므로 무시
-    if (typeof window === "undefined") {
-        return config;
-    }
-
-    const session = await getCachedSession();
+    if (typeof window === "undefined") return config;
 
     const isAuthUrl = config.url?.includes("/login") ||
                     config.url?.includes("/join") ||
                     config.url?.includes("/refresh") ||
                     config.url?.includes("/api/auth/session");
 
-    if (!session || !session.accessToken || isAuthUrl) {
-        return config;
+    if (isAuthUrl) return config;
+
+    // 캐시 없이 매번 최신 세션 가져오기
+    const session = await getSession();
+
+    if (session?.accessToken) {
+        config.headers.Authorization = `Bearer ${session.accessToken}`;
     }
 
-    config.headers.Authorization = `Bearer ${session.accessToken}`;
     return config;
 });
 
