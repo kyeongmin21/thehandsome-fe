@@ -1,36 +1,5 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosError} from 'axios';
 import {getSession} from "next-auth/react";
-import type { Session } from 'next-auth';
-
-let sessionCache: Session | null = null;
-let sessionPromise: Promise<Session | null> | null = null;
-
-async function getCachedSession(): Promise<Session | null> {
-    // 이미 캐시된 세션이 있다면 즉시 반환
-    if (sessionCache) return sessionCache;
-
-    // 이미 getSession 호출이 진행 중이라면, 해당 Promise를 기다립니다.
-    if (sessionPromise) return sessionPromise;
-
-    // 새로운 Promise를 생성하고 저장
-    sessionPromise = getSession();
-
-    try {
-        // Promise가 완료될 때까지 대기
-        const session = await sessionPromise;
-        // 결과를 캐시에 저장 (만료 로직은 NextAuth 세션 자체에 맡깁니다)
-        sessionCache = session;
-        return session;
-    } catch (error) {
-        // 에러 발생 시 캐시와 Promise 초기화
-        sessionCache = null;
-        throw error;
-    } finally {
-        // 호출이 완료되면 Promise는 초기화
-        sessionPromise = null;
-    }
-}
-
 
 const api: AxiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -39,7 +8,6 @@ const api: AxiosInstance = axios.create({
         'Content-Type': 'application/json',
     }
 });
-
 
 // 요청 인터셉터: 토큰을 헤더에 추가하여 서버로 보내기!
 api.interceptors.request.use(async (config) => {
