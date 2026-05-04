@@ -63,26 +63,24 @@ const LoginPage = () => {
         }
 
         if (result?.ok) {
-            alert('로그인 되었습니다.')
+            alert('로그인 되었습니다.');
             router.push('/');
-        } else {
-            if (result.error) {
-                try {
-                    const msg: ErrorItem[] = JSON.parse(result.error)
-                    if (Array.isArray(msg)) {
-                        msg.forEach(({field, code}) => {
-                            const message = (ERROR_MESSAGES as Record<string, any>)[code];
-                            if (message) {
-                                setError(field, {type: 'manual', message});
-                            }
-                        });
-                    }
-                } catch (error) {
-                    console.error('parsing error', error);
-                    alert('로그인정보가 올바르지 않습니다.');
+        } else if (result?.error) {
+            try {
+                const msg: ErrorItem[] = JSON.parse(result.error);
+                if (Array.isArray(msg)) {
+                    msg.forEach(({field, code}) => {
+                        const message = (ERROR_MESSAGES as Record<string, any>)[code];
+                        if (message) {
+                            setError(field, {type: 'manual', message});
+                        }
+                    });
+                } else {
+                    alert('로그인 정보가 올바르지 않습니다.');
                 }
+            } catch {
+                alert('로그인 정보가 올바르지 않습니다.');
             }
-
         }
     }
 

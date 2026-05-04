@@ -41,7 +41,7 @@ const NewItem = () => {
     const {data: list = [], isLoading, isError} = useQuery<CategoryGroup[]>({
         queryKey: ['products'],
         queryFn: async () => {
-            return await apiHelper.get('/products/grouped');
+            return await apiHelper.get('/products');
         }
     });
 
